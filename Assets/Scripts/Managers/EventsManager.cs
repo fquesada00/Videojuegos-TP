@@ -10,11 +10,4 @@ public class EventsManager : MonoBehaviour
         if (instance != null) Destroy(this);
         instance = this;
     }
-
-    public event Action<bool> OnGameOver;
-
-    public void EventGameOver(bool isVictory)
-    {
-        if (OnGameOver != null) OnGameOver(isVictory);
-    }
 }

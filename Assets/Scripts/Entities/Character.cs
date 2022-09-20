@@ -19,6 +19,9 @@ public class Character : MonoBehaviour
 
     // INSTANCES
     private MovementController _movementController;
+    private Camera mainCamera;
+    private Vector3 targetDirection;
+    
     private void Start()
     {
         _movementController = GetComponent<MovementController>();
@@ -26,13 +29,24 @@ public class Character : MonoBehaviour
         _cmdMoveBack = new CmdMovement(_movementController, -Vector3.forward);
         _cmdMoveLeft = new CmdMovement(_movementController, Vector3.left);
         _cmdMoveRight = new CmdMovement(_movementController, Vector3.right);
+	    mainCamera = Camera.main;
     }
 
     private void Update()
     {
         if (Input.GetKey(_moveForward)) EventQueueManager.instance.AddCommand(_cmdMoveForward);
+        if (Input.GetKey(_moveLeft)) EventQueueManager.instance.AddCommand(_cmdMoveLeft);
         if (Input.GetKey(_moveBack)) EventQueueManager.instance.AddCommand(_cmdMoveBack);
         if (Input.GetKey(_moveRight)) EventQueueManager.instance.AddCommand(_cmdMoveRight);
-        if (Input.GetKey(_moveLeft)) EventQueueManager.instance.AddCommand(_cmdMoveLeft);
+
+        // Player rotation to camera direction
+        var input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        var forward = mainCamera.transform.TransformDirection(Vector3.forward);
+        forward.y = 0;
+        //get the right-facing direction of the referenceTransform
+        var right = mainCamera.transform.TransformDirection(Vector3.right);
+        targetDirection = input.x * right + input.y * forward;
+        if (input != Vector2.zero && targetDirection.magnitude > 0.1f)
+            EventQueueManager.instance.AddCommand(new CmdRotation(_movementController, targetDirection));
     }
 }
