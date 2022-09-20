@@ -6,23 +6,17 @@ public class MovementController : MonoBehaviour, IMoveable
 {
     public float Speed => 10;
     //public float Speed => GetComponent<Actor>().ActorStats.MovementSpeed;
-    public float RotationSpeed => 30;
+    public float RotationSmoothSpeed => 0.1f;
     // public float RotationSpeed => GetComponent<Actor>().ActorStats.RotationSpeed;
-
+    private float _turnSmoothVelocity;
     public void Travel(Vector3 direction)
     {
-        transform.Translate(direction * (Time.deltaTime * Speed));
+        transform.Translate(direction.normalized * (Time.deltaTime * Speed), Space.World);
     }
 
-    public void Rotate(Vector3 direction)
+    public void Rotate(float angle)
     {
-        Vector3 lookDirection = direction.normalized;
-        var freeRotation = Quaternion.LookRotation(lookDirection, transform.up);
-        var diferenceRotation = freeRotation.eulerAngles.y - transform.eulerAngles.y;
-        var eulerY = transform.eulerAngles.y;
-
-        if (diferenceRotation < 0 || diferenceRotation > 0) eulerY = freeRotation.eulerAngles.y;
-        var euler = new Vector3(0, eulerY, 0);
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(euler), 10 * Time.deltaTime);
+        float smoothedAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, angle, ref _turnSmoothVelocity, RotationSmoothSpeed);
+        transform.rotation = Quaternion.Euler(0f, smoothedAngle, 0f);
     }
 }
