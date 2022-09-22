@@ -16,3 +16,5 @@ MonoBehaviour:
     MaxLife: 100
     MovementSpeed: 10
     RotationSmoothSpeed: 0.1
+    JumpHeight: 6
+    MaxContinuosJumps: 3
