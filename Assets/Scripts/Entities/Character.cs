@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(MovementController))]
 public class Character : Actor
 {
+    // COMANDS
+    private CmdJump _cmdJump;
+
     // INSTANCES
     private MovementController _movementController;
     private Camera mainCamera;
@@ -13,6 +16,7 @@ public class Character : Actor
     private void Start()
     {
         _movementController = GetComponent<MovementController>();
+        _cmdJump = new CmdJump(_movementController);
 	    mainCamera = Camera.main;
     }
 
@@ -29,5 +33,11 @@ public class Character : Actor
             EventQueueManager.instance.AddCommand(new CmdRotation(_movementController, targetAngle));
         }
 
+        if(Input.GetButtonDown("Jump")) EventQueueManager.instance.AddCommand(_cmdJump);
+
+    }
+
+    private void OnCollisionEnter(Collision other) {
+        if(other.gameObject.CompareTag("Ground")) _movementController.ResetJumpsCounter();
     }
 }
