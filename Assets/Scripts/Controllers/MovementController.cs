@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class MovementController : MonoBehaviour, IMoveable
 {
-    public float Speed => 10;
-    //public float Speed => GetComponent<Actor>().ActorStats.MovementSpeed;
-    public float RotationSmoothSpeed => 0.1f;
-    // public float RotationSpeed => GetComponent<Actor>().ActorStats.RotationSpeed;
+    public float Speed => GetComponent<Actor>().ActorStats.MovementSpeed;
+    public float RotationSmoothSpeed => GetComponent<Actor>().ActorStats.RotationSmoothSpeed;
     private float _turnSmoothVelocity;
     public void Travel(Vector3 direction)
     {
