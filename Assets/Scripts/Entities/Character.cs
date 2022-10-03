@@ -7,17 +7,22 @@ public class Character : Actor
 {
     // COMANDS
     private CmdJump _cmdJump;
+    private CmdDash _cmdDash;
 
     // INSTANCES
     private MovementController _movementController;
     private Camera mainCamera;
     private Vector3 targetDirection;
-    
+
+    // AUXILIAR
+    private bool _hitForwardKey = false;
+
     private void Start()
     {
         _movementController = GetComponent<MovementController>();
         _cmdJump = new CmdJump(_movementController);
-	    mainCamera = Camera.main;
+        _cmdDash = new CmdDash(_movementController);
+        mainCamera = Camera.main;
     }
 
     private void Update()
@@ -25,19 +30,32 @@ public class Character : Actor
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
-        if(direction.magnitude >= 0.1f){
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + mainCamera.transform.eulerAngles.y;
-            Vector3 targetDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward; 
+        if (direction.magnitude >= 0.1f)
+        {
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg +
+                                mainCamera.transform.eulerAngles.y;
+            Vector3 targetDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
             EventQueueManager.instance.AddCommand(new CmdMovement(_movementController, targetDirection));
             EventQueueManager.instance.AddCommand(new CmdRotation(_movementController, targetAngle));
+
+            bool movedForward = MovedForward();
+            if (_hitForwardKey && movedForward)
+            {
+                EventQueueManager.instance.AddCommand(_cmdDash);
+                _hitForwardKey = false;
+            }
+            else
+                _hitForwardKey = movedForward;
         }
 
-        if(Input.GetButtonDown("Jump")) EventQueueManager.instance.AddCommand(_cmdJump);
-
+        if (Input.GetButtonDown("Jump")) EventQueueManager.instance.AddCommand(_cmdJump);
     }
 
-    private void OnCollisionEnter(Collision other) {
-        if(other.gameObject.CompareTag("Ground")) _movementController.ResetJumpsCounter();
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Ground")) _movementController.ResetJumpsCounter();
     }
+
+    private bool MovedForward() => Input.GetButtonDown("Vertical") && Input.GetAxis("Vertical") > 0;
 }

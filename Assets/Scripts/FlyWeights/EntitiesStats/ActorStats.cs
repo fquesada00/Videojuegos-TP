@@ -13,6 +13,7 @@ public class ActorStats : ScriptableObject
     public float RotationSmoothSpeed => _statValues.RotationSmoothSpeed;
     public float JumpHeight => _statValues.JumpHeight;
     public int MaxContinuosJumps => _statValues.MaxContinuosJumps;
+    public float DashSpeedMultiplier => _statValues.DashSpeedMultiplier;
 }
 
 [System.Serializable]
@@ -23,4 +24,5 @@ public struct ActorStatValues
     public float RotationSmoothSpeed;
     public float JumpHeight;
     public int MaxContinuosJumps;
+    public float DashSpeedMultiplier;
 }
