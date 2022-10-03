@@ -15,7 +15,7 @@ public class Character : Actor
     private Vector3 targetDirection;
 
     // AUXILIAR
-    private bool _hitForwardKey = false;
+    private KeyCode _dashKeyCode = KeyCode.LeftControl;
 
     private void Start()
     {
@@ -38,16 +38,9 @@ public class Character : Actor
 
             EventQueueManager.instance.AddCommand(new CmdMovement(_movementController, targetDirection));
             EventQueueManager.instance.AddCommand(new CmdRotation(_movementController, targetAngle));
-
-            bool movedForward = MovedForward();
-            if (_hitForwardKey && movedForward)
-            {
-                EventQueueManager.instance.AddCommand(_cmdDash);
-                _hitForwardKey = false;
-            }
-            else
-                _hitForwardKey = movedForward;
         }
+
+        if (Input.GetKeyDown(_dashKeyCode)) EventQueueManager.instance.AddCommand(_cmdDash);
 
         if (Input.GetButtonDown("Jump")) EventQueueManager.instance.AddCommand(_cmdJump);
     }

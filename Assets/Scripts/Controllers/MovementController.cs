@@ -1,10 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Controllers.Utils;
 using UnityEngine;
 
 public class MovementController : MonoBehaviour, IMoveable
 {
+    // Instancias
+    private Cooldown _dashCooldown = new Cooldown();
     public float Speed => GetComponent<Actor>().ActorStats.MovementSpeed;
     public float JumpHeight => GetComponent<Actor>().ActorStats.JumpHeight;
     public float RotationSmoothSpeed => GetComponent<Actor>().ActorStats.RotationSmoothSpeed;
@@ -12,10 +15,12 @@ public class MovementController : MonoBehaviour, IMoveable
 
     protected int _currentContinuosJumps = 0;
     public int CurrentContinuosJumps { get; }
-    
+
     public float DashSpeedMultiplier => GetComponent<Actor>().ActorStats.DashSpeedMultiplier;
-    
+
     private float _turnSmoothVelocity;
+    public float DashCooldown => GetComponent<Actor>().ActorStats.DashCooldown;
+
     public void Travel(Vector3 direction)
     {
         transform.Translate(direction.normalized * (Time.deltaTime * Speed), Space.World);
@@ -43,5 +48,10 @@ public class MovementController : MonoBehaviour, IMoveable
     }
 
     public void Dash()
-        => GetComponent<Rigidbody>().AddForce(transform.forward * (Speed * DashSpeedMultiplier), ForceMode.Impulse);
+    {
+        if (_dashCooldown.IsOnCooldown()) return;
+        
+        GetComponent<Rigidbody>().AddForce(transform.forward * (Speed * DashSpeedMultiplier), ForceMode.Impulse);
+        StartCoroutine(_dashCooldown.BooleanCooldown(DashCooldown));
+    }
 }
