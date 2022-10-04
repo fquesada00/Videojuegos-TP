@@ -19,3 +19,4 @@ MonoBehaviour:
     JumpHeight: 6
     MaxContinuosJumps: 3
     DashSpeedMultiplier: 3
+    DashCooldown: 2
