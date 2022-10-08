@@ -12,8 +12,8 @@ public class Character : Actor
     private CmdDash _cmdDash;
     private CmdStartRunAnimation _cmdStartRunAnimation;
     private CmdStopRunAnimation _cmdStopRunAnimation;
-    private CmdStartJumpAnimation _cmdStartJumpAnimation;
-    private CmdStopJumpAnimation _cmdStopJumpAnimation;
+    private CmdJumpAnimation _cmdJumpAnimation;
+    private CmdLandAnimation _cmdLandAnimation;
 
     // INSTANCES
     private MovementController _movementController;
@@ -31,8 +31,8 @@ public class Character : Actor
         _cmdStartRunAnimation = new CmdStartRunAnimation(_animationController);
         _cmdStopRunAnimation = new CmdStopRunAnimation(_animationController);
 
-        _cmdStartJumpAnimation = new CmdStartJumpAnimation(_animationController);
-        _cmdStopJumpAnimation = new CmdStopJumpAnimation(_animationController);
+        _cmdJumpAnimation = new CmdJumpAnimation(_animationController);
+        _cmdLandAnimation = new CmdLandAnimation(_animationController);
         
         _mainCamera = Camera.main;
     }
@@ -65,12 +65,12 @@ public class Character : Actor
             }
                 
             EventQueueManager.instance.AddCommand(_cmdJump);
-            EventQueueManager.instance.AddCommand(_cmdStartJumpAnimation);
+            EventQueueManager.instance.AddCommand(_cmdJumpAnimation);
             return;
         } 
 
         bool isMoving = direction.magnitude == 1f;
-        if (isMoving)
+        if (isMoving && !isJumping)
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg +
                                 _mainCamera.transform.eulerAngles.y;
@@ -98,7 +98,7 @@ public class Character : Actor
     {
         if (other.gameObject.CompareTag("Ground")) {
             _movementController.ResetJumpsCounter();
-            EventQueueManager.instance.AddCommand(_cmdStopJumpAnimation);
+            EventQueueManager.instance.AddCommand(_cmdLandAnimation);
         }
     }
 
