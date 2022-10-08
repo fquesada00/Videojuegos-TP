@@ -52,6 +52,7 @@ namespace Controllers
         {
             if (_currentContinuosJumps < MaxContinuosJumps)
             {
+                Rebind();
                 _isJumping = true;
                 _animator.SetTrigger(JumpId);
                 _currentContinuosJumps++;

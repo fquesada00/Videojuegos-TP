@@ -63,8 +63,6 @@ public class Character : Actor
                 // shutdown every animation immediately
                 _animationController.StopAllAnimations();
                 // EventQueueManager.instance.AddCommand(_cmdStopRunAnimation);
-            } else if(_animationController.IsJumping) {
-                _animationController.Rebind();
             }
                 
             EventQueueManager.instance.AddCommand(_cmdJump);
