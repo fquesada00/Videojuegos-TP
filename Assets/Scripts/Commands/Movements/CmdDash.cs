@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Strategies;
+using UnityEngine;
 
 public class CmdDash : ICommand
 {
@@ -8,6 +9,7 @@ public class CmdDash : ICommand
     {
         _moveable = moveable;
     }
+
 
     public void Execute()
     {
