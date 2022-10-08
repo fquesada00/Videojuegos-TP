@@ -11,10 +11,9 @@
         void StartDash();
         void StartRun();
         void Idle();
-        void StartAttack();
+        void Attack();
         void StopDash();
         void StopRun();
-        void StopAttack();
         void Land();
     }
 }

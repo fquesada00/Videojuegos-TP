@@ -4,7 +4,7 @@ using Commands.Animations;
 using Controllers;
 using UnityEngine;
 
-[RequireComponent(typeof(MovementController))]
+[RequireComponent(typeof(MovementController)), RequireComponent(typeof(WeaponController))]
 public class Character : Actor
 {
     // COMANDS
@@ -14,17 +14,20 @@ public class Character : Actor
     private CmdStopRunAnimation _cmdStopRunAnimation;
     private CmdJumpAnimation _cmdJumpAnimation;
     private CmdLandAnimation _cmdLandAnimation;
-
+    private CmdAttack _cmdAttack;
+    private CmdAttackAnimation _cmdAttackAnimation;
     // INSTANCES
-    private MovementController _movementController;
     private Camera _mainCamera;
+    private MovementController _movementController;
     private AnimationController _animationController;
+    private WeaponController _weaponController;
 
     private void Start()
     {
         _movementController = GetComponent<MovementController>();
         _animationController = GetComponentInChildren<AnimationController>();
-        
+        _weaponController = GetComponent<WeaponController>();
+
         _cmdJump = new CmdJump(_movementController);
         _cmdDash = new CmdDash(_movementController);
 
@@ -33,6 +36,9 @@ public class Character : Actor
 
         _cmdJumpAnimation = new CmdJumpAnimation(_animationController);
         _cmdLandAnimation = new CmdLandAnimation(_animationController);
+        
+        _cmdAttack = new CmdAttack(_weaponController);
+        // _cmdAttackAnimation = new CmdAttackAnimation(_animationController);
         
         _mainCamera = Camera.main;
     }
@@ -44,13 +50,10 @@ public class Character : Actor
 
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
         
-        
-
-        bool isDashing = Input.GetButtonDown("Fire3");
-
 
         // Dash
-        if (Input.GetButtonDown("Fire3")) EventQueueManager.instance.AddCommand(_cmdDash);
+        bool isDashing = Input.GetButtonDown("Fire3");
+        if (isDashing) EventQueueManager.instance.AddCommand(_cmdDash);
 
         // Jump
         bool isJumping = Input.GetButtonDown("Jump");
@@ -70,7 +73,7 @@ public class Character : Actor
         } 
 
         bool isMoving = direction.magnitude == 1f;
-        if (isMoving && !isJumping)
+        if (isMoving)
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg +
                                 _mainCamera.transform.eulerAngles.y;
@@ -84,6 +87,7 @@ public class Character : Actor
             //Animation
             if(_animationController.IsIdle)
                 EventQueueManager.instance.AddCommand(_cmdStartRunAnimation);
+            return;
         }
         else
         {
@@ -91,6 +95,17 @@ public class Character : Actor
             {
                 EventQueueManager.instance.AddCommand(_cmdStopRunAnimation);
             }
+        }
+
+        //Attack
+        bool isAttacking = Input.GetButtonDown("Fire1");
+        if (isAttacking)
+        {
+            //TODO: add attack Command
+           _animationController.Attack();
+           EventQueueManager.instance.AddCommand(_cmdAttack);
+        //    EventQueueManager.instance.AddCommand(new CmdAttackAnimation(_animationController, _weaponController.CurrentWeapon));
+           return;
         }
     }
 

@@ -27,7 +27,7 @@ namespace Controllers
         private static readonly int JumpId = Animator.StringToHash("jump");
         private static readonly int DashingId = Animator.StringToHash("isDashing");
         private static readonly int RunningId = Animator.StringToHash("isRunning");
-        private static readonly int AttackingId = Animator.StringToHash("isAttacking");
+        private static readonly int AttackId = Animator.StringToHash("attack");
         private static readonly int LandId = Animator.StringToHash("land");
         
         public int MaxContinuosJumps => GetComponentInParent<Actor>().ActorStats.MaxContinuosJumps;
@@ -92,15 +92,14 @@ namespace Controllers
             _animator.SetBool(DashingId, false);
             _isDashing = false;
 
-            _animator.SetBool(AttackingId, false);
             _isAttacking = false;
         }
         
-        public void StartAttack()
+        public void Attack()
         {
             _isAttacking = true;
-            _animator.SetBool(AttackingId, true);
-            _isIdle = false;
+            _animator.SetTrigger(AttackId);
+            Idle();
         }
 
         public void StopDash()
@@ -117,12 +116,6 @@ namespace Controllers
             _isIdle = true;
         }
 
-        public void StopAttack()
-        {
-            _isAttacking = false;
-            _animator.SetBool(AttackingId, false);
-            _isIdle = true;
-        }
 
         private void StopIdle()
         {
