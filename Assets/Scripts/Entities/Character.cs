@@ -12,61 +12,94 @@ public class Character : Actor
     private CmdDash _cmdDash;
     private CmdStartRunAnimation _cmdStartRunAnimation;
     private CmdStopRunAnimation _cmdStopRunAnimation;
+    private CmdStartJumpAnimation _cmdStartJumpAnimation;
+    private CmdStopJumpAnimation _cmdStopJumpAnimation;
 
     // INSTANCES
     private MovementController _movementController;
     private Camera _mainCamera;
     private AnimationController _animationController;
 
-    // AUXILIAR
-    private KeyCode _dashKeyCode = KeyCode.LeftControl;
-    private static readonly int IsRunning = Animator.StringToHash("isRunning");
-
     private void Start()
     {
         _movementController = GetComponent<MovementController>();
         _animationController = GetComponentInChildren<AnimationController>();
         
-        Debug.Log(_animationController);
-
         _cmdJump = new CmdJump(_movementController);
         _cmdDash = new CmdDash(_movementController);
 
         _cmdStartRunAnimation = new CmdStartRunAnimation(_animationController);
         _cmdStopRunAnimation = new CmdStopRunAnimation(_animationController);
+
+        _cmdStartJumpAnimation = new CmdStartJumpAnimation(_animationController);
+        _cmdStopJumpAnimation = new CmdStopJumpAnimation(_animationController);
         
         _mainCamera = Camera.main;
     }
 
     private void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
-        if (direction.magnitude >= 0.1f)
+        
+        
+
+        bool isDashing = Input.GetButtonDown("Fire3");
+
+
+        // Dash
+        if (Input.GetButtonDown("Fire3")) EventQueueManager.instance.AddCommand(_cmdDash);
+
+        // Jump
+        bool isJumping = Input.GetButtonDown("Jump");
+        if (isJumping)
+        {
+            if(_animationController.IsRunning) {
+                // shutdown every animation immediately
+                _animationController.StopAllAnimations();
+                // EventQueueManager.instance.AddCommand(_cmdStopRunAnimation);
+            } else if(_animationController.IsJumping) {
+                _animationController.Rebind();
+            }
+                
+            EventQueueManager.instance.AddCommand(_cmdJump);
+            EventQueueManager.instance.AddCommand(_cmdStartJumpAnimation);
+            return;
+        } 
+
+        bool isMoving = direction.magnitude == 1f;
+        if (isMoving)
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg +
                                 _mainCamera.transform.eulerAngles.y;
+
             Vector3 targetDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
+            //Movement
             EventQueueManager.instance.AddCommand(new CmdMovement(_movementController, targetDirection));
-            EventQueueManager.instance.AddCommand(_cmdStartRunAnimation);
             EventQueueManager.instance.AddCommand(new CmdRotation(_movementController, targetAngle));
+
+            //Animation
+            if(_animationController.IsIdle)
+                EventQueueManager.instance.AddCommand(_cmdStartRunAnimation);
         }
         else
         {
-            EventQueueManager.instance.AddCommand(_cmdStopRunAnimation);
+            if (_animationController.IsRunning)
+            {
+                EventQueueManager.instance.AddCommand(_cmdStopRunAnimation);
+            }
         }
-
-
-        if (Input.GetKeyDown(_dashKeyCode)) EventQueueManager.instance.AddCommand(_cmdDash);
-
-        if (Input.GetButtonDown("Jump")) EventQueueManager.instance.AddCommand(_cmdJump);
     }
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Ground")) _movementController.ResetJumpsCounter();
+        if (other.gameObject.CompareTag("Ground")) {
+            _movementController.ResetJumpsCounter();
+            EventQueueManager.instance.AddCommand(_cmdStopJumpAnimation);
+        }
     }
 
     private bool MovedForward() => Input.GetButtonDown("Vertical") && Input.GetAxis("Vertical") > 0;

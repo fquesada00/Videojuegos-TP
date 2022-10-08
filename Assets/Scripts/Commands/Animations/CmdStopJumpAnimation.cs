@@ -1,19 +1,18 @@
-﻿using Strategies;
+using Strategies;
 
 namespace Commands.Animations
 {
-    public class CmdStopRunAnimation : ICommand
+    public class CmdStopJumpAnimation : ICommand
     {
         private IAnimatable _animatable;
-
-        public CmdStopRunAnimation(IAnimatable animatable)
+        
+        public CmdStopJumpAnimation(IAnimatable animatable)
         {
             _animatable = animatable;
         }
-
         public void Execute()
         {
-            _animatable.StopRun();
+            _animatable.StopJump();
         }
     }
 }
