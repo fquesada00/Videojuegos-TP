@@ -13,13 +13,19 @@ public class MovementController : MonoBehaviour, IMoveable
     public float RotationSmoothSpeed => GetComponent<Actor>().ActorStats.RotationSmoothSpeed;
     public int MaxContinuosJumps => GetComponent<Actor>().ActorStats.MaxContinuosJumps;
 
-    protected int _currentContinuosJumps = 0;
     public int CurrentContinuosJumps { get; }
 
     public float DashSpeedMultiplier => GetComponent<Actor>().ActorStats.DashSpeedMultiplier;
 
-    private float _turnSmoothVelocity;
     public float DashCooldown => GetComponent<Actor>().ActorStats.DashCooldown;
+    protected int _currentContinuosJumps = 0;
+    private float _turnSmoothVelocity;
+
+    private Rigidbody _rigidbody;
+
+    private void Start() {
+        _rigidbody = GetComponent<Rigidbody>();
+    }
 
     public void Travel(Vector3 direction)
     {
@@ -38,7 +44,8 @@ public class MovementController : MonoBehaviour, IMoveable
         if (_currentContinuosJumps < MaxContinuosJumps)
         {
             _currentContinuosJumps++;
-            GetComponent<Rigidbody>().AddForce(Vector3.up * JumpHeight, ForceMode.Impulse);
+            _rigidbody.velocity = Vector3.zero;
+            _rigidbody.AddForce(Vector3.up * JumpHeight, ForceMode.Impulse);
         }
     }
 
@@ -51,7 +58,7 @@ public class MovementController : MonoBehaviour, IMoveable
     {
         if (_dashCooldown.IsOnCooldown()) return;
         
-        GetComponent<Rigidbody>().AddForce(transform.forward * (Speed * DashSpeedMultiplier), ForceMode.Impulse);
+        _rigidbody.AddForce(transform.forward * (Speed * DashSpeedMultiplier), ForceMode.Impulse);
         StartCoroutine(_dashCooldown.BooleanCooldown(DashCooldown));
     }
 }
