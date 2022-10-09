@@ -6,12 +6,12 @@ namespace Controllers
 {
     public class LifeController : MonoBehaviour, IDamageable
     {
-        public float MaxLife => GetComponent<Actor>().ActorStats.MaxLife;
+        public float MaxHealth => GetComponent<Actor>().ActorStats.MaxHealth;
         [SerializeField] private float _currentLife;
 
         private void Start()
         {
-            _currentLife = MaxLife;
+            _currentLife = MaxHealth;
         }
 
         public void TakeDamage(float damage)

@@ -660,7 +660,7 @@ ModelImporter:
     - name: mixamorig:LeftHandPinky1
       parentName: mixamorig:LeftHand
       position: {x: -0.03763195, y: 0.087587744, z: -0.0071647307}
-      rotation: {x: -0.02290056, y: 0.043779276, z: -0.04827164, w: 0.9976115}
+      rotation: {x: -0.022900563, y: 0.043779276, z: -0.048271645, w: 0.9976115}
       scale: {x: 1, y: 1, z: 1}
     - name: mixamorig:LeftHandPinky2
       parentName: mixamorig:LeftHandPinky1
@@ -835,7 +835,7 @@ ModelImporter:
     - name: mixamorig:RightHandThumb1
       parentName: mixamorig:RightHand
       position: {x: -0.03766707, y: 0.028991709, z: 0.01277924}
-      rotation: {x: 0.05241392, y: 0.040497717, z: 0.36525592, w: 0.9285477}
+      rotation: {x: 0.052413926, y: 0.040497717, z: 0.36525595, w: 0.9285477}
       scale: {x: 1, y: 1, z: 1}
     - name: mixamorig:RightHandThumb2
       parentName: mixamorig:RightHandThumb1

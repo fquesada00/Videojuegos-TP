@@ -16,6 +16,7 @@ public class ActorStats : ScriptableObject, IEntityStats
     public float DashSpeedMultiplier => _statValues.DashSpeedMultiplier;
     public float DashCooldown => _statValues.DashCooldown;
     public float MaxHealth => _statValues.MaxHealth;
+    public float Damage => _statValues.damage;
 }
 
 [System.Serializable]
@@ -28,4 +29,5 @@ public struct ActorStatValues
     public int MaxContinuosJumps;
     public float DashSpeedMultiplier;
     public float DashCooldown;
+    public float damage;
 }
