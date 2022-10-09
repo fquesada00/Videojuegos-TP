@@ -6,7 +6,7 @@ namespace Controllers
 {
     public class LifeController : MonoBehaviour, IDamageable
     {
-        public float MaxHealth => GetComponent<Actor>().ActorStats.MaxHealth;
+        public float MaxHealth => GetComponent<Entity>().Stats.MaxHealth;
         [SerializeField] private float _currentLife;
 
         private void Start()

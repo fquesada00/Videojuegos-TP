@@ -41,6 +41,10 @@ public class Character : Actor
         // _cmdAttackAnimation = new CmdAttackAnimation(_animationController);
         
         _mainCamera = Camera.main;
+
+        //lock cursor
+        Cursor.lockState = CursorLockMode.Locked;
+
     }
 
     private void Update()

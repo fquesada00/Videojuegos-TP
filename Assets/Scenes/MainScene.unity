@@ -579,7 +579,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 438596786}
-  m_LocalRotation: {x: 0.31109443, y: -0.000000016352583, z: 0.000000005352809, w: 0.950379}
+  m_LocalRotation: {x: 0.3110944, y: 0.000000016352585, z: -0.0000000053528093, w: 0.950379}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -765,7 +765,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 771552438}
-  m_LocalRotation: {x: 0.3454116, y: -0.00000001614735, z: 0.0000000059432828, w: 0.93845135}
+  m_LocalRotation: {x: 0.3454116, y: 0.000000016147354, z: -0.0000000059432836, w: 0.93845135}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -839,7 +839,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 798592720}
-  m_LocalRotation: {x: 0.3282834, y: -0.0024450687, z: 0.0008497736, w: 0.9445758}
+  m_LocalRotation: {x: 0.32827896, y: -0.005503723, z: 0.0019127962, w: 0.94456285}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -901,8 +901,10 @@ GameObject:
   - component: {fileID: 846292271}
   - component: {fileID: 846292270}
   - component: {fileID: 846292269}
+  - component: {fileID: 846292274}
+  - component: {fileID: 846292273}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: LizardEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -985,6 +987,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &846292273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846292268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9eaa146bba1fe141ad0a9b68bde6ee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyStats: {fileID: 11400000, guid: f6bc97380df1c2840939b3667ac4fce2, type: 2}
+--- !u!114 &846292274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846292268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0bad8a68302485f85b25d85bdd2713f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentLife: 0
 --- !u!1 &995889726
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,6 +1025,8 @@ GameObject:
   - component: {fileID: 995889730}
   - component: {fileID: 995889729}
   - component: {fileID: 995889728}
+  - component: {fileID: 995889732}
+  - component: {fileID: 995889731}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Weapon
@@ -1081,6 +1111,35 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 995889726}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &995889731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995889726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 864428a6036ebce4e93e43523e875a8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _swordStats: {fileID: 11400000, guid: 1c4257bc604d533458756fb84bbaf479, type: 2}
+--- !u!54 &995889732
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995889726}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1068808900
 GameObject:
   m_ObjectHideFlags: 0
@@ -1188,7 +1247,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1147808028}
-  m_LocalRotation: {x: 0.33274764, y: -0.001806362, z: 0.00063738466, w: 0.94301397}
+  m_LocalRotation: {x: 0.33274513, y: -0.0040660216, z: 0.0014347179, w: 0.94300693}
   m_LocalPosition: {x: 0, y: 7.865886, z: -7.358788}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1832,6 +1891,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fd430b3328b2e34981e0ac6625c6159, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _weapons:
+  - {fileID: 995889731}
 --- !u!4 &2092612925 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1852576806548013000, guid: f5a13e508d5b06845a37692eeefd119b, type: 3}

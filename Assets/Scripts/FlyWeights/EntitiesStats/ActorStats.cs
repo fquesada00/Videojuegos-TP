@@ -5,29 +5,23 @@ using UnityEngine;
 
 
 [CreateAssetMenu(fileName = "ActorStats", menuName = "Stats/Actor", order = 0)]
-public class ActorStats : ScriptableObject, IEntityStats
+public class ActorStats : EntityStats
 {
-    [SerializeField] private ActorStatValues _statValues;
+    [SerializeField] private ActorStatValues _actorStatValues;
 
-    public float MovementSpeed => _statValues.MovementSpeed;
-    public float RotationSmoothSpeed => _statValues.RotationSmoothSpeed;
-    public float JumpHeight => _statValues.JumpHeight;
-    public int MaxContinuosJumps => _statValues.MaxContinuosJumps;
-    public float DashSpeedMultiplier => _statValues.DashSpeedMultiplier;
-    public float DashCooldown => _statValues.DashCooldown;
-    public float MaxHealth => _statValues.MaxHealth;
-    public float Damage => _statValues.damage;
+    public float RotationSmoothSpeed => _actorStatValues.RotationSmoothSpeed;
+    public float JumpHeight => _actorStatValues.JumpHeight;
+    public int MaxContinuosJumps => _actorStatValues.MaxContinuosJumps;
+    public float DashSpeedMultiplier => _actorStatValues.DashSpeedMultiplier;
+    public float DashCooldown => _actorStatValues.DashCooldown;
 }
 
 [System.Serializable]
 public struct ActorStatValues
 {
-    public int MaxHealth;
-    public float MovementSpeed;
     public float RotationSmoothSpeed;
     public float JumpHeight;
     public int MaxContinuosJumps;
     public float DashSpeedMultiplier;
     public float DashCooldown;
-    public float damage;
 }

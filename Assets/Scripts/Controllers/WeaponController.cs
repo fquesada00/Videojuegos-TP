@@ -7,19 +7,20 @@ namespace Controllers
     public class WeaponController : MonoBehaviour, IAttackable
     {
 
-        [SerializeField] private List<IWeapon> _weapons; 
+
+        [SerializeField] private List<Weapon> _weapons; 
+    
         private IWeapon _currentWeapon;
         public IWeapon CurrentWeapon => _currentWeapon;
 
         private void Start() {
             // FIXME: add from UI
-            _weapons = new List<IWeapon>();
-            _weapons.Add(new Sword());
+            //_weapons = new List<IWeapon>();
             SwitchWeapon(0);
         }
 
         public void Attack()
-        {
+        {   
             _currentWeapon.Attack();
         }
 

@@ -3,41 +3,51 @@ using System.Collections;
 using System.Collections.Generic;
 using Strategies;
 using UnityEngine;
+using Controllers.Utils;
 [RequireComponent(typeof(Rigidbody), typeof(Collider))]
-public class Sword : MonoBehaviour, IWeapon
+public class Sword : Weapon
 {
     public SwordStats SwordStats => _swordStats;
     [SerializeField] private SwordStats _swordStats;
-    
-    public Rigidbody rigidbody => _rigidbody;
-    [SerializeField] private Rigidbody _rigidbody;
 
-    public Collider collider => _collider;
-    [SerializeField] private Collider _collider;
+    private Rigidbody _rigidbody;
+
+    private Collider _collider;
+
+    private Cooldown _attackCooldown;
 
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
-        
+        _attackCooldown = new Cooldown();
+
         _collider.isTrigger = true;
+        _collider.enabled = false;
         _rigidbody.useGravity = false;
         _rigidbody.isKinematic = true;
         _rigidbody.collisionDetectionMode = CollisionDetectionMode.Discrete;
     }
 
-    public void Attack()
+    public override void Attack()
     {
-        
+        _collider.enabled = true;
+        // StartCoroutine(
+        //  _attackCooldown.CallbackCooldown(SwordStats.AttackCooldown, () =>
+        //  {
+        //      _collider.enabled = false;
+        //      Debug.Log("Attack cooldown ended");
+        //  }));
+
     }
 
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
+            _collider.enabled = false;
             IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
             damageable?.TakeDamage(SwordStats.Damage);
         }
-
     }
 }

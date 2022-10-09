@@ -9,17 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4284208d2df6d5c4d85d34a991e19666, type: 3}
-  m_Name: CharacterStats
+  m_Script: {fileID: 11500000, guid: fe21c20f14ca8004e85e4a165a2519f7, type: 3}
+  m_Name: SwordStats
   m_EditorClassIdentifier: 
-  _entityStatValues:
-    MaxHealth: 100
-    MovementSpeed: 10
-    Damage: 10
+  _statValues:
     AttackCooldown: 2
-  _actorStatValues:
-    RotationSmoothSpeed: 0
-    JumpHeight: 6
-    MaxContinuosJumps: 3
-    DashSpeedMultiplier: 2
-    DashCooldown: 2
+    Damage: 10

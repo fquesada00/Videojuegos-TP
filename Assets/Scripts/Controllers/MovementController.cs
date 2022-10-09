@@ -8,6 +8,7 @@ public class MovementController : MonoBehaviour, IMoveable
 {
     // Instancias
     private Cooldown _dashCooldown = new Cooldown();
+
     public float Speed => GetComponent<Actor>().ActorStats.MovementSpeed;
     public float JumpHeight => GetComponent<Actor>().ActorStats.JumpHeight;
     public float RotationSmoothSpeed => GetComponent<Actor>().ActorStats.RotationSmoothSpeed;
