@@ -13,11 +13,26 @@ namespace Controllers.Utils
             yield return new WaitForSeconds(coolDownTime);
             _isOnCooldown = false;
         }
+        
+        public IEnumerator BooleanCooldownRealtime (float length)
+        {
+            _isOnCooldown = true;
+            yield return new WaitForSecondsRealtime(length);
+            _isOnCooldown = false;
+        }
 
         public IEnumerator CallbackCooldown (float coolDownTime, System.Action callback)
         {
             _isOnCooldown = true;
             yield return new WaitForSeconds(coolDownTime);
+            callback();
+            _isOnCooldown = false;
+        }
+        
+        public IEnumerator CallbackCooldownRealtime (float length, System.Action callback)
+        {
+            _isOnCooldown = true;
+            yield return new WaitForSecondsRealtime(length);
             callback();
             _isOnCooldown = false;
         }

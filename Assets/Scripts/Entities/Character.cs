@@ -117,8 +117,7 @@ public class Character : Actor
         bool isAttacking = Input.GetButtonDown("Fire1");
         if (isAttacking)
         {
-            //TODO: add attack Command
-           _animationController.Attack();
+           // _animationController.Attack();
            EventQueueManager.instance.AddCommand(_cmdAttack);
         //    EventQueueManager.instance.AddCommand(new CmdAttackAnimation(_animationController, _weaponController.CurrentWeapon));
            return;

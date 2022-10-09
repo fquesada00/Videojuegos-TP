@@ -122,5 +122,10 @@ namespace Controllers
         {
             _isIdle = false;
         }
+        
+        public float GetCurrentAnimationLength()
+        {
+            return _animator.GetCurrentAnimatorStateInfo(0).length;
+        }
     }
 }

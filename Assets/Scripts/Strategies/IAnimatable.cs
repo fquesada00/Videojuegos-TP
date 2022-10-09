@@ -15,5 +15,7 @@
         void StopDash();
         void StopRun();
         void Land();
+        
+        float GetCurrentAnimationLength();
     }
 }

@@ -6,8 +6,8 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour, IWeapon
 {
-    
-    public virtual void Attack()
+    public abstract void Attack();
+    public void OverrideAnimatorController()
     {
         _animationOverriderController.SetOverrideController(_animatorOverrideController);
     }

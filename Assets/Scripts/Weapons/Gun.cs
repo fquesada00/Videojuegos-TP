@@ -25,14 +25,16 @@ namespace Weapons
 
         public override void Attack()
         {
-            base.Attack();
-            
-            var bullet = Instantiate(BulletPrefab, transform.position, transform.rotation);
+            Debug.Log(transform.position);
+            // get the gun hole position
+            var gunHoleTransform = transform.Find("Gun_Bullet_Hole");
+            var bullet = Instantiate(BulletPrefab, gunHoleTransform.position, gunHoleTransform.rotation);
             bullet.name = "Bullet";
             IBullet iBullet = bullet.GetComponent<IBullet>();
             iBullet.SetOwner(this);
             iBullet.SetSpeed(_bulletStats.Speed);
             iBullet.SetLifeTime(_bulletStats.LifeTime);
+            
             _bulletCount--;
         }
     }

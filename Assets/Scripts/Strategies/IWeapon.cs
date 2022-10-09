@@ -2,8 +2,10 @@ using UnityEngine;
 
 public interface IWeapon
 {
-    public void Attack();
+    void Attack();
 
     // void PlayAnimation();
     AnimatorOverrideController OverrideController { get; }
+
+    void OverrideAnimatorController();
 }
