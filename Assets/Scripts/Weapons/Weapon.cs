@@ -21,7 +21,7 @@ public abstract class Weapon : MonoBehaviour, IWeapon
     {
         // look up for the animation controller & set the attack animation
         _animationOverriderController = GetComponentInParent<AnimationOverriderController>();
-        _animationOverriderController.SetOverrideController(_animatorOverrideController);
+        // _animationOverriderController.SetOverrideController(_animatorOverrideController);
     }
 }
 
