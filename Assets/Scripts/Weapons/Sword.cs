@@ -15,6 +15,7 @@ public class Sword : Weapon
     private Collider _collider;
 
     private Cooldown _attackCooldown;
+    private float Damage => _swordStats.Damage;
 
     private void Start()
     {
@@ -47,7 +48,7 @@ public class Sword : Weapon
         {
             _collider.enabled = false;
             IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
-            damageable?.TakeDamage(SwordStats.Damage);
+            damageable?.TakeDamage(Damage);
         }
     }
 }
