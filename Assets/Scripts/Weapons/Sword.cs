@@ -34,8 +34,12 @@ public class Sword : Weapon
         _rigidbody.collisionDetectionMode = CollisionDetectionMode.Discrete;
     }
 
-    public void Attack()
+
+    public override void Attack()
     {
+
+        Debug.Log("Sword attack");
+        
         base.Attack();
         
         _collider.enabled = true;

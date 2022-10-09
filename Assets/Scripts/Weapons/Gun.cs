@@ -21,9 +21,27 @@ namespace Weapons
             _bulletCount = _stats.MagSize;
         }
 
-        public void Attack()
+        public override void Attack()
         {
+
             base.Attack();
+
+            //create phyisics raycast
+            //if hit enemy
+            //  damage enemy
+           
+            /*RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 1000)) //TODO HARDCODED 1000
+            {
+                Debug.Log("Hit something");
+                IDamageable damageable = hit.collider.gameObject.GetComponent<IDamageable>();
+                damageable?.TakeDamage(Damage);
+                //create line renderer
+                LineRenderer lineRenderer = GetComponent<LineRenderer>();
+                lineRenderer.SetPosition(0, transform.position);
+                lineRenderer.SetPosition(1, hit.point);
+            }*/
+
         }
     }
 }

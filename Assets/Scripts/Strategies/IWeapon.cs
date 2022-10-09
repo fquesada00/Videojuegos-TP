@@ -2,7 +2,7 @@ using UnityEngine;
 
 public interface IWeapon
 {
-    void Attack();
+    public void Attack();
 
     // void PlayAnimation();
     AnimatorOverrideController OverrideController { get; }

@@ -124,7 +124,6 @@ public class Character : Actor
            return;
         }
         
-        // FIXME: use commands
         //Weapon Slot 1
         bool isWeaponSlot1 = Input.GetKeyDown(_weaponSlot1);
         if (isWeaponSlot1)
