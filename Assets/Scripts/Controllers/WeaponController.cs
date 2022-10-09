@@ -29,7 +29,7 @@ namespace Controllers
             // if (_gunAnimationCooldown.IsOnCooldown() && _currentWeapon is Gun) return;
 
             // first set animator controller
-            _currentWeapon.OverrideAnimatorController();
+            // _currentWeapon.OverrideAnimatorController();
             _animationController.Attack();
 
             // if current weapon is a gun, then animate, wait for animation to finish, then shoot
@@ -60,6 +60,7 @@ namespace Controllers
             }
 
             _currentWeapon = _weapons[index];
+            _currentWeapon.OverrideAnimatorController();
         }
     }
 }
