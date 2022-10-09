@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Controllers;
 using Strategies;
 using UnityEngine;
 using Controllers.Utils;
@@ -10,6 +11,7 @@ public class Sword : Weapon
     public SwordStats SwordStats => _swordStats;
     [SerializeField] private SwordStats _swordStats;
 
+
     private Rigidbody _rigidbody;
 
     private Collider _collider;
@@ -17,8 +19,10 @@ public class Sword : Weapon
     private Cooldown _attackCooldown;
     private float Damage => _swordStats.Damage;
 
-    private void Start()
+    private new void Start()
     {
+        base.Start();
+        
         _rigidbody = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
         _attackCooldown = new Cooldown();
@@ -30,8 +34,10 @@ public class Sword : Weapon
         _rigidbody.collisionDetectionMode = CollisionDetectionMode.Discrete;
     }
 
-    public override void Attack()
+    public void Attack()
     {
+        base.Attack();
+        
         _collider.enabled = true;
         // StartCoroutine(
         //  _attackCooldown.CallbackCooldown(SwordStats.AttackCooldown, () =>

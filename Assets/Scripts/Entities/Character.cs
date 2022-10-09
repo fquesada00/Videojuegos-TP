@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Commands.Animations;
+using Commands.Weapons;
 using Controllers;
 using UnityEngine;
 
@@ -16,11 +17,20 @@ public class Character : Actor
     private CmdLandAnimation _cmdLandAnimation;
     private CmdAttack _cmdAttack;
     private CmdAttackAnimation _cmdAttackAnimation;
+    
+    private CmdSwitchWeapon _cmdSwitchWeaponSlot1;
+    private CmdSwitchWeapon _cmdSwitchWeaponSlot2;
     // INSTANCES
     private Camera _mainCamera;
     private MovementController _movementController;
     private AnimationController _animationController;
     private WeaponController _weaponController;
+    
+    // BINDING GUN SLOTS
+    [SerializeField] private KeyCode _weaponSlot1 = KeyCode.Alpha1;
+    [SerializeField] private KeyCode _weaponSlot2 = KeyCode.Alpha2;
+    // [SerializeField] private KeyCode _weaponSlot3 = KeyCode.Alpha3;
+
 
     private void Start()
     {
@@ -44,7 +54,11 @@ public class Character : Actor
 
         //lock cursor
         Cursor.lockState = CursorLockMode.Locked;
-
+        
+        _cmdSwitchWeaponSlot1 = new CmdSwitchWeapon(_weaponController, 0);
+        _cmdSwitchWeaponSlot2 = new CmdSwitchWeapon(_weaponController, 1);
+        
+        EventQueueManager.instance.AddCommand(_cmdSwitchWeaponSlot1);
     }
 
     private void Update()
@@ -108,6 +122,23 @@ public class Character : Actor
            EventQueueManager.instance.AddCommand(_cmdAttack);
         //    EventQueueManager.instance.AddCommand(new CmdAttackAnimation(_animationController, _weaponController.CurrentWeapon));
            return;
+        }
+        
+        // FIXME: use commands
+        //Weapon Slot 1
+        bool isWeaponSlot1 = Input.GetKeyDown(_weaponSlot1);
+        if (isWeaponSlot1)
+        {
+            EventQueueManager.instance.AddCommand(_cmdSwitchWeaponSlot1);
+            return;
+        }
+        
+        //Weapon Slot 2
+        bool isWeaponSlot2 = Input.GetKeyDown(_weaponSlot2);
+        if (isWeaponSlot2)
+        {
+            EventQueueManager.instance.AddCommand(_cmdSwitchWeaponSlot2);
+            return;
         }
     }
 

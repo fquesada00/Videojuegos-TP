@@ -13,12 +13,6 @@ namespace Controllers
         private IWeapon _currentWeapon;
         public IWeapon CurrentWeapon => _currentWeapon;
 
-        private void Start() {
-            // FIXME: add from UI
-            //_weapons = new List<IWeapon>();
-            SwitchWeapon(0);
-        }
-
         public void Attack()
         {   
             _currentWeapon.Attack();
@@ -27,6 +21,10 @@ namespace Controllers
         public void SwitchWeapon(int index) {
             if (index < 0 || index >= _weapons.Count) {
                 return;
+            }
+            
+            for (int i = 0; i < _weapons.Count; i++) {
+                _weapons[i].gameObject.SetActive(i == index);
             }
 
             _currentWeapon = _weapons[index];
