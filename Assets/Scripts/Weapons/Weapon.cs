@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Controllers;
 using UnityEngine;
 
+[RequireComponent(typeof(SoundController), typeof(AnimatorOverrideController))]
 public abstract class Weapon : MonoBehaviour, IWeapon
 {
     public abstract void Attack();
@@ -16,12 +17,15 @@ public abstract class Weapon : MonoBehaviour, IWeapon
     [SerializeField] private AnimatorOverrideController _animatorOverrideController;
     
     private AnimationOverriderController _animationOverriderController;
+    
+    public SoundController SoundController => _soundController;
+    [SerializeField] private SoundController _soundController;
 
     protected void Start()
     {
-        // look up for the animation controller & set the attack animation
+        // look up for the animation controller
         _animationOverriderController = GetComponentInParent<AnimationOverriderController>();
-        // _animationOverriderController.SetOverrideController(_animatorOverrideController);
+        _soundController = GetComponent<SoundController>();
     }
 }
 
