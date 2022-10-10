@@ -6,10 +6,11 @@ namespace Controllers.NavMesh
 {
     public class EnemyFollowController : MonoBehaviour
     {
+        public NavMeshAgent NavMeshAgent => _navMeshAgent;
         private Actor _player;
         private NavMeshAgent _navMeshAgent;
 
-        private void Start()
+        private void Awake()
         {
             _player = FindObjectOfType<Actor>();
             _navMeshAgent = GetComponent<NavMeshAgent>();

@@ -25,7 +25,12 @@ namespace Controllers
 
         public void Die()
         {
-            Destroy(this.gameObject);
+            GetComponent<Entity>().Die();
+        }
+
+        public void ResetLife()
+        {
+            _currentLife = MaxHealth;
         }
     }
 }

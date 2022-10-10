@@ -14,8 +14,6 @@ public class WizardEnemy : Enemy
 
     private Cooldown _attackCooldown;
 
-    private EnemyFollowController _enemyFollowController;
-
     private Wand _wand;
 
     // Start is called before the first frame update
