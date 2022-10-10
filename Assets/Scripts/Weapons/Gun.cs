@@ -29,7 +29,7 @@ namespace Weapons
             // get the gun hole position
             var gunHoleTransform = transform.Find("Gun_Bullet_Hole");
             
-            var bullet = Instantiate(BulletPrefab, gunHoleTransform.position, gunHoleTransform.rotation);
+            var bullet = Instantiate(BulletPrefab, gunHoleTransform.position, Quaternion.LookRotation(gunHoleTransform.right));
             bullet.name = "Bullet";
             IBullet iBullet = bullet.GetComponent<IBullet>();
             iBullet.SetOwner(this);
