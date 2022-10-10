@@ -19,8 +19,9 @@ namespace Controllers.NavMesh
         private void Update()
         {
             _navMeshAgent.SetDestination(_player.transform.position);
-            //look at player
-            transform.LookAt(_player.transform);
+            //look at player y axis
+            transform.LookAt(new Vector3(_player.transform.position.x, transform.position.y, _player.transform.position.z));
+            // transform.LookAt(_player.transform);
         }
 
         public float getDistanceFromPlayer(){
