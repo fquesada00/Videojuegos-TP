@@ -17,4 +17,9 @@ public class LizardEnemy : Enemy
     {
         
     }
+
+    public override void Attack()
+    {
+           
+    }
 }

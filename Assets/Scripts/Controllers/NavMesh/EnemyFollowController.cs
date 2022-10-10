@@ -2,9 +2,9 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Entities.NavMesh
+namespace Controllers.NavMesh
 {
-    public class EnemyFollow : MonoBehaviour
+    public class EnemyFollowController : MonoBehaviour
     {
         private Actor _player;
         private NavMeshAgent _navMeshAgent;
@@ -18,6 +18,12 @@ namespace Entities.NavMesh
         private void Update()
         {
             _navMeshAgent.SetDestination(_player.transform.position);
+            //look at player
+            transform.LookAt(_player.transform);
+        }
+
+        public float getDistanceFromPlayer(){
+            return Vector3.Distance(_player.transform.position, transform.position);
         }
     }
 }

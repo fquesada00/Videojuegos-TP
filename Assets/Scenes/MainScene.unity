@@ -1102,7 +1102,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 771552438}
-  m_LocalRotation: {x: 0.3454116, y: 0.000000016147354, z: -0.0000000059432836, w: 0.93845135}
+  m_LocalRotation: {x: 0.3454116, y: -0.00000001614735, z: 0.0000000059432828, w: 0.93845135}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1540,7 +1540,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1147808028}
-  m_LocalRotation: {x: 0.33274546, y: -0.0038657635, z: 0.0013640557, w: 0.9430078}
+  m_LocalRotation: {x: 0.33274546, y: -0.0038657722, z: 0.0013640588, w: 0.9430078}
   m_LocalPosition: {x: 0, y: 7.865886, z: -7.358788}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1591,6 +1591,10 @@ PrefabInstance:
     - target: {fileID: 1128758269040250, guid: f88c6ad57910d8648807bcf0c131f49d, type: 3}
       propertyPath: m_Name
       value: Polygonal Metalon Red
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128758269040250, guid: f88c6ad57910d8648807bcf0c131f49d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1128758269040250, guid: f88c6ad57910d8648807bcf0c131f49d, type: 3}
       propertyPath: m_TagString
@@ -2450,6 +2454,7 @@ GameObject:
   - component: {fileID: 2064859065}
   - component: {fileID: 2064859064}
   - component: {fileID: 2064859063}
+  - component: {fileID: 2064859066}
   m_Layer: 0
   m_Name: ThirdPersonPlayer
   m_TagString: Player
@@ -2545,6 +2550,19 @@ MonoBehaviour:
   _weapons:
   - {fileID: 950590743}
   - {fileID: 808422486}
+--- !u!114 &2064859066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064859059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0bad8a68302485f85b25d85bdd2713f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentLife: 0
 --- !u!4 &2092612925 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1852576806548013000, guid: f5a13e508d5b06845a37692eeefd119b, type: 3}
