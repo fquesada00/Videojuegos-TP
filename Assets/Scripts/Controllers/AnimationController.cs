@@ -29,6 +29,8 @@ namespace Controllers
         private static readonly int RunningId = Animator.StringToHash("isRunning");
         private static readonly int AttackId = Animator.StringToHash("attack");
         private static readonly int LandId = Animator.StringToHash("land");
+
+        private static readonly int SpeedId = Animator.StringToHash("speed");
         
         public int MaxContinuosJumps => GetComponentInParent<Actor>().ActorStats.MaxContinuosJumps;
         private int _currentContinuosJumps = 0;
@@ -126,6 +128,11 @@ namespace Controllers
         public float GetCurrentAnimationLength()
         {
             return _animator.GetCurrentAnimatorStateInfo(0).length;
+        }
+
+        public void Run(float speed)
+        {
+            _animator.SetFloat(SpeedId, speed);
         }
     }
 }
