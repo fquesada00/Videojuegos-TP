@@ -11,13 +11,20 @@ public class EventsManager : MonoBehaviour
         instance = this;
     }
 
-    public event Action OnEnemyDeath;
+    public event Action<int> OnEnemyDeath;
 
-    public void EnemyDeath()
+    public void EnemyDeath(int enemyId)
     {
-        OnEnemyDeath?.Invoke();
+        OnEnemyDeath?.Invoke(enemyId);
     }
 
+    public event Action<bool> OnGameOver;
+
+    public void GameOver(bool isVictory)
+    {
+        OnGameOver?.Invoke(isVictory);
+    }
+    
     #region UI_HUD_EVENTS
     public event Action<int, int> OnAmmoChange;
     public event Action<int> OnWeaponChange;

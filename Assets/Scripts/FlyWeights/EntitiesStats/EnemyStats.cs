@@ -7,7 +7,6 @@ namespace FlyWeights.EntitiesStats
     public class EnemyStats : EntityStats
     {
         [SerializeField] private EnemyStatsValues _enemyStatValues;
-
     }
     
     [System.Serializable]

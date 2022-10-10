@@ -27,7 +27,7 @@ public class EnemySpawnManager : MonoBehaviour
         }
     }
 
-    private void EnemyDeath()
+    private void EnemyDeath(int enemyId)
     {
         SpawnEnemy();
     }

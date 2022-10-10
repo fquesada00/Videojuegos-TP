@@ -17,7 +17,7 @@ public abstract class PoolableEntity : Entity
     public override void Die()
     {
         gameObject.SetActive(false);
-        EventsManager.instance.EnemyDeath();
+        EventsManager.instance.EnemyDeath(Stats.Id);
         base.DeathSound();
     }
 }
