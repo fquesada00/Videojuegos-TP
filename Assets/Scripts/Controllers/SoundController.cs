@@ -13,7 +13,7 @@ namespace Controllers
         [SerializeField] private AudioClip _audioClip;
         public AudioClip AudioClip => _audioClip;
 
-        [SerializeField] private float _volume = 1f;
+        [SerializeField] private float _volume;
         
         [SerializeField] private List<SoundAudioClip> _soundAudioClips;
 
@@ -30,19 +30,18 @@ namespace Controllers
 
         public void PlayOnShot(SoundType soundType)
         {
-            AudioClip audioClip = GetAudioClip(soundType); 
-            
-            if(audioClip != null)
-                _audioSource.PlayOneShot(audioClip, _volume);
+            SoundAudioClip soundAudioClip = GetSoundAudioClip(soundType); 
+            if(soundAudioClip != null)
+                _audioSource.PlayOneShot(soundAudioClip.AudioClip, soundAudioClip.Volume);
         }
         
-        private AudioClip GetAudioClip(SoundType soundType)
+        private SoundAudioClip GetSoundAudioClip(SoundType soundType)
         {
             foreach (var soundAudioClip in _soundAudioClips)
             {
                 if (soundAudioClip.SoundType == soundType)
                 {
-                    return soundAudioClip.AudioClip;
+                    return soundAudioClip;
                 }
             }
             
@@ -60,7 +59,8 @@ namespace Controllers
         JUMP,
         RUN,
         VICTORY,
-        DEFEAT
+        DEFEAT,
+        WHISPER
     }
     
     [System.Serializable]
@@ -71,6 +71,9 @@ namespace Controllers
         
         [SerializeField] private AudioClip _audioClip;
         public AudioClip AudioClip => _audioClip;
+        
+        [SerializeField] private float _volume;
+        public float Volume => _volume;
         
     }
 }

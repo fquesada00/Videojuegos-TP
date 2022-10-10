@@ -101,6 +101,7 @@ MonoBehaviour:
   _soundAudioClips:
   - _soundType: 0
     _audioClip: {fileID: 8300000, guid: 772731354af82734bacc9e95a3216f66, type: 3}
+    _volume: 0.5
 --- !u!82 &5837428094511658472
 AudioSource:
   m_ObjectHideFlags: 0

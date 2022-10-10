@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Controllers;
 using UnityEngine;
 
 public class Actor : Entity
@@ -8,5 +10,10 @@ public class Actor : Entity
 
     public ActorStats ActorStats => _actorStats;
     [SerializeField] private ActorStats _actorStats;
+
+    private void Start()
+    {
+        base.SoundController = GetComponent<SoundController>();
+    }
 }
 

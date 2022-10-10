@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Commands.Sounds;
 using UnityEngine;
-using Controllers; 
+using Controllers;
 using Controllers.NavMesh;
 using Controllers.Utils;
 
@@ -9,10 +10,12 @@ using Controllers.Utils;
 [RequireComponent(typeof(LifeController))]
 public class WizardEnemy : Enemy
 {
-
     private GameObject _weapon;
 
     private Cooldown _attackCooldown;
+    private Cooldown _whisperCooldown;
+    
+    private CmdWhisperSound _cmdWhisperSound;
 
     private Wand _wand;
 
@@ -21,25 +24,45 @@ public class WizardEnemy : Enemy
     {
         _enemyFollowController = GetComponent<EnemyFollowController>();
         _attackCooldown = new Cooldown();
+        
         GetComponent<Animator>().SetBool("idle_combat", true);
         _wand = GetComponentInChildren<Wand>();
+
+        base.SoundController = GetComponent<SoundController>();
+        
+        _whisperCooldown = new Cooldown();
+        _cmdWhisperSound = new CmdWhisperSound(base.SoundController);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_enemyFollowController.getDistanceFromPlayer() < 2f)
+        float distanceFromPlayer = _enemyFollowController.getDistanceFromPlayer();
+        if (distanceFromPlayer < 2f)
         {
             Attack();
+        } else if (distanceFromPlayer < 5f)
+        {
+            // get a random number and with 0.2 probability, whisper
+            if (Random.Range(0f, 1f) < 0.2f)
+            {
+                Whisper();
+            }
         }
     }
 
     public override void Attack()
-    {   
-        if(_attackCooldown.IsOnCooldown()) return;
+    {
+        if (_attackCooldown.IsOnCooldown()) return;
         GetComponent<Animator>().SetTrigger("attack");
         _wand.Attack();
         StartCoroutine(_attackCooldown.BooleanCooldown(this.EnemyStats.AttackCooldown));
+    }
 
+    private void Whisper()
+    {
+        if(_whisperCooldown.IsOnCooldown()) return;
+        _cmdWhisperSound.Execute();
+        StartCoroutine(_whisperCooldown.BooleanCooldown(10f));
     }
 }

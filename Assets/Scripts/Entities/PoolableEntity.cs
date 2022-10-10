@@ -18,5 +18,6 @@ public abstract class PoolableEntity : Entity
     {
         gameObject.SetActive(false);
         EventsManager.instance.EnemyDeath();
+        base.DeathSound();
     }
 }

@@ -38,6 +38,7 @@ public class Wand : Weapon
 
     public override void Attack()
     {
+        base.Attack();
         _collider.enabled = true;
     }
 

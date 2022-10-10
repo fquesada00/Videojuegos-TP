@@ -33,6 +33,7 @@ namespace Weapons
 
         public override void Attack()
         {
+            base.Attack();
             Debug.Log(transform.position);
             // get the gun hole position
             var gunHoleTransform = transform.Find("Gun_Bullet_Hole");

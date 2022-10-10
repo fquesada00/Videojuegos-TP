@@ -37,6 +37,7 @@ public class Sword : Weapon
 
     public override void Attack()
     {
+        base.Attack();
         _collider.enabled = true;
         // StartCoroutine(
         //  _attackCooldown.CallbackCooldown(SwordStats.AttackCooldown, () =>

@@ -3,11 +3,11 @@ using Strategies;
 
 namespace Commands.Sounds
 {
-    public class CmdSoundAttack : ICommand
+    public class CmdAttackSound : ICommand
     {
         private IListenable _listenable;
         
-        public CmdSoundAttack(IListenable listenable)
+        public CmdAttackSound(IListenable listenable)
         {
             _listenable = listenable;
         }

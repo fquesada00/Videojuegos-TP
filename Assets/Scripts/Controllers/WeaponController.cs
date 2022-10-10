@@ -19,8 +19,6 @@ namespace Controllers
         private AnimationController _animationController;
         private Cooldown _gunAnimationCooldown;
         
-        private CmdSoundAttack _cmdSoundAttack;
-        
         private void Start()
         {
             _animationController = GetComponentInChildren<AnimationController>();
@@ -48,7 +46,6 @@ namespace Controllers
             // }
             
             _currentWeapon.Attack();
-            _cmdSoundAttack.Execute();
         }
 
         public void SwitchWeapon(int index)
@@ -65,7 +62,6 @@ namespace Controllers
 
             _currentWeapon = _weapons[index];
             _currentWeapon.OverrideAnimatorController();
-            _cmdSoundAttack = new CmdSoundAttack(_currentWeapon.SoundController);
         }
     }
 }

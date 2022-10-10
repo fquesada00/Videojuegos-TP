@@ -9,6 +9,4 @@ public interface IWeapon
     AnimatorOverrideController OverrideController { get; }
 
     void OverrideAnimatorController();
-    
-    SoundController SoundController { get; }
 }
