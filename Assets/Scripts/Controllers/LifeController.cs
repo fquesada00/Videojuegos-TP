@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Controllers
 {
+    [RequireComponent(typeof(Entity))]
     public class LifeController : MonoBehaviour, IDamageable
     {
         public float MaxHealth => GetComponent<Entity>().Stats.MaxHealth;
@@ -12,11 +13,13 @@ namespace Controllers
         private void Start()
         {
             _currentLife = MaxHealth;
+            CallCharacterLifeChangeEvent();
         }
 
         public void TakeDamage(float damage)
         {
             _currentLife -= damage;
+            CallCharacterLifeChangeEvent();
             if(_currentLife <= 0)
             {
                 Die();
@@ -26,11 +29,18 @@ namespace Controllers
         public void Die()
         {
             GetComponent<Entity>().Die();
+            CallCharacterLifeChangeEvent();
         }
 
         public void ResetLife()
         {
             _currentLife = MaxHealth;
+        }
+
+        private void CallCharacterLifeChangeEvent()
+        {
+            if(tag == "Player")
+                EventsManager.instance.EventCharacterLifeChange(_currentLife, MaxHealth); 
         }
     }
 }
