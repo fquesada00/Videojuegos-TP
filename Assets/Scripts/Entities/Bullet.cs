@@ -29,8 +29,10 @@ namespace Entities
 
             _collider.isTrigger = true;
             _rigidbody.useGravity = false;
-            _rigidbody.isKinematic = true;
+            _rigidbody.isKinematic = false;
             _rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+
+            _rigidbody.velocity = transform.forward * _speed;
         }
 
         private void Update()
@@ -42,12 +44,12 @@ namespace Entities
                 Destroy(this.gameObject);
             }
 
-            Travel();
+            //Travel();
         }
 
         public void Travel()
         {
-            transform.Translate(Vector3.forward * (Time.deltaTime * Speed));
+            //transform.Translate(Vector3.forward * (Time.deltaTime * Speed));
         }
 
         public void OnTriggerEnter(Collider other)
