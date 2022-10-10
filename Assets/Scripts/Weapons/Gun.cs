@@ -23,6 +23,14 @@ namespace Weapons
             _bulletCount = _stats.MagSize;
         }
 
+        public void Update()
+        {
+            //look at center of screen
+            var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+            transform.LookAt(ray.GetPoint(100));
+            
+        }
+
         public override void Attack()
         {
             Debug.Log(transform.position);

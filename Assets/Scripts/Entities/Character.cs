@@ -89,12 +89,13 @@ public class Character : Actor
         } 
 
         bool isMoving = direction.magnitude == 1f;
-        if (isMoving)
-        {
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg +
+        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg +
                                 _mainCamera.transform.eulerAngles.y;
 
-            Vector3 targetDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+        Vector3 targetDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+        if (isMoving)
+        {
+            
 
             //Movement
             EventQueueManager.instance.AddCommand(new CmdMovement(_movementController, targetDirection));
@@ -111,7 +112,11 @@ public class Character : Actor
             {
                 EventQueueManager.instance.AddCommand(_cmdStopRunAnimation);
             }
+            EventQueueManager.instance.AddCommand(new CmdRotation(_movementController, targetAngle));
+
         }
+
+
 
         //Attack
         bool isAttacking = Input.GetButtonDown("Fire1");
