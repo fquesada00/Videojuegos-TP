@@ -7,7 +7,8 @@ public class UIManager : MonoBehaviour
 {
     // Image references
     [SerializeField] private Image _lifebarImage;
-    [SerializeField] private Image _weaponImage;
+    [SerializeField] private Image _currentWeaponImage;
+    [SerializeField] private Image _nextWeaponImage;
 
     // Text references
     [SerializeField] private Text _lifeText;
@@ -41,7 +42,8 @@ public class UIManager : MonoBehaviour
 
     private void OnWeaponChange(int weaponIndex)
     {
-        _weaponImage.sprite = _weaponSprites[weaponIndex];
+        _nextWeaponImage.sprite = _currentWeaponImage.sprite;
+        _currentWeaponImage.sprite = _weaponSprites[weaponIndex];
     }
 
 }
