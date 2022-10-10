@@ -17,3 +17,4 @@ MonoBehaviour:
     MovementSpeed: 10
     Damage: 5
     AttackCooldown: 1
+    Id: 1

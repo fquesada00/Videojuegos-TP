@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a0e786a89264cc2b91a74c6b6398be2, type: 3}
-  m_Name: LizardStats
+  m_Script: {fileID: 11500000, guid: d47d6e66cbe547c094bda5b3efc514fe, type: 3}
+  m_Name: HealthPotion
   m_EditorClassIdentifier: 
-  _entityStatValues:
-    MaxHealth: 1000
-    MovementSpeed: 2
-    Damage: 10
-    AttackCooldown: 2
-    Id: 5
+  _statValues:
+    Value: 0
+    Type: 0

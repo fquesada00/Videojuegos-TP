@@ -36,6 +36,19 @@ namespace Controllers
         {
             _currentLife = MaxHealth;
         }
+        
+        public void AddHealth(float health)
+        {
+            if((_currentLife + health) > MaxHealth)
+            {
+                _currentLife = MaxHealth;
+            }
+            else
+            {
+                _currentLife += health;
+            }
+            CallCharacterLifeChangeEvent();
+        }
 
         private void CallCharacterLifeChangeEvent()
         {

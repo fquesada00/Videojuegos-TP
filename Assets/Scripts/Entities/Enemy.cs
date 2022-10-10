@@ -28,6 +28,17 @@ public abstract class Enemy : PoolableEntity
         GetComponent<LifeController>().ResetLife();
     }
 
+    public override void Die()
+    {
+        // drop a potion with 25% chance
+        if (Random.Range(0, 100) < 25)
+        {
+            var potion = Instantiate(_enemyStats.PotionPrefab, transform.position, transform.rotation);
+        }
 
+        base.Die();
+        
+        
+    }
 
 }
