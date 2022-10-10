@@ -15,7 +15,7 @@ public class EntityStats : ScriptableObject
 
         public float AttackCooldown => _entityStatValues.AttackCooldown;
         
-
+        public int Id => _entityStatValues.Id;
     }
 
 [System.Serializable]
@@ -26,4 +26,6 @@ public struct EntityStatValues
     public float Damage;
 
     public float AttackCooldown;
+    public int Id;
+
 }
