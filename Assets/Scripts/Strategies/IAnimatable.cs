@@ -16,6 +16,8 @@
         void StopRun();
         void Land();
         
+        void Run(float speed);
+        
         float GetCurrentAnimationLength();
     }
 }

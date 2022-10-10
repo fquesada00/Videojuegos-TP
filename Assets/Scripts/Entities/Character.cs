@@ -88,28 +88,21 @@ public class Character : Actor
                                 _mainCamera.transform.eulerAngles.y;
 
         Vector3 targetDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+        float speed = 0;
+
         if (isMoving)
         {
-            
-
             //Movement
             EventQueueManager.instance.AddCommand(new CmdMovement(_movementController, targetDirection));
-            EventQueueManager.instance.AddCommand(new CmdRotation(_movementController, targetAngle));
-
-            //Animation
-            if(_animationController.IsIdle)
-                EventQueueManager.instance.AddCommand(_cmdStartRunAnimation);
-            return;
+            //check angle between targetAngle and camera angle
+            float angle = Mathf.Abs(targetAngle - _mainCamera.transform.eulerAngles.y);
+            speed = angle > 90? -1: 1;
+            
         }
-        else
-        {
-            if (_animationController.IsRunning)
-            {
-                EventQueueManager.instance.AddCommand(_cmdStopRunAnimation);
-            }
-            EventQueueManager.instance.AddCommand(new CmdRotation(_movementController, targetAngle));
+        EventQueueManager.instance.AddCommand(new CmdRunAnimation(_animationController, speed));
 
-        }
+        EventQueueManager.instance.AddCommand(new CmdRotation(_movementController, _mainCamera.transform.eulerAngles.y));
+
 
 
 
