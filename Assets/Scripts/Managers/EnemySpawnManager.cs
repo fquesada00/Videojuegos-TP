@@ -79,12 +79,10 @@ public class EnemySpawnManager : MonoBehaviour
             if (enemyFollowController != null && NavMesh.SamplePosition(_navMeshTriangulation.vertices[vertexIndex], out hit, 1f, NavMesh.AllAreas))
             {
                 NavMeshAgent agent = enemyFollowController.NavMeshAgent;
-                Debug.Log("Agent: " + agent);
-                Debug.Log("Hit: " + hit);
-                Debug.Log("Hit position: " + hit.position);
+                Debug.Log("Entre");
                 agent.Warp(hit.position);
                 agent.enabled = true;
-            }
+            }            
         }
     }
 

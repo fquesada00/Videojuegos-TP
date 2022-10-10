@@ -20,7 +20,7 @@ public abstract class Enemy : PoolableEntity
     {
         base.OnDisable();
 
-        _enemyFollowController.GetComponent<NavMeshAgent>().enabled = false;
+        //_enemyFollowController.GetComponent<NavMeshAgent>().enabled = false;
     }
 
     public void OnEnable()

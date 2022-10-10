@@ -30,7 +30,7 @@ public class ObjectPool
             PoolableEntity obj = GameObject.Instantiate(_prefab, Vector3.zero, Quaternion.identity, parent.transform);
             obj.parent = this;
             obj.gameObject.SetActive(false);
-            _availableObjects.Add(obj);
+            //_availableObjects.Add(obj);
         }
     }
 
