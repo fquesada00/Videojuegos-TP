@@ -29,7 +29,7 @@ public class EnemySpawnManager : MonoBehaviour
 
     private void EnemyDeath(int enemyId)
     {
-        SpawnEnemy();
+        StartCoroutine(SpawnEnemyWithDelay());
     }
 
     private void Start()
@@ -59,6 +59,13 @@ public class EnemySpawnManager : MonoBehaviour
         {
             SpawnRandomEnemy();
         }
+    }
+
+    private IEnumerator SpawnEnemyWithDelay()
+    {
+        WaitForSeconds wait = new WaitForSeconds(spawnDelay);
+        yield return wait;
+        SpawnEnemy();
     }
 
     private void SpawnRandomEnemy()
