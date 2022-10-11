@@ -81,12 +81,10 @@ public class EnemySpawnManager : MonoBehaviour
             int vertexIndex = Random.Range(0, _navMeshTriangulation.vertices.Length);
 
             NavMeshHit hit;
-            EnemyFollowController enemyFollowController = PoolableEntity.GetComponent<EnemyFollowController>();
+            NavMeshAgent agent = PoolableEntity.GetComponent<NavMeshAgent>();
 
-            if (enemyFollowController != null && NavMesh.SamplePosition(_navMeshTriangulation.vertices[vertexIndex], out hit, 1f, NavMesh.AllAreas))
+            if (agent != null && NavMesh.SamplePosition(_navMeshTriangulation.vertices[vertexIndex], out hit, 1f, NavMesh.AllAreas))
             {
-                NavMeshAgent agent = enemyFollowController.NavMeshAgent;
-                Debug.Log("Entre");
                 agent.Warp(hit.position);
                 agent.enabled = true;
             }            

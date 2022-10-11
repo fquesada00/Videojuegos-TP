@@ -14,7 +14,8 @@ namespace Commands.Sounds
         
         public void Execute()
         {
-            _listenable.PlayOnShot(SoundType.ATTACK);
+            
+            _listenable?.PlayOnShot(SoundType.ATTACK);
         }
     }
 }
