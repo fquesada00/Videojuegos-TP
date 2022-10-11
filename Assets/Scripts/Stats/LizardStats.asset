@@ -16,5 +16,7 @@ MonoBehaviour:
     MaxHealth: 1000
     MovementSpeed: 2
     Damage: 10
-    AttackCooldown: 2
-    Id: 5
+    AttackCooldown: 5
+    Id: 2
+  _enemyStatValues:
+    PotionPrefab: {fileID: 1000012970591572, guid: 7cafb89b5a0f61f479d0a748962abbbc, type: 3}
