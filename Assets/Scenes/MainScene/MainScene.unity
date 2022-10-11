@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -880,7 +880,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 438596786}
-  m_LocalRotation: {x: 0.31109443, y: -0.000000016352583, z: 0.0000000053528093, w: 0.950379}
+  m_LocalRotation: {x: 0.31109443, y: 0.000000016352585, z: -0.0000000053528098, w: 0.950379}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1116,7 +1116,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 771552438}
-  m_LocalRotation: {x: 0.3454116, y: 0.000000016147355, z: -0.0000000059432854, w: 0.9384513}
+  m_LocalRotation: {x: 0.3454116, y: -0.000000016147348, z: 0.0000000059432823, w: 0.9384513}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1190,7 +1190,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 798592720}
-  m_LocalRotation: {x: 0.32827953, y: -0.00521221, z: 0.0018114826, w: 0.9445645}
+  m_LocalRotation: {x: 0.32828045, y: -0.004719495, z: 0.0016402411, w: 0.9445671}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1597,6 +1597,50 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &996058674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 996058676}
+  - component: {fileID: 996058675}
+  m_Layer: 0
+  m_Name: _GlobalDataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &996058675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996058674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba521ec611ef62547a9f1c6d6f549c4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isVictory: 0
+--- !u!4 &996058676
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996058674}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1062266959
 GameObject:
   m_ObjectHideFlags: 0
@@ -1738,7 +1782,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1147808028}
-  m_LocalRotation: {x: 0.3327455, y: -0.003850653, z: 0.0013587241, w: 0.9430078}
+  m_LocalRotation: {x: 0.332746, y: -0.003486662, z: 0.0012302877, w: 0.94300926}
   m_LocalPosition: {x: -0.4, y: 10.625887, z: -7.358788}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2652,6 +2696,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1665508730}
+  - component: {fileID: 1665508734}
   - component: {fileID: 1665508729}
   - component: {fileID: 1665508731}
   - component: {fileID: 1665508732}
@@ -2739,6 +2784,19 @@ MonoBehaviour:
   _weaponSprites:
   - {fileID: 21300000, guid: 16b4390d98da29241a9d30b09dc8c3c0, type: 3}
   - {fileID: 21300000, guid: d6a73fbb65608254e93b1c85c347eb76, type: 3}
+--- !u!114 &1665508734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665508728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e26982466afb423baae8093f1277003e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isVictory: 0
 --- !u!1 &1690202262
 GameObject:
   m_ObjectHideFlags: 3

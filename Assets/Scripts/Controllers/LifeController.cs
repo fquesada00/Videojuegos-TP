@@ -33,12 +33,15 @@ namespace Controllers
         {
             GetComponent<Entity>().Die();
             CallCharacterLifeChangeEvent();
+            if(tag == "Player")
+            {
+                EventsManager.instance.GameOver(false);
+            }
         }
 
         public void ResetLife()
         {
             _currentLife = MaxHealth;
-            
         }
         
         public void AddHealth(float health)
@@ -56,10 +59,10 @@ namespace Controllers
 
         private void CallCharacterLifeChangeEvent()
         {
-            
-
             if(tag == "Player")
+            {
                 EventsManager.instance.EventCharacterLifeChange(_currentLife, MaxHealth); 
+            }
         }
     }
 }

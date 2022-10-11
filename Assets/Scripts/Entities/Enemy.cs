@@ -37,8 +37,6 @@ public abstract class Enemy : PoolableEntity
         }
 
         base.Die();
-        
-        
     }
 
 }

@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 
 [RequireComponent(typeof(GameObject))]
-public class UIButtonLogic : MonoBehaviour
+public class UIMenuButtonLogic : MonoBehaviour
 {
     public GameObject InformationDialog => _informationDialog;
     [SerializeField] private GameObject _informationDialog;
