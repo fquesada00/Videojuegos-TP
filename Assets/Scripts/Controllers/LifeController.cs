@@ -10,6 +10,8 @@ namespace Controllers
         public float MaxHealth => GetComponent<Entity>().Stats.MaxHealth;
         [SerializeField] private float _currentLife;
 
+        [SerializeField] private HealthDisplay _healthDisplay;
+
         private void Start()
         {
             _currentLife = MaxHealth;
@@ -19,6 +21,7 @@ namespace Controllers
         public void TakeDamage(float damage)
         {
             _currentLife -= damage;
+            _healthDisplay?.setLife(_currentLife, MaxHealth);
             CallCharacterLifeChangeEvent();
             if(_currentLife <= 0)
             {
@@ -35,6 +38,7 @@ namespace Controllers
         public void ResetLife()
         {
             _currentLife = MaxHealth;
+            
         }
         
         public void AddHealth(float health)
@@ -52,6 +56,8 @@ namespace Controllers
 
         private void CallCharacterLifeChangeEvent()
         {
+            
+
             if(tag == "Player")
                 EventsManager.instance.EventCharacterLifeChange(_currentLife, MaxHealth); 
         }

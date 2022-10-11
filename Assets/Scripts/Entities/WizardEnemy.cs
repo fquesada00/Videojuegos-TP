@@ -41,7 +41,6 @@ public class WizardEnemy : Enemy
         if (distanceFromPlayer < 2f)
         {
             Attack();
-            Debug.Log("Attack");
         } else if (distanceFromPlayer < 5f)
         {
             // get a random number and with 0.2 probability, whisper

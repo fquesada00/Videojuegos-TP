@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WizardStats
   m_EditorClassIdentifier: 
   _entityStatValues:
-    MaxHealth: 10
+    MaxHealth: 100
     MovementSpeed: 10
     Damage: 5
     AttackCooldown: 1
