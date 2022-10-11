@@ -20,7 +20,7 @@ public class WizardEnemy : Enemy
     private Wand _wand;
 
     // Start is called before the first frame update
-    void Start()
+    new void OnEnable()
     {
         _enemyFollowController = GetComponent<EnemyFollowController>();
         _attackCooldown = new Cooldown();
@@ -41,6 +41,7 @@ public class WizardEnemy : Enemy
         if (distanceFromPlayer < 2f)
         {
             Attack();
+            Debug.Log("Attack");
         } else if (distanceFromPlayer < 5f)
         {
             // get a random number and with 0.2 probability, whisper
