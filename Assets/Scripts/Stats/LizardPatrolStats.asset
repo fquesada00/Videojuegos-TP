@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: LizardPatrolStats
   m_EditorClassIdentifier: 
   _patrolStatsValues:
-    Speed: 0
-    MaxTargetDistance: 0
-    MinWanderTargetDistance: 0
+    Speed: 3.5
+    MaxTargetDistance: 40
+    MinWanderTargetDistance: 10
