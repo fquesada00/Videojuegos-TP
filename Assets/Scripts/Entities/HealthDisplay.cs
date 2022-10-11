@@ -17,23 +17,33 @@ public class HealthDisplay : MonoBehaviour
     //private Image _lifebarImage;
     //private Text _lifeText;
     // Start is called before the first frame update
+
+    void set(bool active)
+    {
+        this.GetComponent<Canvas>().enabled = active;
+    }
+
     void Start()
     {
         _cooldown = new Cooldown();
-        //this.GetComponent<Canvas>().enabled = false;  
-        this.gameObject.SetActive(false);
+
+    }
+
+    void OnEnable()
+    {
+        set(false);
 
     }
 
     public void setLife(float currentLife, float maxLife)
     {
-        
-        this.gameObject.SetActive(true);
+
+        set(true);
         _lifebarImage.fillAmount = currentLife / maxLife;
         _lifebarImage.color = colorGradient.Evaluate(currentLife / maxLife);
         _lifeText.text = $"{currentLife} / {maxLife}";
 
-        StartCoroutine(_cooldown.CallbackCooldown(2f, () => this.gameObject.SetActive(false)));
+        StartCoroutine(_cooldown.CallbackCooldown(2f, () => set(false)));
     }
 
 }

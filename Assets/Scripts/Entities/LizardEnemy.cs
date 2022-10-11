@@ -20,7 +20,7 @@ public class LizardEnemy : PatrolEnemy
 
     private PatrolEnemy _patrolEnemy;
     
-    void OnEnable()
+    new void OnEnable()
     {
         base.OnEnable();
         _animator = GetComponent<Animator>();
@@ -29,7 +29,7 @@ public class LizardEnemy : PatrolEnemy
         _patrolEnemy = GetComponent<PatrolEnemy>();
     }
 
-    void Update()
+    new void Update()
     {
         base.Update();
         if(_patrolEnemy.IsOnEnemyRange())

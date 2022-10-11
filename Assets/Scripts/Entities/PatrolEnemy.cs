@@ -21,6 +21,8 @@ namespace Entities
 
         protected override void OnEnable()
         {
+
+            base.OnEnable();
             _player = FindObjectOfType<Actor>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _wanderTarget = GetRandomGameBoardLocation();

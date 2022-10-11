@@ -22,6 +22,8 @@ public class WizardEnemy : Enemy
     // Start is called before the first frame update
     new void OnEnable()
     {
+        base.OnEnable();
+
         _enemyFollowController = GetComponent<EnemyFollowController>();
         _attackCooldown = new Cooldown();
         
