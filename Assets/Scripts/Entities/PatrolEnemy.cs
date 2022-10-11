@@ -40,7 +40,7 @@ namespace Entities
         {
             // if enemy is near the player, chase the player
             float distanceFromPlayer = GetDistanceFromPlayer();
-            if (distanceFromPlayer < 20f)
+            if (distanceFromPlayer < 40f)
             {
                 _navMeshAgent.SetDestination(_player.transform.position);
             }
@@ -60,7 +60,7 @@ namespace Entities
         
         public bool IsOnEnemyRange()
         {
-            return GetDistanceFromPlayer() < 15f;
+            return GetDistanceFromPlayer() < 25f;
         }
 
         private Vector3 GetRandomGameBoardLocation()

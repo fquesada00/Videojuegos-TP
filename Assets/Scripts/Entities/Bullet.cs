@@ -13,14 +13,22 @@ namespace Entities
         private float _speed;
         public float Speed => _speed;
 
-        private Gun _owner;
-        public Gun Owner => _owner;
+        private IGun _owner;
+        public IGun Owner => _owner;
 
         private Rigidbody _rigidbody;
         public Rigidbody Rigidbody => _rigidbody;
 
         private Collider _collider;
         public Collider Collider => _collider;
+
+        private String _collisionTag = "Enemy";
+
+        public String CollisionTag
+        {
+            get => _collisionTag;
+            set => _collisionTag = value;
+        }
 
         void Start()
         {
@@ -54,17 +62,17 @@ namespace Entities
 
         public void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag("Enemy"))
+            if (other.gameObject.CompareTag(_collisionTag))
             {
                 IDamageable damageable = other.GetComponent<IDamageable>();
                 damageable?.TakeDamage(_owner.Stats.Damage);
                 Destroy(this.gameObject);
             }
-            
-            
+
+
         }
 
-        public void SetOwner(Gun owner) => _owner = owner;
+        public void SetOwner(IGun owner) => _owner = owner;
         public void SetSpeed(float speed) => _speed = speed;
         public void SetLifeTime(float lifeTime) => _lifeTime = lifeTime;
     }

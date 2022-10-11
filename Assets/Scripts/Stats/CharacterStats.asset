@@ -17,6 +17,7 @@ MonoBehaviour:
     MovementSpeed: 12
     Damage: 10
     AttackCooldown: 2
+    Id: 0
   _actorStatValues:
     RotationSmoothSpeed: 0.1
     JumpHeight: 6

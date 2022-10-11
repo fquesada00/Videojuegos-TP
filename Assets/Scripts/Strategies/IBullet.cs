@@ -8,20 +8,24 @@ namespace Strategies
         float LifeTime { get; }
         float Speed { get; }
     
-        Gun Owner { get; }
+        IGun Owner { get; }
     
         // for collisions and gravity (physics)
         Rigidbody Rigidbody { get; }
     
         Collider Collider { get; }
 
+        string CollisionTag { get; set; }
+
         // always forward
         void Travel();
     
         void OnTriggerEnter(Collider other);
     
-        void SetOwner(Gun owner);
+        void SetOwner(IGun owner);
         void SetSpeed(float speed);
         void SetLifeTime(float lifeTime);
+
+
     }
 }

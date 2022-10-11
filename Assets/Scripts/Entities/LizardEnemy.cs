@@ -15,6 +15,8 @@ public class LizardEnemy : PatrolEnemy
     private static readonly int IdleId = Animator.StringToHash("idle");
     private static readonly int MoveId = Animator.StringToHash("move");
 
+    [SerializeField] private FireballThrower _fireballThrower;
+
 
     private PatrolEnemy _patrolEnemy;
     
@@ -29,20 +31,23 @@ public class LizardEnemy : PatrolEnemy
 
     void Update()
     {
-        _animator.SetFloat("speed", NavMeshAgent.velocity.magnitude);
         base.Update();
         if(_patrolEnemy.IsOnEnemyRange())
         {
+            _animator.SetFloat("speed", NavMeshAgent.velocity.magnitude);
             var position = _player.transform.position;
             transform.LookAt(new Vector3(position.x, transform.position.y, position.z));
+            _fireballThrower.Target = _player.gameObject;
             Attack();
-        }
+        } else
+            _animator.SetFloat("speed", 1);
     }
 
     public override void Attack()
     {
         if (_attackCooldown.IsOnCooldown()) return;
         _animator.SetTrigger(AttackId);
+        _fireballThrower.Attack();
         StartCoroutine(_attackCooldown.BooleanCooldown(this.EnemyStats.AttackCooldown));
     }
 }
