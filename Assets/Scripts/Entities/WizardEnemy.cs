@@ -38,10 +38,10 @@ public class WizardEnemy : Enemy
     void Update()
     {
         float distanceFromPlayer = _enemyFollowController.getDistanceFromPlayer();
-        if (distanceFromPlayer < 2f)
+        if (distanceFromPlayer < this.EnemyStats.AttackRange)
         {
             Attack();
-        } else if (distanceFromPlayer < 5f)
+        } else if (distanceFromPlayer < this.EnemyStats.MinSoundDistance)
         {
             // get a random number and with 0.2 probability, whisper
             if (Random.Range(0f, 1f) < 0.2f)
@@ -63,6 +63,6 @@ public class WizardEnemy : Enemy
     {
         if(_whisperCooldown.IsOnCooldown()) return;
         _cmdWhisperSound.Execute();
-        StartCoroutine(_whisperCooldown.BooleanCooldown(10f));
+        StartCoroutine(_whisperCooldown.BooleanCooldown(this.EnemyStats.SoundCooldown));
     }
 }

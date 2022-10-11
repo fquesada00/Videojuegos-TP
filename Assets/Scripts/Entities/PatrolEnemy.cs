@@ -2,29 +2,34 @@
 using Controllers.NavMesh;
 using UnityEngine;
 using UnityEngine.AI;
+using FlyWeights.EntitiesStats;
 
 namespace Entities
 {
     public abstract class PatrolEnemy : Enemy
     {
+
+        public PatrolStats PatrolStats => _patrolStats;
+        [SerializeField] private PatrolStats _patrolStats;
         public Vector3 _wanderTarget;
-        private float _speed = 2f;
+        private float _speed;
         
         public NavMeshAgent NavMeshAgent => _navMeshAgent;
         protected Actor _player;
         private NavMeshAgent _navMeshAgent;
         
 
-        protected void OnEnable()
+        protected override void OnEnable()
         {
             _player = FindObjectOfType<Actor>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _wanderTarget = GetRandomGameBoardLocation();
+            _speed = this.PatrolStats.Speed;
         }
 
         private void Patrol()
         {
-            if (Vector3.Distance(transform.position, _wanderTarget) < 1f)
+            if (Vector3.Distance(transform.position, _wanderTarget) < this.PatrolStats.MinWanderTargetDistance)
             {
                 _wanderTarget = GetRandomGameBoardLocation();
             }
@@ -40,7 +45,7 @@ namespace Entities
         {
             // if enemy is near the player, chase the player
             float distanceFromPlayer = GetDistanceFromPlayer();
-            if (distanceFromPlayer < 40f)
+            if (distanceFromPlayer < this.PatrolStats.MaxTargetDistance)
             {
                 _navMeshAgent.SetDestination(_player.transform.position);
             }
@@ -60,7 +65,7 @@ namespace Entities
         
         public bool IsOnEnemyRange()
         {
-            return GetDistanceFromPlayer() < 25f;
+            return GetDistanceFromPlayer() < this.EnemyStats.AttackRange;
         }
 
         private Vector3 GetRandomGameBoardLocation()
