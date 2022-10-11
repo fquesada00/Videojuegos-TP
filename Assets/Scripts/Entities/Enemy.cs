@@ -23,7 +23,7 @@ public abstract class Enemy : PoolableEntity
         //_enemyFollowController.GetComponent<NavMeshAgent>().enabled = false;
     }
 
-    public void OnEnable()
+    protected virtual void OnEnable()
     {
         GetComponent<LifeController>().ResetLife();
     }
