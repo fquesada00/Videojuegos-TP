@@ -14,6 +14,7 @@ public class EnemySpawnManager : MonoBehaviour
 
     [SerializeField]
     private Dictionary<int, ObjectPool> _enemyPools;
+    
     private NavMeshTriangulation _navMeshTriangulation;
 
     private void Awake()
