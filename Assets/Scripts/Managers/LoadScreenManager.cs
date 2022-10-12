@@ -24,9 +24,10 @@ public class LoadScreenManager : MonoBehaviour
         // While the asynchronous operation to load the new scene is not yet complete, continue waiting until it's done.
         while (!async.isDone)
         {
+            Debug.Log(async.progress);
             _progressBar.fillAmount = async.progress;
             _progressValue.text = $"LOADING - {async.progress * 100}%";
-            yield return null;
+            yield return  new WaitForSeconds(0.1f);
         }
     }
 }

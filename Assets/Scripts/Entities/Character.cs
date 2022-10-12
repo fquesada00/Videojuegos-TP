@@ -50,8 +50,7 @@ public class Character : Actor
         
         _mainCamera = Camera.main;
 
-        //lock cursor
-        Cursor.lockState = CursorLockMode.Locked;
+       
         
         EventQueueManager.instance.AddCommand(new CmdSwitchWeapon(_weaponController, _currentWeaponIndex));
     }
@@ -138,4 +137,9 @@ public class Character : Actor
     }
 
     private bool MovedForward() => Input.GetButtonDown("Vertical") && Input.GetAxis("Vertical") > 0;
+
+    public override void Die()
+    {
+        gameObject.SetActive(false);
+    }
 }

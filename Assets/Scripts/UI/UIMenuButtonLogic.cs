@@ -9,7 +9,6 @@ public class UIMenuButtonLogic : MonoBehaviour
     public GameObject InformationDialog => _informationDialog;
     [SerializeField] private GameObject _informationDialog;
     
-    public void LoadMenuScene() => SceneManager.LoadScene("Menu");
     public void LoadLevelScene() => SceneManager.LoadScene("LoadingScene");
     public void ToggleInformationDialog() => _informationDialog.SetActive(!_informationDialog.activeSelf);
     public void CloseGame() => Application.Quit();

@@ -16,13 +16,17 @@ namespace Managers
             _enemiesKilled = new Dictionary<int, int>();
             EventsManager.instance.OnGameOver += OnGameOver;
             EventsManager.instance.OnEnemyDeath += OnEnemyKilled;
+            //lock cursor
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void OnGameOver(bool isVictory)
         {
+            Time.timeScale = 0.2f;
             _isVictory = isVictory;
             GlobalDataManager.Instance.SetIsVictory(isVictory);
-            
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
             Invoke("LoadEndgameScene", 1); // TODO: MAGIC NUMBER
         }
         
@@ -49,6 +53,11 @@ namespace Managers
             }
         }
 
-        private void LoadEndgameScene() => SceneManager.LoadScene("EndScene");
+        private void LoadEndgameScene()
+        {
+            Time.timeScale= 1;
+            SceneManager.LoadScene("EndScene");
+
+        }
     }
 }
