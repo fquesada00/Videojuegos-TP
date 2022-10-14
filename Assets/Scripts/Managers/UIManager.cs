@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     // Text references
     [SerializeField] private Text _lifeText;
     [SerializeField] private Text _ammoText;
+    [SerializeField] private Text _remainingKillsText;
 
     // Sprites references
     [SerializeField] private List<Sprite> _weaponSprites;
@@ -24,6 +25,7 @@ public class UIManager : MonoBehaviour
     {
         // Subscribe to events
         EventsManager.instance.OnCharacterLifeChange += OnCharacterLifeChange;
+        EventsManager.instance.OnRemainingKillsChange += OnRemainingKillsChange;
         EventsManager.instance.OnAmmoChange += OnAmmoChange;
         EventsManager.instance.OnWeaponChange += OnWeaponChange;
     }
@@ -33,6 +35,11 @@ public class UIManager : MonoBehaviour
         _lifebarImage.fillAmount = currentLife / maxLife;
         _lifeText.text = $"{currentLife} / {maxLife}";
         _currentLife = currentLife;
+    }
+
+    private void OnRemainingKillsChange(int kills, int objectiveKills)
+    {
+        _remainingKillsText.text = $"{kills} / {objectiveKills}";
     }
 
     private void OnAmmoChange(int currentAmmo, int maxAmmo)

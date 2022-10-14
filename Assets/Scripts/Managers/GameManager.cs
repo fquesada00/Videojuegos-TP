@@ -7,12 +7,14 @@ namespace Managers
 {
     public class GameManager : MonoBehaviour
     {
+        const int OBJECTIVE_KILLS = 20; // should be dinamyc
         [SerializeField] private bool _isVictory;
         
         [SerializeField] private Dictionary<int, int> _enemiesKilled;
 
         private void Start()
         {
+            EventsManager.instance.EventRemainingKillsChange(0, OBJECTIVE_KILLS);
             _enemiesKilled = new Dictionary<int, int>();
             EventsManager.instance.OnGameOver += OnGameOver;
             EventsManager.instance.OnEnemyDeath += OnEnemyKilled;
@@ -47,7 +49,9 @@ namespace Managers
                 totalEnemiesKilled += timesKilledEnemy;
             }
 
-            if (totalEnemiesKilled > 3) // TODO: MAGIC NUMBER
+            EventsManager.instance.EventRemainingKillsChange(totalEnemiesKilled, OBJECTIVE_KILLS);
+
+            if (totalEnemiesKilled > OBJECTIVE_KILLS)
             {
                 OnGameOver(true);
             }

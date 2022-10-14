@@ -29,6 +29,7 @@ public class EventsManager : MonoBehaviour
     public event Action<int, int> OnAmmoChange;
     public event Action<int> OnWeaponChange;
     public event Action<float, float> OnCharacterLifeChange;
+    public event Action<int, int> OnRemainingKillsChange;
     
     public void EventAmmoChange(int currentAmmo, int maxAmmo)
     {
@@ -43,6 +44,11 @@ public class EventsManager : MonoBehaviour
     public void EventCharacterLifeChange(float currentLife, float maxLife)
     {
         if (OnCharacterLifeChange != null) OnCharacterLifeChange(currentLife, maxLife);
+    }
+
+    public void EventRemainingKillsChange(int kills, int objectiveKills)
+    {
+        if (OnRemainingKillsChange != null) OnRemainingKillsChange(kills, objectiveKills);
     }
 
 
