@@ -21,6 +21,7 @@ namespace Controllers
         public void TakeDamage(float damage)
         {
             _currentLife -= damage;
+            if(_currentLife < 0) _currentLife = 0;
             _healthDisplay?.setLife(_currentLife, MaxHealth);
             CallCharacterLifeChangeEvent();
             if(_currentLife <= 0)
@@ -32,7 +33,6 @@ namespace Controllers
         public void Die()
         {
             GetComponent<Entity>().Die();
-            CallCharacterLifeChangeEvent();
             if(tag == "Player")
             {
                 EventsManager.instance.GameOver(false);

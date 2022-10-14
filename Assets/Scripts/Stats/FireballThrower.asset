@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _statValues:
     BulletPrefab: {fileID: 654001063225741397, guid: 1703e3f86671d7746964fc9200cd2a42, type: 3}
-    Damage: 100
+    Damage: 50
     ShootCooldown: 1
     MagSize: 0
