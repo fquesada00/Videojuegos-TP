@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,7 +27,7 @@ public class LoadScreenManager : MonoBehaviour
         {
             Debug.Log(async.progress);
             _progressBar.fillAmount = async.progress;
-            _progressValue.text = $"LOADING - {async.progress * 100}%";
+            _progressValue.text = $"LOADING - {Math.Round(async.progress * 100, 2)}%";
             yield return  new WaitForSeconds(0.1f);
         }
     }
