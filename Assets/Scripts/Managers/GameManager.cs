@@ -7,17 +7,20 @@ namespace Managers
 {
     public class GameManager : MonoBehaviour
     {
-        const int OBJECTIVE_KILLS = 20; // should be dinamyc
+        private const int BASE_OBJECTIVE_KILLS = 25;
+        private int _objectiveKills;
         [SerializeField] private bool _isVictory;
         
         [SerializeField] private Dictionary<int, int> _enemiesKilled;
 
         private void Start()
         {
-            EventsManager.instance.EventRemainingKillsChange(0, OBJECTIVE_KILLS);
+            _objectiveKills = BASE_OBJECTIVE_KILLS * (PlayerPrefs.GetInt("Difficulty", 0) +1);
+            EventsManager.instance.EventRemainingKillsChange(0, _objectiveKills);
             _enemiesKilled = new Dictionary<int, int>();
             EventsManager.instance.OnGameOver += OnGameOver;
             EventsManager.instance.OnEnemyDeath += OnEnemyKilled;
+
             //lock cursor
             Cursor.lockState = CursorLockMode.Locked;
         }
@@ -49,9 +52,9 @@ namespace Managers
                 totalEnemiesKilled += timesKilledEnemy;
             }
 
-            EventsManager.instance.EventRemainingKillsChange(totalEnemiesKilled, OBJECTIVE_KILLS);
+            EventsManager.instance.EventRemainingKillsChange(totalEnemiesKilled, _objectiveKills);
 
-            if (totalEnemiesKilled > OBJECTIVE_KILLS)
+            if (totalEnemiesKilled > _objectiveKills)
             {
                 OnGameOver(true);
             }

@@ -20,6 +20,7 @@ public class UIMenuButtonLogic : MonoBehaviour
         _currentDifficulty = (_currentDifficulty + 1) % _difficultiesSprite.Count;
         _currentDifficultyImage.sprite = _difficultiesSprite[_currentDifficulty];
         _currentDifficultyImage.color = Color32.Lerp(Color.white, new Color32(128,0,0,255), _currentDifficulty / (float)_difficultiesSprite.Count);
+        PlayerPrefs.SetInt("Difficulty", _currentDifficulty);
     }
 
     public void ToggleInformationDialog() => _informationDialog.SetActive(!_informationDialog.activeSelf);
