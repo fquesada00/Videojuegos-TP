@@ -10,7 +10,6 @@ namespace Managers
         private const int BASE_OBJECTIVE_KILLS = 25;
         private int _objectiveKills;
         [SerializeField] private bool _isVictory;
-        
         [SerializeField] private Dictionary<int, int> _enemiesKilled;
 
         private void Start()
