@@ -17,6 +17,8 @@ namespace Entities
         public NavMeshAgent NavMeshAgent => _navMeshAgent;
         protected Actor _player;
         private NavMeshAgent _navMeshAgent;
+
+        private Vector3 _prevPosition;
         
 
         protected override void OnEnable()
@@ -27,20 +29,25 @@ namespace Entities
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _wanderTarget = GetRandomGameBoardLocation();
             _speed = this.PatrolStats.Speed;
+            _prevPosition = transform.position;
         }
 
         private void Patrol()
         {
-            if (Vector3.Distance(transform.position, _wanderTarget) < this.PatrolStats.MinWanderTargetDistance)
+            float  travelDistance = _speed * Time.deltaTime;
+            if (Vector3.Distance(transform.position, _wanderTarget) < this.PatrolStats.MinWanderTargetDistance || Vector3.Distance(transform.position, _prevPosition) < travelDistance/2 )
             {
                 _wanderTarget = GetRandomGameBoardLocation();
             }
-                
+
+            _prevPosition = transform.position;
+
             transform.position = Vector3.MoveTowards(
                 transform.position,
                 _wanderTarget,
-                _speed * Time.deltaTime);
+                travelDistance);
             transform.LookAt(_wanderTarget);
+
         }
 
         protected void Update()
