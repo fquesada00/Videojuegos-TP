@@ -14,6 +14,11 @@ public class UIMenuButtonLogic : MonoBehaviour
 
     private int _currentDifficulty = 0;
     
+    private void Start() {
+        _currentDifficulty = PlayerPrefs.GetInt("Difficulty", 0);
+        _currentDifficultyImage.sprite = _difficultiesSprite[_currentDifficulty];
+    }
+
     public void LoadLevelScene() => SceneManager.LoadScene("LoadingScene");
 
     public void ToggleChangeDifficulty() {

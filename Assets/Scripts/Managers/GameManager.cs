@@ -53,7 +53,7 @@ namespace Managers
 
             EventsManager.instance.EventRemainingKillsChange(totalEnemiesKilled, _objectiveKills);
 
-            if (totalEnemiesKilled > _objectiveKills)
+            if (totalEnemiesKilled >= _objectiveKills)
             {
                 OnGameOver(true);
             }
