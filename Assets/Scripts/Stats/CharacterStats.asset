@@ -19,7 +19,7 @@ MonoBehaviour:
     AttackCooldown: 2
     Id: 0
   _actorStatValues:
-    RotationSmoothSpeed: 0.1
+    RotationSmoothSpeed: 0.01
     JumpHeight: 6
     MaxContinuosJumps: 3
     DashSpeedMultiplier: 2
