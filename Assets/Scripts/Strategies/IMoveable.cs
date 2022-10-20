@@ -7,5 +7,5 @@ public interface IMoveable
     void Travel(Vector3 direction);
     void Rotate(float angle);
     void Jump();
-    void Dash();
+    void Dash(Vector3 forwardDir);
 }

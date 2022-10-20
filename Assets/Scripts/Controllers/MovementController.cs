@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class MovementController : MonoBehaviour, IMoveable
 {
-    // Instancias
     private Cooldown _dashCooldown = new Cooldown();
 
     public float Speed => GetComponent<Actor>().ActorStats.MovementSpeed;
@@ -55,11 +54,11 @@ public class MovementController : MonoBehaviour, IMoveable
         _currentContinuosJumps = 0;
     }
 
-    public void Dash()
+    public void Dash(Vector3 forwardDir)
     {
         if (_dashCooldown.IsOnCooldown()) return;
         
-        _rigidbody.AddForce(transform.forward * (Speed * DashSpeedMultiplier), ForceMode.Impulse);
+        _rigidbody.AddForce(forwardDir * (Speed * DashSpeedMultiplier), ForceMode.Impulse);
         StartCoroutine(_dashCooldown.BooleanCooldown(DashCooldown));
     }
 }

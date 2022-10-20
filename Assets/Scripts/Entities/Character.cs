@@ -10,7 +10,6 @@ public class Character : Actor
 {
     // COMANDS
     private CmdJump _cmdJump;
-    private CmdDash _cmdDash;
     private CmdStartRunAnimation _cmdStartRunAnimation;
     private CmdStopRunAnimation _cmdStopRunAnimation;
     private CmdJumpAnimation _cmdJumpAnimation;
@@ -37,7 +36,6 @@ public class Character : Actor
         _weaponController = GetComponent<WeaponController>();
 
         _cmdJump = new CmdJump(_movementController);
-        _cmdDash = new CmdDash(_movementController);
 
         _cmdStartRunAnimation = new CmdStartRunAnimation(_animationController);
         _cmdStopRunAnimation = new CmdStopRunAnimation(_animationController);
@@ -65,7 +63,8 @@ public class Character : Actor
 
         // Dash
         bool isDashing = Input.GetButtonDown("Fire3");
-        if (isDashing) EventQueueManager.instance.AddCommand(_cmdDash);
+        if (isDashing) 
+            EventQueueManager.instance.AddCommand(new CmdDash(_movementController ,_mainCamera.transform.forward));
 
         // Jump
         bool isJumping = Input.GetButtonDown("Jump");
