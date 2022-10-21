@@ -29,6 +29,7 @@ namespace Managers
             Time.timeScale = 0.2f;
             _isVictory = isVictory;
             GlobalDataManager.Instance.SetIsVictory(isVictory);
+            // unlock cursor for end menu
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
             Invoke("LoadEndgameScene", 1); // TODO: MAGIC NUMBER

@@ -28,6 +28,7 @@ public class Character : Actor
 
     // VARIABLES
     private int _currentWeaponIndex = 0;
+    private bool _isPaused = false;
 
     private void Start()
     {
@@ -125,7 +126,14 @@ public class Character : Actor
             EventsManager.instance.EventWeaponChange(_currentWeaponIndex);
         }
         #endregion
-   
+        #region PAUSE
+        if(Input.GetButtonDown("Cancel"))
+        {
+            _isPaused = !_isPaused;
+            EventsManager.instance.EventPauseChange(_isPaused);
+        }
+        #endregion
+
         EventsManager.instance.EventCooldownReduce(Time.deltaTime);
     }
 

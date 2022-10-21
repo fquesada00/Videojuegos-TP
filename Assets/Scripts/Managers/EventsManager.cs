@@ -31,6 +31,7 @@ public class EventsManager : MonoBehaviour
     public event Action<int, int> OnRemainingKillsChange;
     public event Action<float> OnSkillCooldownReduce;
     public event Action<int, float> OnSkillCooldownChange;
+    public event Action<bool> OnPauseChange;
     
     public void EventWeaponChange(int weaponIndex)
     {
@@ -57,6 +58,10 @@ public class EventsManager : MonoBehaviour
         if (OnRemainingKillsChange != null) OnRemainingKillsChange(kills, objectiveKills);
     }
 
+    public void EventPauseChange(bool isPaused)
+    {
+        if (OnPauseChange != null) OnPauseChange(isPaused);
+    }
 
     #endregion
 }

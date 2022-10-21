@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private List<Image> _skillsCooldownImage;
     [SerializeField] private Image _currentWeaponImage;
     [SerializeField] private Image _nextWeaponImage;
+    [SerializeField] private GameObject _pauseMenu;
 
     // Text references
     [SerializeField] private Text _lifeText;
@@ -31,6 +32,7 @@ public class UIManager : MonoBehaviour
         EventsManager.instance.OnSkillCooldownReduce += OnSkillCooldownReduce;
         EventsManager.instance.OnRemainingKillsChange += OnRemainingKillsChange;
         EventsManager.instance.OnWeaponChange += OnWeaponChange;
+        EventsManager.instance.OnPauseChange += OnPauseChange;
     }
 
     private void OnCharacterLifeChange(float currentLife, float maxLife)
@@ -72,4 +74,21 @@ public class UIManager : MonoBehaviour
         _currentWeaponImage.sprite = _weaponSprites[weaponIndex];
     }
 
+    private void OnPauseChange(bool isPaused)
+    {
+        _pauseMenu.SetActive(isPaused);
+        if (isPaused)
+        {
+            // enable cursor
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+            Time.timeScale = 0.1f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            _pauseMenu.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
 }
