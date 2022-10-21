@@ -7,12 +7,12 @@ public class UIManager : MonoBehaviour
 {
     // Image references
     [SerializeField] private Image _lifebarImage;
+    [SerializeField] private List<Image> _skillsCooldownImage;
     [SerializeField] private Image _currentWeaponImage;
     [SerializeField] private Image _nextWeaponImage;
 
     // Text references
     [SerializeField] private Text _lifeText;
-    [SerializeField] private Text _ammoText;
     [SerializeField] private Text _remainingKillsText;
 
     // Sprites references
@@ -20,13 +20,16 @@ public class UIManager : MonoBehaviour
 
     // variables
     private float _currentLife;
+    private List<float> _skillsCooldowns = new List<float> {0, 0};
+    private List<float> _skillsCurrentCooldowns = new List<float> {0, 0};
 
     void Start()
     {
         // Subscribe to events
         EventsManager.instance.OnCharacterLifeChange += OnCharacterLifeChange;
+        EventsManager.instance.OnSkillCooldownChange += OnSkillCooldownChange;
+        EventsManager.instance.OnSkillCooldownReduce += OnSkillCooldownReduce;
         EventsManager.instance.OnRemainingKillsChange += OnRemainingKillsChange;
-        EventsManager.instance.OnAmmoChange += OnAmmoChange;
         EventsManager.instance.OnWeaponChange += OnWeaponChange;
     }
 
@@ -37,14 +40,30 @@ public class UIManager : MonoBehaviour
         _currentLife = currentLife;
     }
 
+    private void OnSkillCooldownChange(int skillIndex, float cooldown)
+    {
+        _skillsCooldowns[skillIndex] = cooldown;
+        _skillsCurrentCooldowns[skillIndex] = cooldown;
+    }
+
+    private void OnSkillCooldownReduce(float timePassed)
+    {
+        for (int i = 0; i < _skillsCooldowns.Count; i++)
+        {
+            if (_skillsCurrentCooldowns[i] > 0)
+            {
+                _skillsCurrentCooldowns[i] -= timePassed;
+                if (_skillsCurrentCooldowns[i] < 0)
+                    _skillsCurrentCooldowns[i] = 0;
+
+                _skillsCooldownImage[i].fillAmount = _skillsCurrentCooldowns[i]/_skillsCooldowns[i];
+            }
+        }
+    }
+
     private void OnRemainingKillsChange(int kills, int objectiveKills)
     {
         _remainingKillsText.text = $"{kills} / {objectiveKills}";
-    }
-
-    private void OnAmmoChange(int currentAmmo, int maxAmmo)
-    {
-        _ammoText.text = $"{currentAmmo}/{maxAmmo}";
     }
 
     private void OnWeaponChange(int weaponIndex)

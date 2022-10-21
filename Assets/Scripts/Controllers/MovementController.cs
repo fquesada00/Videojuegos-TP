@@ -58,6 +58,7 @@ public class MovementController : MonoBehaviour, IMoveable
     {
         if (_dashCooldown.IsOnCooldown()) return;
         
+        EventsManager.instance.EventSkillCooldownChange(1, DashCooldown);
         _rigidbody.AddForce(forwardDir * (Speed * DashSpeedMultiplier), ForceMode.Impulse);
         StartCoroutine(_dashCooldown.BooleanCooldown(DashCooldown));
     }

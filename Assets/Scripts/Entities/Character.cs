@@ -47,8 +47,6 @@ public class Character : Actor
         // _cmdAttackAnimation = new CmdAttackAnimation(_animationController);
         
         _mainCamera = Camera.main;
-
-       
         
         EventQueueManager.instance.AddCommand(new CmdSwitchWeapon(_weaponController, _currentWeaponIndex));
     }
@@ -66,7 +64,8 @@ public class Character : Actor
         if (isDashing) 
             EventQueueManager.instance.AddCommand(new CmdDash(_movementController ,_mainCamera.transform.forward));
 
-        // Jump
+        #region JUMP
+
         bool isJumping = Input.GetButtonDown("Jump");
         if (isJumping)
         {
@@ -80,6 +79,9 @@ public class Character : Actor
             EventQueueManager.instance.AddCommand(_cmdJumpAnimation);
             return;
         } 
+
+        #endregion
+        #region MOVEMENT
 
         bool isMoving = direction.magnitude == 1f;
         float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg +
@@ -101,10 +103,9 @@ public class Character : Actor
 
         EventQueueManager.instance.AddCommand(new CmdRotation(_movementController, _mainCamera.transform.eulerAngles.y));
 
+        #endregion
+        #region ATTACK
 
-
-
-        //Attack
         bool isAttacking = Input.GetButtonDown("Fire1");
         if (isAttacking)
         {
@@ -115,8 +116,6 @@ public class Character : Actor
         }
         
         // Switch Weapon
-
-
         //Weapon Slot 1
         bool switchWeapon = Input.GetKeyDown(_weaponSwitch);
         if (switchWeapon)
@@ -125,6 +124,9 @@ public class Character : Actor
             EventQueueManager.instance.AddCommand(new CmdSwitchWeapon(_weaponController, _currentWeaponIndex));
             EventsManager.instance.EventWeaponChange(_currentWeaponIndex);
         }
+        #endregion
+   
+        EventsManager.instance.EventCooldownReduce(Time.deltaTime);
     }
 
     private void OnCollisionEnter(Collision other)
