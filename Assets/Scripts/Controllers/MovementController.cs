@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using Controllers.Utils;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterController))]
 public class MovementController : MonoBehaviour, IMoveable
 {
+    [SerializeField] private CharacterController _characterController;
     private Cooldown _dashCooldown = new Cooldown();
+    private float _ySpeed = 0f;
 
     public float Speed => GetComponent<Actor>().ActorStats.MovementSpeed;
     public float JumpHeight => GetComponent<Actor>().ActorStats.JumpHeight;
@@ -27,9 +30,27 @@ public class MovementController : MonoBehaviour, IMoveable
         _rigidbody = GetComponent<Rigidbody>();
     }
 
+    private void Update() {
+        if(_ySpeed < 0 && _characterController.isGrounded) {
+            _currentContinuosJumps = 0;
+            _ySpeed = 0;
+        }else{
+            _ySpeed += Physics.gravity.y * Time.deltaTime;
+            _characterController.Move(Vector3.up * _ySpeed * Time.deltaTime);
+            Debug.Log("FALL");
+        }
+        Debug.Log("FALLnt");
+
+    }
+
+    public bool IsGrounded()
+    {
+        return _characterController.isGrounded;
+    }
+
     public void Travel(Vector3 direction)
     {
-        transform.Translate(direction.normalized * (Time.deltaTime * Speed), Space.World);
+        _characterController.Move(direction * Speed * Time.deltaTime);
     }
 
     public void Rotate(float angle)
@@ -43,15 +64,11 @@ public class MovementController : MonoBehaviour, IMoveable
     {
         if (_currentContinuosJumps < MaxContinuosJumps)
         {
+            Debug.Log("Jump");
             _currentContinuosJumps++;
-            _rigidbody.velocity = Vector3.zero;
-            _rigidbody.AddForce(Vector3.up * JumpHeight, ForceMode.Impulse);
+            _ySpeed += Mathf.Sqrt(JumpHeight * -2f * Physics.gravity.y);
+            Debug.Log(_ySpeed);
         }
-    }
-
-    public void ResetJumpsCounter()
-    {
-        _currentContinuosJumps = 0;
     }
 
     public void Dash(Vector3 forwardDir)
@@ -59,7 +76,7 @@ public class MovementController : MonoBehaviour, IMoveable
         if (_dashCooldown.IsOnCooldown()) return;
         
         EventsManager.instance.EventSkillCooldownChange(1, DashCooldown);
-        _rigidbody.AddForce(forwardDir * (Speed * DashSpeedMultiplier), ForceMode.Impulse);
+        _characterController.Move(forwardDir * Speed * 25* DashSpeedMultiplier * Time.deltaTime);
         StartCoroutine(_dashCooldown.BooleanCooldown(DashCooldown));
     }
 }

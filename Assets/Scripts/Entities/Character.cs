@@ -5,7 +5,7 @@ using Commands.Weapons;
 using Controllers;
 using UnityEngine;
 
-[RequireComponent(typeof(MovementController)), RequireComponent(typeof(WeaponController))]
+[RequireComponent(typeof(MovementController))]
 public class Character : Actor
 {
     // COMANDS
@@ -83,6 +83,8 @@ public class Character : Actor
 
         #endregion
         #region MOVEMENT
+        if(_movementController.IsGrounded()) 
+            EventQueueManager.instance.AddCommand(_cmdLandAnimation);
 
         bool isMoving = direction.magnitude == 1f;
         float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg +
@@ -136,16 +138,6 @@ public class Character : Actor
 
         EventsManager.instance.EventCooldownReduce(Time.deltaTime);
     }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.CompareTag("Ground")) {
-            _movementController.ResetJumpsCounter();
-            EventQueueManager.instance.AddCommand(_cmdLandAnimation);
-        }
-    }
-
-    private bool MovedForward() => Input.GetButtonDown("Vertical") && Input.GetAxis("Vertical") > 0;
 
     public override void Die()
     {

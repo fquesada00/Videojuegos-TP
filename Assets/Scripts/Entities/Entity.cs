@@ -29,5 +29,4 @@ public abstract class Entity : MonoBehaviour
             new CmdDeathSound(SoundController).Execute();
     }
 
-    //private EntityStats _entityStats;
 }
