@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 71deccd78fe7ede4a95515a906605554, type: 2}
+--- !u!1 &28888489 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
+  m_PrefabInstance: {fileID: 808186337}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &130474409
 GameObject:
   m_ObjectHideFlags: 0
@@ -1168,7 +1173,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 438596786}
-  m_LocalRotation: {x: 0.25132337, y: 0.000000016654111, z: -0.0000000043243658, w: 0.9679032}
+  m_LocalRotation: {x: 0.25132337, y: 0.000000016656251, z: -0.0000000043249213, w: 0.9679032}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1723,7 +1728,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 771552438}
-  m_LocalRotation: {x: 0.28631657, y: -0.000000028554656, z: 0.0000000085329, w: 0.9581351}
+  m_LocalRotation: {x: 0.28631657, y: -0.000000028554654, z: 0.0000000085329, w: 0.9581351}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2012,6 +2017,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: LightningBall
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100012, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2038,7 +2051,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.373
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2068,6 +2081,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 10800000, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
+      propertyPath: m_Range
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 10800000, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 19800000, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
       propertyPath: InitialModule.startRotationX.minMaxState
       value: 3
@@ -2075,6 +2096,18 @@ PrefabInstance:
     - target: {fileID: 19800000, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
       propertyPath: InitialModule.startRotationY.minMaxState
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800002, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
+      propertyPath: lengthInSec
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800002, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800002, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 19800002, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
@@ -2087,6 +2120,22 @@ PrefabInstance:
     - target: {fileID: 19800002, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
       propertyPath: InitialModule.startRotationY.minMaxState
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800004, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800004, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
+      propertyPath: lengthInSec
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800004, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800004, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 19800004, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
       propertyPath: InitialModule.startSize.scalar
@@ -2111,6 +2160,22 @@ PrefabInstance:
     - target: {fileID: 19800006, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
       propertyPath: InitialModule.startRotationY.minMaxState
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800008, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
+      propertyPath: lengthInSec
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800008, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800008, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800008, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 19800008, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
@@ -5389,6 +5454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterController: {fileID: 2064859067}
+  _dashEffect: {fileID: 28888489}
 --- !u!136 &2064859063
 CapsuleCollider:
   m_ObjectHideFlags: 0
