@@ -22,5 +22,5 @@ MonoBehaviour:
     RotationSmoothSpeed: 0.01
     JumpHeight: 6
     MaxContinuosJumps: 3
-    DashSpeedMultiplier: 2
+    DashSpeedMultiplier: 1500
     DashCooldown: 1

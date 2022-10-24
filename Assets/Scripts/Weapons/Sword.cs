@@ -5,12 +5,12 @@ using Controllers;
 using Strategies;
 using UnityEngine;
 using Controllers.Utils;
+
 [RequireComponent(typeof(Rigidbody), typeof(Collider))]
 public class Sword : Weapon
 {
     public SwordStats SwordStats => _swordStats;
     [SerializeField] private SwordStats _swordStats;
-
 
     private Rigidbody _rigidbody;
 
