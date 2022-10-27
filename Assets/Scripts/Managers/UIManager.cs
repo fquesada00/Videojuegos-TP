@@ -82,7 +82,7 @@ public class UIManager : MonoBehaviour
             // enable cursor
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.Confined;
-            Time.timeScale = 0.1f;
+            Time.timeScale = 0f;
         }
         else
         {

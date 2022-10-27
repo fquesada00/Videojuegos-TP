@@ -12,7 +12,7 @@ public class ActorStats : EntityStats
     public float RotationSmoothSpeed => _actorStatValues.RotationSmoothSpeed;
     public float JumpHeight => _actorStatValues.JumpHeight;
     public int MaxContinuosJumps => _actorStatValues.MaxContinuosJumps;
-    public float DashSpeedMultiplier => _actorStatValues.DashSpeedMultiplier;
+    public float DashPower => _actorStatValues.DashPower;
     public float DashCooldown => _actorStatValues.DashCooldown;
 }
 
@@ -22,6 +22,6 @@ public struct ActorStatValues
     public float RotationSmoothSpeed;
     public float JumpHeight;
     public int MaxContinuosJumps;
-    public float DashSpeedMultiplier;
+    public float DashPower;
     public float DashCooldown;
 }

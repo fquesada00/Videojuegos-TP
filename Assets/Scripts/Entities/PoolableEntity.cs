@@ -9,9 +9,7 @@ public abstract class PoolableEntity : Entity
 
     public virtual void OnDisable()
     {
-        
         parent.ReturnObjectToPool(this);
-        
     }
 
     public override void Die()

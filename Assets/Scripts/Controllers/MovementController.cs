@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Controllers.Utils;
+using Strategies;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController), typeof(GameObject))]
@@ -19,7 +20,7 @@ public class MovementController : MonoBehaviour, IMoveable
     public int MaxContinuosJumps => GetComponent<Actor>().ActorStats.MaxContinuosJumps;
 
     public int CurrentContinuosJumps { get; }
-    public float DashSpeedMultiplier => GetComponent<Actor>().ActorStats.DashSpeedMultiplier;
+    public float DashPower => GetComponent<Actor>().ActorStats.DashPower;
     public float DashCooldown => GetComponent<Actor>().ActorStats.DashCooldown;
     protected int _currentContinuosJumps = 0;
     private float _turnSmoothVelocity;
@@ -78,10 +79,29 @@ public class MovementController : MonoBehaviour, IMoveable
         
         EventsManager.instance.EventSkillCooldownChange(1, DashCooldown);
         __DashVisualEffects();
+        __DashDamage(forwardDir);
 
-        _characterController.Move(forwardDir * DashSpeedMultiplier * Time.deltaTime);
+        _characterController.Move(forwardDir * DashPower);
         _ySpeed = Mathf.Sqrt(-2f * Physics.gravity.y) * forwardDir.normalized.y;
         StartCoroutine(_dashCooldown.BooleanCooldown(DashCooldown));
+    }
+
+    private void __DashDamage(Vector3 dir)
+    {
+        RaycastHit[] hits;
+        hits = Physics.RaycastAll(transform.position, transform.forward, DashPower);
+
+        for (int i = 0; i < hits.Length; i++)
+        {
+            RaycastHit hit = hits[i];
+            GameObject gameObject = hit.transform.gameObject;
+            // Check if it is an enemy
+            if (gameObject.CompareTag("Enemy"))
+            {
+                IDamageable damageable = gameObject.GetComponent<IDamageable>();
+                damageable?.TakeDamage(50); // TODO: MOVE DAMAGE TO STATS
+            }
+        }
     }
 
     private void __DashVisualEffects(){

@@ -9,16 +9,17 @@ public class EnemySpawnManager : MonoBehaviour
     public int enemiesToSpawnSize;
     public float spawnDelay;
     public List<Enemy> enemyPrefabs;
+    private Actor _player;
 
     public SpawnMethod spawnMethod;
 
-    [SerializeField]
-    private Dictionary<int, ObjectPool> _enemyPools;
+    [SerializeField] private Dictionary<int, ObjectPool> _enemyPools;
     
     private NavMeshTriangulation _navMeshTriangulation;
 
     private void Awake()
-    {
+    {            
+        _player = FindObjectOfType<Actor>();
         _enemyPools = new Dictionary<int, ObjectPool>();
         spawnMethod = SpawnMethod.Random;
         _navMeshTriangulation = NavMesh.CalculateTriangulation();
@@ -81,17 +82,32 @@ public class EnemySpawnManager : MonoBehaviour
         {
             int vertexIndex = Random.Range(0, _navMeshTriangulation.vertices.Length);
 
-            NavMeshHit hit;
             NavMeshAgent agent = PoolableEntity.GetComponent<NavMeshAgent>();
 
-            if (agent != null && NavMesh.SamplePosition(_navMeshTriangulation.vertices[vertexIndex], out hit, 1f, NavMesh.AllAreas))
+            if (agent != null) // TODO: MAGIC NUMBER
             {
-                agent.Warp(hit.position);
+                agent.Warp(GetRandomPositionOnNavMesh(_player.transform.position, 100));
                 agent.enabled = true;
-            }            
+            }
         }
     }
 
+    public static Vector3 GetRandomPositionOnNavMesh(Vector3 origin, float maxDistance)
+    {
+        Vector3 randomPosition = origin + Random.insideUnitSphere * maxDistance;
+        float positionMargin = 1000; // TODO: MAGIC NUMBER
+        bool foundLocation = false;
+        NavMeshHit hit;
+        while (!foundLocation)
+        {
+            foundLocation = NavMesh.SamplePosition(randomPosition, out hit, positionMargin, NavMesh.AllAreas);
+            if(foundLocation) return hit.position;
+
+            positionMargin += 1000; // TODO: MAGIC NUMBER
+        }
+
+        return Vector3.zero;
+    }
 
     public enum SpawnMethod
     {
