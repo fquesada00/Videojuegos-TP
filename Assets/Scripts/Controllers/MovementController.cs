@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Controllers.Utils;
 using Strategies;
 using UnityEngine;
+using Constants;
 
 [RequireComponent(typeof(CharacterController), typeof(GameObject))]
 public class MovementController : MonoBehaviour, IMoveable
@@ -13,18 +14,16 @@ public class MovementController : MonoBehaviour, IMoveable
     private Cooldown _dashCooldown = new Cooldown();
     private float _ySpeed = 0f;
     private float DASH_EFFECTS_DURATION = 0.5f;
-
     public float Speed => GetComponent<Actor>().ActorStats.MovementSpeed;
+    public float Damage => GetComponent<Actor>().ActorStats.Damage;
     public float JumpHeight => GetComponent<Actor>().ActorStats.JumpHeight;
     public float RotationSmoothSpeed => GetComponent<Actor>().ActorStats.RotationSmoothSpeed;
     public int MaxContinuosJumps => GetComponent<Actor>().ActorStats.MaxContinuosJumps;
-
     public int CurrentContinuosJumps { get; }
     public float DashPower => GetComponent<Actor>().ActorStats.DashPower;
     public float DashCooldown => GetComponent<Actor>().ActorStats.DashCooldown;
     protected int _currentContinuosJumps = 0;
     private float _turnSmoothVelocity;
-
     private Rigidbody _rigidbody;
 
     private void Start() {
@@ -69,7 +68,6 @@ public class MovementController : MonoBehaviour, IMoveable
         {
             _currentContinuosJumps++;
             _ySpeed += Mathf.Sqrt(JumpHeight * -2f * Physics.gravity.y);
-            Debug.Log(_ySpeed);
         }
     }
 
@@ -79,17 +77,16 @@ public class MovementController : MonoBehaviour, IMoveable
         
         EventsManager.instance.EventSkillCooldownChange(1, DashCooldown);
         __DashVisualEffects();
-        __DashDamage(forwardDir);
+        __Dash(forwardDir);
 
-        _characterController.Move(forwardDir * DashPower);
         _ySpeed = Mathf.Sqrt(-2f * Physics.gravity.y) * forwardDir.normalized.y;
         StartCoroutine(_dashCooldown.BooleanCooldown(DashCooldown));
     }
 
-    private void __DashDamage(Vector3 dir)
+    private void __Dash(Vector3 dir)
     {
         RaycastHit[] hits;
-        hits = Physics.RaycastAll(transform.position, transform.forward, DashPower);
+        hits = Physics.SphereCastAll(transform.position, 1, transform.forward, DashPower);
 
         for (int i = 0; i < hits.Length; i++)
         {
@@ -99,9 +96,14 @@ public class MovementController : MonoBehaviour, IMoveable
             if (gameObject.CompareTag("Enemy"))
             {
                 IDamageable damageable = gameObject.GetComponent<IDamageable>();
-                damageable?.TakeDamage(50); // TODO: MOVE DAMAGE TO STATS
+                damageable?.TakeDamage(Damage); 
             }
         }
+
+        // avoid collision with enemies
+        Physics.IgnoreLayerCollision((int)Constants.Layers.PLAYER, (int)Constants.Layers.ENEMY, true);
+        _characterController.Move(dir * DashPower);
+        Physics.IgnoreLayerCollision((int)Constants.Layers.PLAYER, (int)Constants.Layers.ENEMY, false);
     }
 
     private void __DashVisualEffects(){

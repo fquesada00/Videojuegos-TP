@@ -15,7 +15,7 @@ MonoBehaviour:
   _entityStatValues:
     MaxHealth: 30000000
     MovementSpeed: 12
-    Damage: 10
+    Damage: 10000
     AttackCooldown: 2
     Id: 0
   _actorStatValues:
