@@ -100,10 +100,7 @@ public class MovementController : MonoBehaviour, IMoveable
             }
         }
 
-        // avoid collision with enemies
-        Physics.IgnoreLayerCollision((int)Constants.Layers.PLAYER, (int)Constants.Layers.ENEMY, true);
         _characterController.Move(dir * DashPower);
-        Physics.IgnoreLayerCollision((int)Constants.Layers.PLAYER, (int)Constants.Layers.ENEMY, false);
     }
 
     private void __DashVisualEffects(){

@@ -19,7 +19,9 @@ namespace Managers
             _enemiesKilled = new Dictionary<int, int>();
             EventsManager.instance.OnGameOver += OnGameOver;
             EventsManager.instance.OnEnemyDeath += OnEnemyKilled;
-
+            
+            // avoid collision with enemies
+            Physics.IgnoreLayerCollision((int)Constants.Layers.PLAYER, (int)Constants.Layers.ENEMY, true);
             //lock cursor
             Cursor.lockState = CursorLockMode.Locked;
         }
