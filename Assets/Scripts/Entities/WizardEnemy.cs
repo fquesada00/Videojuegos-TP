@@ -34,6 +34,7 @@ public class WizardEnemy : Enemy
         
         _whisperCooldown = new Cooldown();
         _cmdWhisperSound = new CmdWhisperSound(base.SoundController);
+        Whisper();
     }
 
     // Update is called once per frame
