@@ -2,20 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool
+public class EntityPool
 {
     private PoolableEntity _prefab;
     private List<PoolableEntity> _availableObjects;
 
-    private ObjectPool(PoolableEntity prefab, int size)
+    private EntityPool(PoolableEntity prefab, int size)
     {
         _prefab = prefab;
         _availableObjects = new List<PoolableEntity>(size);
     }
 
-    public static ObjectPool CreateInstance(PoolableEntity prefab, int size)
+    public static EntityPool CreateInstance(PoolableEntity prefab, int size)
     {
-        ObjectPool pool = new ObjectPool(prefab, size);
+        EntityPool pool = new EntityPool(prefab, size);
         
         GameObject poolObject = new GameObject(prefab.name + " Pool");
         pool.CreateObjects(poolObject.transform, size);

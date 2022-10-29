@@ -8,50 +8,58 @@ public class EnemySpawnManager : MonoBehaviour
 {
     public int enemiesToSpawnSize;
     public float spawnDelay;
+    public int batchSize;
     public List<Enemy> enemyPrefabs;
     private Actor _player;
-
+    private int _currentEnemyCount;
     public SpawnMethod spawnMethod;
 
-    [SerializeField] private Dictionary<int, ObjectPool> _enemyPools;
+    [SerializeField] private Dictionary<int, EntityPool> _enemyPools;
     
     private NavMeshTriangulation _navMeshTriangulation;
 
     private void Awake()
     {            
         _player = FindObjectOfType<Actor>();
-        _enemyPools = new Dictionary<int, ObjectPool>();
+        _enemyPools = new Dictionary<int, EntityPool>();
         spawnMethod = SpawnMethod.Random;
         _navMeshTriangulation = NavMesh.CalculateTriangulation();
+        _currentEnemyCount = 0;
         for (int i = 0; i < enemyPrefabs.Count; i++)
         {
-            _enemyPools.Add(i, ObjectPool.CreateInstance(enemyPrefabs[i], enemiesToSpawnSize));
+            _enemyPools.Add(i, EntityPool.CreateInstance(enemyPrefabs[i], enemiesToSpawnSize));
         }
     }
 
     private void EnemyDeath(int enemyId)
     {
-        StartCoroutine(SpawnEnemyWithDelay());
+        _currentEnemyCount--;
     }
 
     private void Start()
     {
         EventsManager.instance.OnEnemyDeath += EnemyDeath;
-        StartCoroutine(SpawnEnemies());
+        StartCoroutine(SpawnEnemyBatchAfterSeconds(spawnDelay));
     }
 
-    private IEnumerator SpawnEnemies()
+    private IEnumerator SpawnEnemyBatchAfterSeconds(float spawnDelay)
     {
-        WaitForSeconds wait = new WaitForSeconds(spawnDelay);
+        while (true)
+        {
+            SpawnEnemyBatch();
+            yield return new WaitForSeconds(spawnDelay);
+        }
+    }
 
-        int spawnedEnemies = 0;
+    private void SpawnEnemyBatch()
+    {
+        int enemiesSpawnedInBatch = 0;
 
-        while (spawnedEnemies < enemiesToSpawnSize)
+        while (_currentEnemyCount < enemiesToSpawnSize && enemiesSpawnedInBatch < batchSize )
         {
             SpawnEnemy();
-            spawnedEnemies++;
-
-            yield return wait;
+            _currentEnemyCount++;
+            enemiesSpawnedInBatch++;
         }
     }
 
@@ -61,13 +69,6 @@ public class EnemySpawnManager : MonoBehaviour
         {
             SpawnRandomEnemy();
         }
-    }
-
-    private IEnumerator SpawnEnemyWithDelay()
-    {
-        WaitForSeconds wait = new WaitForSeconds(spawnDelay);
-        yield return wait;
-        SpawnEnemy();
     }
 
     private void SpawnRandomEnemy()

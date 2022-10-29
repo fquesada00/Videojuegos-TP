@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class PoolableEntity : Entity
 {
 
-    public ObjectPool parent;
+    public EntityPool parent;
 
     public virtual void OnDisable()
     {
