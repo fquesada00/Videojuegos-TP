@@ -9769,4 +9769,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb016edad044e5fbeaa840874b435a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropStats: {fileID: 11400000, guid: 0b208d85056d2274d86f85ca064a7e79, type: 2}
+  _dropStats: {fileID: 11400000, guid: 0b208d85056d2274d86f85ca064a7e79, type: 2}

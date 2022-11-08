@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using FlyWeights.EntitiesStats;
+using FlyWeights.DropsStats;
 using Controllers.NavMesh;
 using Controllers;
+using Entities.Drops;
 
 public abstract class Enemy : PoolableEntity
 {
@@ -12,7 +14,15 @@ public abstract class Enemy : PoolableEntity
 
     public override EntityStats Stats => _enemyStats;
     public EnemyStats EnemyStats => _enemyStats;
+    public DropListStats DropListStats => _dropListStats;
     [SerializeField] private EnemyStats _enemyStats;
+    [SerializeField] private DropListStats _dropListStats;
+    private Spawner<Drop> _dropSpawner;
+
+    private void Awake()
+    {
+        _dropSpawner = new Spawner<Drop>();
+    }
 
     public abstract void Attack();
 
@@ -30,10 +40,13 @@ public abstract class Enemy : PoolableEntity
 
     public override void Die()
     {
-        // drop a potion with 25% chance
-        if (Random.Range(0, 100) < 25)
+        foreach (var possibleDrop in DropListStats.PossibleDropsStats)
         {
-            var potion = Instantiate(_enemyStats.PotionPrefab, transform.position, transform.rotation);
+            if (Random.Range(0f, 1f) < possibleDrop.DropChance)
+            {
+                var drop = _dropSpawner.Create(possibleDrop.prefab);
+                drop.transform.position = transform.position;
+            }
         }
 
         base.Die();

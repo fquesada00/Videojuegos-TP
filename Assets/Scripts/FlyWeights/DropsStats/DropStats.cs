@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace FlyWeights
+namespace FlyWeights.DropsStats
 {
     [CreateAssetMenu(fileName = "DropStats", menuName = "Stats/Drop", order = 0)]
     public class DropStats : ScriptableObject

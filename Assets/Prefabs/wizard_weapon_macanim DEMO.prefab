@@ -16992,6 +16992,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyStats: {fileID: 11400000, guid: 0c976e21fe73d70408b98461bdbcdf7b, type: 2}
+  _dropListStats: {fileID: 11400000, guid: bde8f90de6af18046b429cd314b58a92, type: 2}
 --- !u!65 &4528933039970430106
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11e079bd05355484db1e7e01a879f503, type: 3}
-  m_Name: HealthPotion
+  m_Script: {fileID: 11500000, guid: 7717a217979a4f347802e636026530f4, type: 3}
+  m_Name: CommonEnemyDrops
   m_EditorClassIdentifier: 
-  _statValues:
-    Value: 150
-    Type: 0
+  _possibleDropsStats:
+  - DropChance: 0.25
+    prefab: {fileID: 5247667137446652117, guid: 7cafb89b5a0f61f479d0a748962abbbc, type: 3}

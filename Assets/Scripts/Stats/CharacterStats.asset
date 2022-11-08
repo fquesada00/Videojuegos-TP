@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CharacterStats
   m_EditorClassIdentifier: 
   _entityStatValues:
-    MaxHealth: 30000000
+    MaxHealth: 1000
     MovementSpeed: 12
     Damage: 10000
     AttackCooldown: 2
