@@ -1,9 +1,8 @@
-﻿using Controllers;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Strategies
 {
-    public interface IPotion
+    public interface IDrop
     {
         Rigidbody Rigidbody { get; }
     

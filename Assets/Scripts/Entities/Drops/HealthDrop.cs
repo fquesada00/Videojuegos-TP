@@ -1,12 +1,12 @@
 ﻿using Strategies;
 
-namespace Entities
+namespace Entities.Drops
 {
-    public class HealthPotion : Potion
+    public class HealthDrop : Drop
     {
         public override void Take(IDamageable damageable)
         {
-            damageable.AddHealth(PotionStats.Value);
+            damageable.AddHealth(DropStats.Value);
         }
     }
 }

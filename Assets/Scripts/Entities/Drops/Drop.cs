@@ -3,12 +3,12 @@ using FlyWeights;
 using Strategies;
 using UnityEngine;
 
-namespace Entities
+namespace Entities.Drops
 {
-    public abstract class Potion : MonoBehaviour, IPotion
+    public abstract class Drop : MonoBehaviour, IDrop
     {
-        public PotionStats PotionStats => _potionStats;
-        [SerializeField] private PotionStats _potionStats;
+        public DropStats DropStats => _dropStats;
+        [SerializeField] private DropStats _dropStats;
         
         private Rigidbody _rigidbody;
         public Rigidbody Rigidbody => _rigidbody;
