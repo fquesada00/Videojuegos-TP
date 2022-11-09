@@ -7,6 +7,7 @@ namespace Strategies
         Rigidbody Rigidbody { get; }
     
         Collider Collider { get; }
-        public void Take(IDamageable damageable);
+        
+        public void Take(Entity entity);
     }
 }

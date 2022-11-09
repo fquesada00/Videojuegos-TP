@@ -31,12 +31,12 @@ namespace Entities.Drops
         {
             if (other.CompareTag("Player"))
             {
-                IDamageable damageable = other.GetComponent<IDamageable>();
-                Take(damageable);
+                Entity entity = other.GetComponent<Entity>();
+                Take(entity);
                 Destroy(gameObject);
             }
         }
 
-        public abstract void Take(IDamageable damageable);
+        public abstract void Take(Entity entity);
     }
 }

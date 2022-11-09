@@ -9,7 +9,7 @@ public class EntityStats : ScriptableObject
 
         public float MaxHealth => _entityStatValues.MaxHealth;
 
-        public float MovementSpeed => _entityStatValues.MovementSpeed;
+        public float BaseMovementSpeed => _entityStatValues.BaseMovementSpeed;
 
         public float Damage => _entityStatValues.Damage;
 
@@ -22,9 +22,8 @@ public class EntityStats : ScriptableObject
 public struct EntityStatValues
 {
     public int MaxHealth;
-    public float MovementSpeed;
+    public float BaseMovementSpeed;
     public float Damage;
-
     public float AttackCooldown;
     public int Id;
 

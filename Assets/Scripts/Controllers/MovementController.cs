@@ -14,7 +14,8 @@ public class MovementController : MonoBehaviour, IMoveable
     private Cooldown _dashCooldown = new Cooldown();
     private float _ySpeed = 0f;
     private float DASH_EFFECTS_DURATION = 0.5f;
-    public float Speed => GetComponent<Actor>().ActorStats.MovementSpeed;
+    public float SpeedMultiplier {get; set;} = 1f;
+    public float Speed => GetComponent<Actor>().ActorStats.BaseMovementSpeed * SpeedMultiplier;
     public float Damage => GetComponent<Actor>().ActorStats.Damage;
     public float JumpHeight => GetComponent<Actor>().ActorStats.JumpHeight;
     public float RotationSmoothSpeed => GetComponent<Actor>().ActorStats.RotationSmoothSpeed;

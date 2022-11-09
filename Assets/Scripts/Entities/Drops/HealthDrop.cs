@@ -4,9 +4,9 @@ namespace Entities.Drops
 {
     public class HealthDrop : Drop
     {
-        public override void Take(IDamageable damageable)
+        public override void Take(Entity entity)
         {
-            damageable.AddHealth(DropStats.Value);
+            entity.GetComponentInChildren<IDamageable>().AddHealth(DropStats.Value);
         }
     }
 }

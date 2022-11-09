@@ -86,7 +86,7 @@ public class Character : Actor
         if(_movementController.IsGrounded()) 
             EventQueueManager.instance.AddCommand(_cmdLandAnimation);
 
-        bool isMoving = direction.magnitude == 1f;
+        bool isMoving = direction.magnitude >= 1f;
         float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg +
                                 _mainCamera.transform.eulerAngles.y;
 
