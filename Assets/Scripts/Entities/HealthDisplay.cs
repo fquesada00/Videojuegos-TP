@@ -14,6 +14,8 @@ public class HealthDisplay : MonoBehaviour
 
     private Cooldown _cooldown;
 
+    private Coroutine _coroutine;
+
     //private Image _lifebarImage;
     //private Text _lifeText;
     // Start is called before the first frame update
@@ -21,6 +23,7 @@ public class HealthDisplay : MonoBehaviour
     void set(bool active)
     {
         this.GetComponent<Canvas>().enabled = active;
+        if (!active) _coroutine = null;
     }
 
     void Start()
@@ -37,13 +40,18 @@ public class HealthDisplay : MonoBehaviour
 
     public void setLife(float currentLife, float maxLife)
     {
+        if (_coroutine != null)
+        {
+            StopCoroutine(_coroutine);
+        }
 
         set(true);
         _lifebarImage.fillAmount = currentLife / maxLife;
         _lifebarImage.color = colorGradient.Evaluate(currentLife / maxLife);
         _lifeText.text = $"{currentLife} / {maxLife}";
 
-        StartCoroutine(_cooldown.CallbackCooldown(2f, () => set(false)));
+        
+         _coroutine = StartCoroutine(_cooldown.CallbackCooldown(2f, () => set(false)));
     }
 
 }
