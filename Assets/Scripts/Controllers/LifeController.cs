@@ -22,7 +22,7 @@ namespace Controllers
         {
             _currentLife -= damage;
             if(_currentLife < 0) _currentLife = 0;
-            _healthDisplay?.setLife(_currentLife, MaxHealth);
+            _healthDisplay?.TakeDamage(_currentLife, MaxHealth, damage);
             CallCharacterLifeChangeEvent();
             if(_currentLife <= 0)
             {
