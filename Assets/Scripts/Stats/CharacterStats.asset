@@ -17,6 +17,7 @@ MonoBehaviour:
     BaseMovementSpeed: 10
     Damage: 10000
     AttackCooldown: 2
+    CritProbability: 0.25
     Id: 0
   _actorStatValues:
     RotationSmoothSpeed: 0.01

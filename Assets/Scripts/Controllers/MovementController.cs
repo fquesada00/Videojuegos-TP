@@ -97,7 +97,7 @@ public class MovementController : MonoBehaviour, IMoveable
             if (gameObject.CompareTag("Enemy"))
             {
                 IDamageable damageable = gameObject.GetComponent<IDamageable>();
-                damageable?.TakeDamage(Damage); 
+                damageable?.TakeDamage(Damage, false); 
             }
         }
 

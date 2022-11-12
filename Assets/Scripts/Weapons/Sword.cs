@@ -19,6 +19,8 @@ public class Sword : Weapon
 
     private Cooldown _attackCooldown;
 
+    private bool _crit = false;
+
     private new void Start()
     {
         base.Start();
@@ -35,9 +37,10 @@ public class Sword : Weapon
     }
 
 
-    public override void Attack()
+    public override void Attack(bool crit)
     {
-        base.Attack();
+        base.Attack(crit);
+        _crit = crit;
         _collider.enabled = true;
         // StartCoroutine(
         //  _attackCooldown.CallbackCooldown(SwordStats.AttackCooldown, () =>
@@ -54,7 +57,7 @@ public class Sword : Weapon
         {
             _collider.enabled = false;
             IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
-            damageable?.TakeDamage(this.Damage());
+            damageable?.TakeDamage(SwordStats.Damage, _crit);
         }
     }
 }

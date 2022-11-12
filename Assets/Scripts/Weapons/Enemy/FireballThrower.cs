@@ -34,14 +34,14 @@ public class FireballThrower : Weapon, IGun
     public void Update()
     {
         //look at center of screen
-        var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0));
-        transform.LookAt(ray.GetPoint(100));
+        //var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0));
+        //transform.LookAt(ray.GetPoint(100));
 
     }
 
-    public override void Attack()
+    public override void Attack(bool crit)
     {
-        base.Attack();
+        base.Attack(crit);
         // get the gun hole position
 
         var bullet = Instantiate(BulletPrefab, transform.position, Quaternion.LookRotation(transform.forward));
@@ -56,6 +56,8 @@ public class FireballThrower : Weapon, IGun
         iBullet.CollisionTag = "Player";
         iBullet.SetSpeed(_bulletStats.Speed);
         iBullet.SetLifeTime(_bulletStats.LifeTime);
+        iBullet.Damage = Stats.Damage;
+        iBullet.Crit = crit;
 
         _bulletCount--;
     }

@@ -18,11 +18,12 @@ namespace Controllers
             CallCharacterLifeChangeEvent();
         }
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(float damage, bool crit)
         {
+            damage = crit ? damage * 2 : damage;
             _currentLife -= damage;
             if(_currentLife < 0) _currentLife = 0;
-            _healthDisplay?.TakeDamage(_currentLife, MaxHealth, damage);
+            _healthDisplay?.TakeDamage(_currentLife, MaxHealth, damage, crit);
             CallCharacterLifeChangeEvent();
             if(_currentLife <= 0)
             {

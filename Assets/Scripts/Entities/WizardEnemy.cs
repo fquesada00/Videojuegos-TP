@@ -58,7 +58,7 @@ public class WizardEnemy : Enemy
     {
         if (_attackCooldown.IsOnCooldown()) return;
         GetComponent<Animator>().SetTrigger("attack");
-        _wand.Attack();
+        _wand.Attack(false);
         StartCoroutine(_attackCooldown.BooleanCooldown(this.EnemyStats.AttackCooldown));
     }
 

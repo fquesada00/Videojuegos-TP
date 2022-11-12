@@ -30,6 +30,19 @@ namespace Entities
             set => _collisionTag = value;
         }
 
+        private float _damage;
+        public float Damage
+        {
+            get => _damage;
+            set => _damage = value;
+        }
+
+        private bool _crit;
+        public bool Crit
+        {
+            get => _crit;
+            set => _crit = value;
+        }
         void Start()
         {
             _rigidbody = GetComponent<Rigidbody>();
@@ -65,7 +78,7 @@ namespace Entities
             if (other.gameObject.CompareTag(_collisionTag))
             {
                 IDamageable damageable = other.GetComponent<IDamageable>();
-                damageable?.TakeDamage(_owner.Damage());
+                damageable?.TakeDamage(Damage, Crit);
                 Destroy(this.gameObject);
             }
 

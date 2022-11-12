@@ -17,6 +17,10 @@ namespace Strategies
 
         string CollisionTag { get; set; }
 
+        float Damage { get; set; }
+
+        bool Crit { get; set; }
+
         // always forward
         void Travel();
     

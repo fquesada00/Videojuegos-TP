@@ -38,11 +38,14 @@ public class HealthDisplay : MonoBehaviour
 
     }
 
-    private void ShowHit(float damage){
+    private void ShowHit(float damage, bool crit){
         //instanciate hit text
         Text hitText = Instantiate(_hitTemplate, transform);
         hitText.text = damage.ToString();
-        hitText.gameObject.SetActive(true);        
+        hitText.gameObject.SetActive(true);     
+        //set color
+        if (crit) hitText.color = Color.red;
+        else hitText.color = Color.yellow;   
         //hitText.gameObject.transform.parent = this.GetComponent<Canvas>().transform;
 
     }
@@ -55,7 +58,7 @@ public class HealthDisplay : MonoBehaviour
 
     }
 
-    public void TakeDamage(float currentLife, float maxLife, float damage)
+    public void TakeDamage(float currentLife, float maxLife, float damage, bool crit)
     {
         if (_coroutine != null)
         {
@@ -64,7 +67,7 @@ public class HealthDisplay : MonoBehaviour
 
         set(true);
         updateHealthBar(currentLife, maxLife);
-        ShowHit(damage);
+        ShowHit(damage, crit);
         
     }
 

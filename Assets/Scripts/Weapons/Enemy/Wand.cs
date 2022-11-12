@@ -20,6 +20,8 @@ public class Wand : Weapon
 
     private Cooldown _attackCooldown;
 
+    private bool _crit = false;
+
     private new void Start()
     {
         base.Start();
@@ -36,9 +38,10 @@ public class Wand : Weapon
     }
 
 
-    public override void Attack()
+    public override void Attack(bool crit)
     {
-        base.Attack();
+        base.Attack(crit);
+        _crit = crit;
         _collider.enabled = true;
     }
 
@@ -48,7 +51,7 @@ public class Wand : Weapon
         {
             _collider.enabled = false;
             IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
-            damageable?.TakeDamage(Damage());
+            damageable?.TakeDamage(SwordStats.Damage, _crit);
         }
     }
 }

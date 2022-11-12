@@ -31,9 +31,9 @@ namespace Weapons
             
         }
 
-        public override void Attack()
+        public override void Attack(bool crit)
         {
-            base.Attack();
+            base.Attack(crit);
             // get the gun hole position
             var gunHoleTransform = transform.Find("Gun_Bullet_Hole");
             
@@ -45,6 +45,8 @@ namespace Weapons
             iBullet.SetOwner(this);
             iBullet.SetSpeed(_bulletStats.Speed);
             iBullet.SetLifeTime(_bulletStats.LifeTime);
+            iBullet.Damage = Stats.Damage;
+            iBullet.Crit = crit;
             
             _bulletCount--;
         }

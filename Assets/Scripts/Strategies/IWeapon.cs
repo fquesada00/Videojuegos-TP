@@ -6,12 +6,10 @@ public interface IWeapon
 
     WeaponStats WeaponStats { get; }  
 
-    void Attack();
+    void Attack(bool crit);
 
     // void PlayAnimation();
     AnimatorOverrideController OverrideController { get; }
-
-    public float Damage();
 
     void OverrideAnimatorController();
 }

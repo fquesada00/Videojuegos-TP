@@ -14,6 +14,8 @@ public class EntityStats : ScriptableObject
         public float Damage => _entityStatValues.Damage;
 
         public float AttackCooldown => _entityStatValues.AttackCooldown;
+
+        public float CritProbability => _entityStatValues.CritProbability;
         
         public int Id => _entityStatValues.Id;
     }
@@ -25,6 +27,7 @@ public struct EntityStatValues
     public float BaseMovementSpeed;
     public float Damage;
     public float AttackCooldown;
+    public float CritProbability;
     public int Id;
 
 }

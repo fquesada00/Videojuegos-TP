@@ -8,7 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(SoundController), typeof(AnimatorOverrideController))]
 public abstract class Weapon : MonoBehaviour, IWeapon
 {
-    public virtual void Attack()
+    public virtual void Attack(bool crit)
     {
         _cmdAttackSound.Execute();
     }
@@ -27,15 +27,6 @@ public abstract class Weapon : MonoBehaviour, IWeapon
     private CmdAttackSound _cmdAttackSound;
 
     public abstract WeaponStats WeaponStats { get; }
-
-    public float Damage(){
-        //10% chance to crit
-        if (UnityEngine.Random.Range(0,10) == 0)
-        {
-            return WeaponStats.Damage * 2;
-        }
-        return WeaponStats.Damage;
-    }
 
     protected void Start()
     {

@@ -9,6 +9,7 @@ using Weapons;
 
 namespace Controllers
 {
+    [RequireComponent(typeof(Entity))]
     public class WeaponController : MonoBehaviour, IAttackable
     {
         [SerializeField] private List<Weapon> _weapons;
@@ -44,8 +45,9 @@ namespace Controllers
             // {
             //     _currentWeapon.Attack();
             // }
-            
-            _currentWeapon.Attack();
+            float critProbability = GetComponent<Entity>().Stats.CritProbability;
+            bool crit = UnityEngine.Random.Range(0.0f,1.0f) <= critProbability;
+            _currentWeapon.Attack(crit);
         }
 
         public void SwitchWeapon(int index)

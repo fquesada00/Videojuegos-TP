@@ -4,7 +4,7 @@
     {
         float MaxHealth { get; }
         
-        void TakeDamage(float damage);
+        void TakeDamage(float damage, bool crit);
         
         void Die();
         

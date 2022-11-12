@@ -47,7 +47,7 @@ public class LizardEnemy : PatrolEnemy
     {
         if (_attackCooldown.IsOnCooldown()) return;
         _animator.SetTrigger(AttackId);
-        _fireballThrower.Attack();
+        _fireballThrower.Attack(false);
         StartCoroutine(_attackCooldown.BooleanCooldown(this.EnemyStats.AttackCooldown));
     }
 }
