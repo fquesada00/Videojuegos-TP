@@ -63,7 +63,7 @@ namespace Controllers
             }
 
             _currentWeapon = _weapons[index];
-            _currentWeapon.OverrideAnimatorController();
+            _animationController.SetWeapon(index);
         }
     }
 }

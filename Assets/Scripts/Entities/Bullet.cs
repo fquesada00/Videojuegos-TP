@@ -54,19 +54,10 @@ namespace Entities
             _rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
 
             _rigidbody.velocity = transform.forward * _speed;
+
+            Destroy(gameObject, _lifeTime);
         }
 
-        private void Update()
-        {
-            _lifeTime -= Time.deltaTime;
-
-            if (_lifeTime <= 0)
-            {
-                Destroy(this.gameObject);
-            }
-
-            //Travel();
-        }
 
         public void Travel()
         {
@@ -79,8 +70,9 @@ namespace Entities
             {
                 IDamageable damageable = other.GetComponent<IDamageable>();
                 damageable?.TakeDamage(Damage, Crit);
-                Destroy(this.gameObject);
+                
             }
+            Destroy(this.gameObject);
 
 
         }

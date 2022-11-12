@@ -10,10 +10,6 @@ public class Character : Actor
 {
     // COMANDS
     private CmdJump _cmdJump;
-    private CmdStartRunAnimation _cmdStartRunAnimation;
-    private CmdStopRunAnimation _cmdStopRunAnimation;
-    private CmdJumpAnimation _cmdJumpAnimation;
-    private CmdLandAnimation _cmdLandAnimation;
     private CmdAttack _cmdAttack;
     private CmdAttackAnimation _cmdAttackAnimation;
 
@@ -38,11 +34,6 @@ public class Character : Actor
 
         _cmdJump = new CmdJump(_movementController);
 
-        _cmdStartRunAnimation = new CmdStartRunAnimation(_animationController);
-        _cmdStopRunAnimation = new CmdStopRunAnimation(_animationController);
-
-        _cmdJumpAnimation = new CmdJumpAnimation(_animationController);
-        _cmdLandAnimation = new CmdLandAnimation(_animationController);
         
         _cmdAttack = new CmdAttack(_weaponController);
         // _cmdAttackAnimation = new CmdAttackAnimation(_animationController);
@@ -67,24 +58,21 @@ public class Character : Actor
 
         #region JUMP
 
-        bool isJumping = Input.GetButtonDown("Jump");
-        if (isJumping)
-        {
-            if(_animationController.IsRunning) {
-                // shutdown every animation immediately
-                _animationController.StopAllAnimations();
-                // EventQueueManager.instance.AddCommand(_cmdStopRunAnimation);
-            }
-                
+        bool jump = Input.GetButtonDown("Jump");
+        if (jump)
+        {                
             EventQueueManager.instance.AddCommand(_cmdJump);
-            EventQueueManager.instance.AddCommand(_cmdJumpAnimation);
-            return;
+            //EventQueueManager.instance.AddCommand(_cmdJumpAnimation);
+            //return;
         } 
 
         #endregion
+        
+        EventQueueManager.instance.AddCommand(new CmdGroundAnimation(_animationController, _movementController.IsGrounded()));
+
         #region MOVEMENT
-        if(_movementController.IsGrounded()) 
-            EventQueueManager.instance.AddCommand(_cmdLandAnimation);
+        //if(_movementController.IsGrounded()) 
+            //EventQueueManager.instance.AddCommand(_cmdLandAnimation);
 
         bool isMoving = direction.magnitude >= 1f;
         float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg +

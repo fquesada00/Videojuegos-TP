@@ -48,7 +48,7 @@ public class MovementController : MonoBehaviour, IMoveable
 
     public bool IsGrounded()
     {
-        return _characterController.isGrounded;
+        return Physics.Raycast(transform.position, Vector3.down, 0.3f);
     }
 
     public void Travel(Vector3 direction)
