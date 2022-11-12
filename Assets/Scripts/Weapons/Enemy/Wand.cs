@@ -9,6 +9,7 @@ using Controllers.Utils;
 [RequireComponent(typeof(Rigidbody), typeof(Collider))]
 public class Wand : Weapon
 {
+    public override WeaponStats WeaponStats => _swordStats;
     public SwordStats SwordStats => _swordStats;
     [SerializeField] private SwordStats _swordStats;
 
@@ -18,7 +19,6 @@ public class Wand : Weapon
     private Collider _collider;
 
     private Cooldown _attackCooldown;
-    private float Damage => _swordStats.Damage;
 
     private new void Start()
     {
@@ -48,7 +48,7 @@ public class Wand : Weapon
         {
             _collider.enabled = false;
             IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
-            damageable?.TakeDamage(Damage);
+            damageable?.TakeDamage(Damage());
         }
     }
 }

@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c5f5256b52d497bb788259c8dbff3fc, type: 3}
   m_Name: GunStats
   m_EditorClassIdentifier: 
+  _weaponStatValues:
+    Cooldown: 0
+    Damage: 50
   _statValues:
     BulletPrefab: {fileID: 1000011023395326, guid: 2ce15a1900ef14a459f78260cd05a3dc, type: 3}
-    Damage: 50
-    ShootCooldown: 0
     MagSize: 10

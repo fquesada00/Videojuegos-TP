@@ -65,7 +65,7 @@ namespace Entities
             if (other.gameObject.CompareTag(_collisionTag))
             {
                 IDamageable damageable = other.GetComponent<IDamageable>();
-                damageable?.TakeDamage(_owner.Stats.Damage);
+                damageable?.TakeDamage(_owner.Damage());
                 Destroy(this.gameObject);
             }
 

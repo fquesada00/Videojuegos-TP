@@ -26,6 +26,17 @@ public abstract class Weapon : MonoBehaviour, IWeapon
     [SerializeField] private SoundController _soundController;
     private CmdAttackSound _cmdAttackSound;
 
+    public abstract WeaponStats WeaponStats { get; }
+
+    public float Damage(){
+        //10% chance to crit
+        if (UnityEngine.Random.Range(0,10) == 0)
+        {
+            return WeaponStats.Damage * 2;
+        }
+        return WeaponStats.Damage;
+    }
+
     protected void Start()
     {
         // look up for the animation controller
@@ -33,5 +44,7 @@ public abstract class Weapon : MonoBehaviour, IWeapon
         _soundController = GetComponent<SoundController>();
         _cmdAttackSound = new CmdAttackSound(_soundController);
     }
+
+
 }
 

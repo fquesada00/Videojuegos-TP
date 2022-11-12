@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c5f5256b52d497bb788259c8dbff3fc, type: 3}
   m_Name: FireballThrower
   m_EditorClassIdentifier: 
+  _weaponStatValues:
+    Cooldown: 1
+    Damage: 50
   _statValues:
     BulletPrefab: {fileID: 654001063225741397, guid: 1703e3f86671d7746964fc9200cd2a42, type: 3}
-    Damage: 50
-    ShootCooldown: 1
     MagSize: 0

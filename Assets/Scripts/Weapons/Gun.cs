@@ -7,12 +7,12 @@ namespace Weapons
 {
     public class Gun : Weapon, IGun
     {
+        public override WeaponStats WeaponStats => _stats;
         public GunStats Stats => _stats;
         [SerializeField] private GunStats _stats;
         [SerializeField] private BulletStats _bulletStats;
 
         public GameObject BulletPrefab => _stats.BulletPrefab;
-        public float Damage => _stats.Damage;
         private int _bulletCount;
         public int BulletCount => _bulletCount;
 
