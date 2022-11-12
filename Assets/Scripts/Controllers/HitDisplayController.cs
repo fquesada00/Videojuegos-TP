@@ -11,18 +11,12 @@ public class HitDisplayController : MonoBehaviour
 
     private Vector3 direction;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     void OnEnable()
     {
        //Destroy after duration
         Destroy(gameObject, duration);
         GetComponent<Text>().CrossFadeAlpha(0, duration, false);
-        direction = new Vector3(Random.Range(-1f, 1f), 1, 0);
+        direction = new Vector3(Random.Range(-0.8f, 0.8f), 1, 0);
     }
 
     // Update is called once per frame
@@ -30,10 +24,6 @@ public class HitDisplayController : MonoBehaviour
     {
         //Move up with random noise
         transform.position += speed * direction * Time.deltaTime;
-
-
-    
-
-        
+   
     }
 }
