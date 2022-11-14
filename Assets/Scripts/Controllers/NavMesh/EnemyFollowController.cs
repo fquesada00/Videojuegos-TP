@@ -10,23 +10,23 @@ namespace Controllers.NavMesh
         private Actor _player;
         private NavMeshAgent _navMeshAgent;
         
-        private bool _moveToPlayer;
-        public bool MoveToPlayer
+        private bool _chasePlayer;
+        public bool ChasePlayer
         {
-            set => _moveToPlayer = value;
-            get => _moveToPlayer;
+            set => _chasePlayer = value;
+            get => _chasePlayer;
         }
 
         private void Awake()
         {
             _player = FindObjectOfType<Actor>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
-            _moveToPlayer = true;
+            _chasePlayer = true;
         }
 
         private void Update()
         {
-            if(!_moveToPlayer) return;
+            if(!_chasePlayer) return;
             
             _navMeshAgent.SetDestination(_player.transform.position);
             //look at player y axis

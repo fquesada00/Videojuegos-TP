@@ -22,7 +22,7 @@ namespace Entities
                 ParticleSystem.MainModule main = particleSystem.main;
                 main.duration = this.EnemyStats.AttackCooldown;
                 main.startSize =
-                    2 * this.EnemyStats
+                    3 * this.EnemyStats
                         .AttackRange; // TODO: Check if the range of the animation is the same as the attack
             }
 
@@ -32,7 +32,7 @@ namespace Entities
                 ParticleSystem.MainModule main = particleSystem.main;
                 main.duration = 1;
                 main.startSize =
-                    2 * this.EnemyStats
+                    5 * this.EnemyStats
                         .AttackRange; // TODO: Check if the range of the animation is the same as the attack
             }
         }
@@ -44,6 +44,9 @@ namespace Entities
             _enemyFollowController = GetComponent<EnemyFollowController>();
 
             base.SoundController = GetComponent<SoundController>();
+
+            _isAttacking = false;
+            _enemyFollowController.ChasePlayer = true;
         }
 
         void Update()
@@ -51,7 +54,7 @@ namespace Entities
             // if enemy is attacking, do nothing as it's exploding
             if (_isAttacking)
             {
-                _enemyFollowController.MoveToPlayer = false;
+                _enemyFollowController.ChasePlayer = false;
                 return;
             }
 
@@ -88,6 +91,16 @@ namespace Entities
                 particleSystem.Play();
             }
 
+
+
+            // get body component
+            // GameObject.Find("Body").SetActive(false);
+            StartCoroutine(new Cooldown().CallbackCooldown(2,
+                AfterExplosion)); // last little bit longer to wait for animation to finish
+        }
+
+        private void AfterExplosion()
+        {
             // detect if the player is in range
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, this.EnemyStats.AttackRange);
             foreach (var hitCollider in hitColliders)
@@ -99,11 +112,8 @@ namespace Entities
                     break;
                 }
             }
-
-            // get body component
-            GameObject.Find("Body").SetActive(false);
-            StartCoroutine(new Cooldown().CallbackCooldown(2,
-                Die)); // last little bit longer to wait for animation to finish
+            
+            Die();
         }
     }
 }
