@@ -4099,7 +4099,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3e6cf3ceeaf45b7a2ed0bf9cde1c78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyStats: {fileID: 11400000, guid: 0c976e21fe73d70408b98461bdbcdf7b, type: 2}
+  _enemyStats: {fileID: 11400000, guid: 8071d529fdc7bf647b2736d0ed83d652, type: 2}
   _dropListStats: {fileID: 11400000, guid: bde8f90de6af18046b429cd314b58a92, type: 2}
 --- !u!114 &950915356219703157
 MonoBehaviour:

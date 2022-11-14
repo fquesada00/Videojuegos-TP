@@ -188,11 +188,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c964e0e9a18ed6143a6ee29f577235fa, type: 3}
---- !u!1 &28888489 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100000, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
-  m_PrefabInstance: {fileID: 808186337}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &130474409
 GameObject:
   m_ObjectHideFlags: 0
@@ -2109,7 +2104,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 771552438}
-  m_LocalRotation: {x: 0.28631654, y: -1.925091e-15, z: 7.59156e-16, w: 0.95813507}
+  m_LocalRotation: {x: 0.28631657, y: 0.000000028554654, z: -0.0000000085329, w: 0.9581351}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3283,7 +3278,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1147808028}
-  m_LocalRotation: {x: 0.27339172, y: -0.0035564906, z: 0.0010108321, w: 0.9618957}
+  m_LocalRotation: {x: 0.27339172, y: -0.0035564755, z: 0.0010108278, w: 0.9618957}
   m_LocalPosition: {x: -230.4, y: 41.189163, z: -366.99295}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -4848,7 +4843,7 @@ MonoBehaviour:
   spawnDelay: 10
   batchSize: 10
   enemyPrefabs:
-  - {fileID: -213610173481840871, guid: 4e7afdf31c20ebf419ea38bf1d358719, type: 3}
+  - {fileID: 312207747050156958, guid: 3c9c8a8bf50e6b5439ab9db67bc82586, type: 3}
   spawnMethod: 0
 --- !u!114 &1665508733
 MonoBehaviour:
@@ -5833,7 +5828,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterController: {fileID: 2064859067}
-  _dashEffect: {fileID: 28888489}
+  _dashEffect: {fileID: 100000, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
 --- !u!136 &2064859063
 CapsuleCollider:
   m_ObjectHideFlags: 0
