@@ -14,6 +14,8 @@ public class EnemySpawnManager : MonoBehaviour
     private int _currentEnemyCount;
     public SpawnMethod spawnMethod;
 
+    public float maxDistance = 100;
+
     [SerializeField] private Dictionary<int, EntityPool> _enemyPools;
     
     private NavMeshTriangulation _navMeshTriangulation;
@@ -87,7 +89,7 @@ public class EnemySpawnManager : MonoBehaviour
 
             if (agent != null) // TODO: MAGIC NUMBER
             {
-                agent.Warp(GetRandomPositionOnNavMesh(_player.transform.position, 100));
+                agent.Warp(GetRandomPositionOnNavMesh(_player.transform.position, maxDistance));
                 agent.enabled = true;
             }
         }
