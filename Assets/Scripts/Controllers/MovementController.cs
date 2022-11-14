@@ -10,7 +10,7 @@ using Constants;
 public class MovementController : MonoBehaviour, IMoveable
 {
     [SerializeField] private CharacterController _characterController;
-    [SerializeField] private GameObject _dashEffect;
+    [SerializeField] private GameObject _dashVisualEffects;
     private Cooldown _dashCooldown = new Cooldown();
     private float _ySpeed = 0f;
     private float DASH_EFFECTS_DURATION = 0.5f;
@@ -29,7 +29,7 @@ public class MovementController : MonoBehaviour, IMoveable
 
     private void Start() {
         _rigidbody = GetComponent<Rigidbody>();
-        foreach (ParticleSystem particleSystem in _dashEffect.GetComponentsInChildren<ParticleSystem>())
+        foreach (ParticleSystem particleSystem in _dashVisualEffects.GetComponentsInChildren<ParticleSystem>())
         {
             ParticleSystem.MainModule main = particleSystem.main;
             main.duration = DASH_EFFECTS_DURATION;
@@ -78,13 +78,13 @@ public class MovementController : MonoBehaviour, IMoveable
         
         EventsManager.instance.EventSkillCooldownChange(1, DashCooldown);
         __DashVisualEffects();
-        __Dash(forwardDir);
+        __DashDamage(forwardDir);
 
         _ySpeed = Mathf.Sqrt(-2f * Physics.gravity.y) * forwardDir.normalized.y;
         StartCoroutine(_dashCooldown.BooleanCooldown(DashCooldown));
     }
 
-    private void __Dash(Vector3 dir)
+    private void __DashDamage(Vector3 dir)
     {
         RaycastHit[] hits;
         hits = Physics.SphereCastAll(transform.position, 1, transform.forward, DashPower);
@@ -106,11 +106,11 @@ public class MovementController : MonoBehaviour, IMoveable
 
     private void __DashVisualEffects(){
         // activate all dash visual effects
-        foreach (ParticleSystem particleSystem in _dashEffect.GetComponentsInChildren<ParticleSystem>())
+        foreach (ParticleSystem particleSystem in _dashVisualEffects.GetComponentsInChildren<ParticleSystem>())
         {
             particleSystem.Play();
         }
-        foreach (var light in _dashEffect.GetComponentsInChildren<Light>())
+        foreach (var light in _dashVisualEffects.GetComponentsInChildren<Light>())
         {
             light.enabled = true;
             StartCoroutine(_dashCooldown.CallbackCooldown(DASH_EFFECTS_DURATION, () => light.enabled = false));
