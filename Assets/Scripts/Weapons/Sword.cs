@@ -56,7 +56,10 @@ public class Sword : Weapon
         //      _collider.enabled = false;
         //      Debug.Log("Attack cooldown ended");
         //  }));
-
+        StartCoroutine(new Cooldown().CallbackCooldown(1, () =>
+        {
+            _collider.enabled = false;
+        }));
     }
 
     public void OnTriggerEnter(Collider other)
