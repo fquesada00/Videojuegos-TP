@@ -4200,7 +4200,7 @@ MonoBehaviour:
   _volume: 0
   _soundAudioClips:
   - _soundType: 0
-    _audioClip: {fileID: 8300000, guid: ba1ae658f980047eb8b70c2e08b09fff, type: 3}
+    _audioClip: {fileID: 8300000, guid: 730465abcd2f37244b6fc274a61edc06, type: 3}
     _volume: 1
 --- !u!82 &7544419240340419575
 AudioSource:

@@ -1,4 +1,5 @@
-﻿using Controllers;
+﻿using Commands.Sounds;
+using Controllers;
 using Controllers.NavMesh;
 using Controllers.Utils;
 using UnityEngine;
@@ -15,17 +16,24 @@ namespace Entities
 
         private void Start()
         {
-            foreach (ParticleSystem particleSystem in _preExplosionVisualEffects.GetComponentsInChildren<ParticleSystem>())
+            foreach (ParticleSystem particleSystem in
+                     _preExplosionVisualEffects.GetComponentsInChildren<ParticleSystem>())
             {
                 ParticleSystem.MainModule main = particleSystem.main;
                 main.duration = this.EnemyStats.AttackCooldown;
-                main.startSize = 2*this.EnemyStats.AttackRange; // TODO: Check if the range of the animation is the same as the attack
+                main.startSize =
+                    2 * this.EnemyStats
+                        .AttackRange; // TODO: Check if the range of the animation is the same as the attack
             }
-            foreach (ParticleSystem particleSystem in _postExplosionVisualEffects.GetComponentsInChildren<ParticleSystem>())
+
+            foreach (ParticleSystem particleSystem in _postExplosionVisualEffects
+                         .GetComponentsInChildren<ParticleSystem>())
             {
                 ParticleSystem.MainModule main = particleSystem.main;
                 main.duration = 1;
-                main.startSize = 2*this.EnemyStats.AttackRange;// TODO: Check if the range of the animation is the same as the attack
+                main.startSize =
+                    2 * this.EnemyStats
+                        .AttackRange; // TODO: Check if the range of the animation is the same as the attack
             }
         }
 
@@ -36,8 +44,6 @@ namespace Entities
             _enemyFollowController = GetComponent<EnemyFollowController>();
 
             base.SoundController = GetComponent<SoundController>();
-            
-            // TODO: DIE SOUND and maybe a WALKING ONE?
         }
 
         void Update()
@@ -50,7 +56,7 @@ namespace Entities
             }
 
             float distanceFromPlayer = _enemyFollowController.getDistanceFromPlayer();
-            
+
             if (distanceFromPlayer < 5f) // TODO: HARDCODED
                 Attack();
         }
@@ -59,24 +65,29 @@ namespace Entities
         {
             // add a cooldown to give the player time to react
             if (_attackCooldown.IsOnCooldown()) return;
-            
+
             GetComponent<Animator>().SetTrigger("Sleep");
             _isAttacking = true;
-            
-            foreach (ParticleSystem particleSystem in _preExplosionVisualEffects.GetComponentsInChildren<ParticleSystem>())
+
+            foreach (ParticleSystem particleSystem in
+                     _preExplosionVisualEffects.GetComponentsInChildren<ParticleSystem>())
             {
                 particleSystem.Play();
             }
+            
+            new CmdAttackSound(SoundController).Execute();
+
             StartCoroutine(_attackCooldown.CallbackCooldown(this.Stats.AttackCooldown, Explode));
         }
 
         private void Explode()
         {
-            foreach (ParticleSystem particleSystem in 
-                            _postExplosionVisualEffects.GetComponentsInChildren<ParticleSystem>())
+            foreach (ParticleSystem particleSystem in
+                     _postExplosionVisualEffects.GetComponentsInChildren<ParticleSystem>())
             {
                 particleSystem.Play();
             }
+
             // detect if the player is in range
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, this.EnemyStats.AttackRange);
             foreach (var hitCollider in hitColliders)
@@ -88,9 +99,11 @@ namespace Entities
                     break;
                 }
             }
+
             // get body component
             GameObject.Find("Body").SetActive(false);
-            StartCoroutine(new Cooldown().CallbackCooldown(2, Die)); // last little bit longer to wait for animation to finish
+            StartCoroutine(new Cooldown().CallbackCooldown(2,
+                Die)); // last little bit longer to wait for animation to finish
         }
     }
 }
