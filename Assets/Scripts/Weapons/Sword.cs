@@ -20,6 +20,14 @@ public class Sword : Weapon
     private Cooldown _attackCooldown;
 
     private bool _crit = false;
+    
+    private String _collisionTag = "Enemy";
+
+    public String CollisionTag
+    {
+        get => _collisionTag;
+        set => _collisionTag = value;
+    }
 
     private new void Start()
     {
@@ -53,7 +61,7 @@ public class Sword : Weapon
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag(_collisionTag))
         {
             _collider.enabled = false;
             IDamageable damageable = other.gameObject.GetComponent<IDamageable>();

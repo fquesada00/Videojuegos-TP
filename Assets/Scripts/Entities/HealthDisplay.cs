@@ -12,7 +12,7 @@ public class HealthDisplay : MonoBehaviour
     [SerializeField] private Text _hitTemplate;
     [SerializeField] private Gradient colorGradient;
 
-    private Cooldown _cooldown;
+    private Cooldown _cooldown = new Cooldown();
 
     private Coroutine _coroutine;
 
@@ -20,22 +20,15 @@ public class HealthDisplay : MonoBehaviour
     //private Text _lifeText;
     // Start is called before the first frame update
 
-    void set(bool active)
+    void Set(bool active)
     {
         _lifebarImage.transform.parent.gameObject.SetActive(active);
         if (!active) _coroutine = null;
     }
 
-    void Start()
-    {
-        _cooldown = new Cooldown();
-
-    }
-
     void OnEnable()
     {
-        set(false);
-
+        Set(false);
     }
 
     private void ShowHit(float damage, bool crit){
@@ -50,12 +43,12 @@ public class HealthDisplay : MonoBehaviour
 
     }
 
-    private void updateHealthBar(float currentLife, float maxLife){
+    private void UpdateHealthBar(float currentLife, float maxLife){
+        Debug.Log("updateHealthBar");
         _lifebarImage.fillAmount = currentLife / maxLife;
         _lifebarImage.color = colorGradient.Evaluate(currentLife / maxLife);
         _lifeText.text = $"{currentLife} / {maxLife}";
-        _coroutine = StartCoroutine(_cooldown.CallbackCooldown(2f, () => set(false)));
-
+        _coroutine = StartCoroutine(_cooldown.CallbackCooldown(2f, () => Set(false)));
     }
 
     public void TakeDamage(float currentLife, float maxLife, float damage, bool crit)
@@ -65,8 +58,8 @@ public class HealthDisplay : MonoBehaviour
             StopCoroutine(_coroutine);
         }
 
-        set(true);
-        updateHealthBar(currentLife, maxLife);
+        Set(true);
+        UpdateHealthBar(currentLife, maxLife);
         ShowHit(damage, crit);
         
     }

@@ -70,11 +70,8 @@ namespace Entities
             {
                 IDamageable damageable = other.GetComponent<IDamageable>();
                 damageable?.TakeDamage(Damage, Crit);
-                
             }
             Destroy(this.gameObject);
-
-
         }
 
         public void SetOwner(IGun owner) => _owner = owner;
