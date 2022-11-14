@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Commands.Sounds;
@@ -5,6 +6,7 @@ using UnityEngine;
 using Controllers;
 using Controllers.NavMesh;
 using Controllers.Utils;
+using Random = UnityEngine.Random;
 
 
 [RequireComponent(typeof(LifeController))]
@@ -34,6 +36,10 @@ public class WizardEnemy : Enemy
         
         _whisperCooldown = new Cooldown();
         _cmdWhisperSound = new CmdWhisperSound(base.SoundController);
+    }
+
+    private void Start()
+    {
         Whisper();
     }
 
