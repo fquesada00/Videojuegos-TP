@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Commands.Sounds;
 using Controllers;
 using Controllers.NavMesh;
@@ -15,6 +16,20 @@ namespace Entities
         private bool _isAttacking = false;
         [SerializeField] private GameObject _postExplosionVisualEffects;
         [SerializeField] private GameObject _preExplosionVisualEffects;
+        
+        private Coroutine _preExplosionCoroutine;
+        private Coroutine _postExplosionCoroutine;
+
+        new void OnEnable()
+        {
+            base.OnEnable();
+
+            _enemyFollowController = GetComponent<EnemyFollowController>();
+            base.SoundController = GetComponent<SoundController>();
+            
+            _isAttacking = false;
+            _enemyFollowController.ChasePlayer = true;
+        }
 
         private void Start()
         {
@@ -39,18 +54,6 @@ namespace Entities
             }
         }
 
-        new void OnEnable()
-        {
-            base.OnEnable();
-
-            _enemyFollowController = GetComponent<EnemyFollowController>();
-
-            base.SoundController = GetComponent<SoundController>();
-
-            _isAttacking = false;
-            _enemyFollowController.ChasePlayer = true;
-        }
-
         void Update()
         {
             // if enemy is attacking, do nothing as it's exploding
@@ -61,7 +64,6 @@ namespace Entities
             }
 
             float distanceFromPlayer = _enemyFollowController.getDistanceFromPlayer();
-
             if (distanceFromPlayer < 5f) // TODO: HARDCODED
                 Attack();
         }
@@ -82,7 +84,7 @@ namespace Entities
             
             new CmdAttackSound(SoundController).Execute();
 
-            StartCoroutine(_attackCooldown.CallbackCooldown(this.Stats.AttackCooldown, Explode));
+            _preExplosionCoroutine = StartCoroutine(_attackCooldown.CallbackCooldown(this.Stats.AttackCooldown, Explode));
         }
 
         private void Explode()
@@ -93,11 +95,9 @@ namespace Entities
                 particleSystem.Play();
             }
 
-
-
             // get body component
             // GameObject.Find("Body").SetActive(false);
-            StartCoroutine(new Cooldown().CallbackCooldown(2,
+            _postExplosionCoroutine = StartCoroutine(new Cooldown().CallbackCooldown(2f,
                 AfterExplosion)); // last little bit longer to wait for animation to finish
         }
 
@@ -123,8 +123,17 @@ namespace Entities
                     break;
                 }
             }
-            
+
             Die();
+        }
+
+        public override void OnDisable()
+        {
+            _attackCooldown.Reset();
+            if(_preExplosionCoroutine != null) StopCoroutine(_preExplosionCoroutine);
+            if(_postExplosionCoroutine != null) StopCoroutine(_postExplosionCoroutine);
+
+            base.OnDisable();
         }
     }
 }

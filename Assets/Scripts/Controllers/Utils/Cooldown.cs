@@ -39,5 +39,6 @@ namespace Controllers.Utils
         
         public bool IsOnCooldown() => _isOnCooldown;
         
+        public void Reset() => _isOnCooldown = false;
     }
 }
