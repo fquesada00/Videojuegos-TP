@@ -44,7 +44,6 @@ public class HealthDisplay : MonoBehaviour
     }
 
     private void UpdateHealthBar(float currentLife, float maxLife){
-        Debug.Log("updateHealthBar");
         _lifebarImage.fillAmount = currentLife / maxLife;
         _lifebarImage.color = colorGradient.Evaluate(currentLife / maxLife);
         _lifeText.text = $"{currentLife} / {maxLife}";

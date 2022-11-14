@@ -16,11 +16,10 @@ MonoBehaviour:
     MaxHealth: 100
     BaseMovementSpeed: 0
     Damage: 100
-    AttackCooldown: 5
+    AttackCooldown: 3
     CritProbability: 0.5
     Id: 3
   _enemyStatValues:
-    PotionPrefab: {fileID: 1000012970591572, guid: 7cafb89b5a0f61f479d0a748962abbbc, type: 3}
-    AttackRange: 5
+    AttackRange: 8
     MinSoundDistance: 0
     SoundCooldown: 0

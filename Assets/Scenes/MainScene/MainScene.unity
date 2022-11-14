@@ -2391,7 +2391,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
       propertyPath: m_Name
-      value: LightningBall
+      value: DashLightningBall
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
       propertyPath: m_Layer
@@ -4844,13 +4844,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6793f1e0b027798418f6ff3184589be9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesToSpawnSize: 0
+  enemiesToSpawnSize: 2
   spawnDelay: 10
   batchSize: 10
   enemyPrefabs:
-  - {fileID: 312207747050156958, guid: 3c9c8a8bf50e6b5439ab9db67bc82586, type: 3}
   - {fileID: -213610173481840871, guid: 4e7afdf31c20ebf419ea38bf1d358719, type: 3}
-  - {fileID: 1312828205, guid: dcf56777c6c6fc6469501dcbc7aa5b90, type: 3}
   spawnMethod: 0
 --- !u!114 &1665508733
 MonoBehaviour:

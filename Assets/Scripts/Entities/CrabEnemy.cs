@@ -5,11 +5,29 @@ using UnityEngine;
 
 namespace Entities
 {
-    [RequireComponent(typeof(LifeController))]
+    [RequireComponent(typeof(LifeController), typeof(GameObject), typeof(GameObject))]
     public class CrabEnemy : Enemy
     {
         private Cooldown _attackCooldown = new Cooldown();
         private bool _isAttacking = false;
+        [SerializeField] private GameObject _postExplosionVisualEffects;
+        [SerializeField] private GameObject _preExplosionVisualEffects;
+
+        private void Start()
+        {
+            foreach (ParticleSystem particleSystem in _preExplosionVisualEffects.GetComponentsInChildren<ParticleSystem>())
+            {
+                ParticleSystem.MainModule main = particleSystem.main;
+                main.duration = this.EnemyStats.AttackCooldown;
+                main.startSize = 2*this.EnemyStats.AttackRange; // TODO: Check if the range of the animation is the same as the attack
+            }
+            foreach (ParticleSystem particleSystem in _postExplosionVisualEffects.GetComponentsInChildren<ParticleSystem>())
+            {
+                ParticleSystem.MainModule main = particleSystem.main;
+                main.duration = 1;
+                main.startSize = 2*this.EnemyStats.AttackRange;// TODO: Check if the range of the animation is the same as the attack
+            }
+        }
 
         new void OnEnable()
         {
@@ -26,11 +44,14 @@ namespace Entities
         {
             // if enemy is attacking, do nothing as it's exploding
             if (_isAttacking)
+            {
                 _enemyFollowController.MoveToPlayer = false;
+                return;
+            }
 
             float distanceFromPlayer = _enemyFollowController.getDistanceFromPlayer();
             
-            if (distanceFromPlayer < 0.5f) // TODO: HARDCODED
+            if (distanceFromPlayer < 5f) // TODO: HARDCODED
                 Attack();
         }
 
@@ -41,11 +62,21 @@ namespace Entities
             
             GetComponent<Animator>().SetTrigger("Sleep");
             _isAttacking = true;
-            StartCoroutine(_attackCooldown.CallbackCooldown(this.Stats.AttackCooldown, FixedAttack));
+            
+            foreach (ParticleSystem particleSystem in _preExplosionVisualEffects.GetComponentsInChildren<ParticleSystem>())
+            {
+                particleSystem.Play();
+            }
+            StartCoroutine(_attackCooldown.CallbackCooldown(this.Stats.AttackCooldown, Explode));
         }
 
-        private void FixedAttack()
+        private void Explode()
         {
+            foreach (ParticleSystem particleSystem in 
+                            _postExplosionVisualEffects.GetComponentsInChildren<ParticleSystem>())
+            {
+                particleSystem.Play();
+            }
             // detect if the player is in range
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, this.EnemyStats.AttackRange);
             foreach (var hitCollider in hitColliders)
@@ -57,8 +88,9 @@ namespace Entities
                     break;
                 }
             }
-
-            Die();
+            // get body component
+            GameObject.Find("Body").SetActive(false);
+            StartCoroutine(new Cooldown().CallbackCooldown(2, Die)); // last little bit longer to wait for animation to finish
         }
     }
 }

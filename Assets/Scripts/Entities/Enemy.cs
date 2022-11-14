@@ -29,8 +29,6 @@ public abstract class Enemy : PoolableEntity
     public override void OnDisable()
     {
         base.OnDisable();
-
-        //_enemyFollowController.GetComponent<NavMeshAgent>().enabled = false;
     }
 
     protected virtual void OnEnable()
@@ -46,6 +44,7 @@ public abstract class Enemy : PoolableEntity
             {
                 var drop = _dropSpawner.Create(possibleDrop.prefab);
                 drop.transform.position = transform.position;
+                break; // only one drop per enemy
             }
         }
 
