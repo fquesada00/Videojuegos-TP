@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,7 +39,7 @@ public class UIManager : MonoBehaviour
     private void OnCharacterLifeChange(float currentLife, float maxLife)
     {
         _lifebarImage.fillAmount = currentLife / maxLife;
-        _lifeText.text = $"{currentLife} / {maxLife}";
+        _lifeText.text = $"{Math.Floor(currentLife)} / {maxLife}";
         _currentLife = currentLife;
     }
 

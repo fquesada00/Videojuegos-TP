@@ -1,8 +1,10 @@
-﻿using Commands.Sounds;
+﻿using System;
+using Commands.Sounds;
 using Controllers;
 using Controllers.NavMesh;
 using Controllers.Utils;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Entities
 {
@@ -108,7 +110,16 @@ namespace Entities
                 if (hitCollider.gameObject.CompareTag("Player"))
                 {
                     bool hitCrit = Random.Range(0, 1) < this.Stats.CritProbability;
-                    hitCollider.gameObject.GetComponent<LifeController>().TakeDamage(this.Stats.Damage, hitCrit);
+                    
+                    // get the distance within the sphere and multiply it by the damage
+                    float distance = _enemyFollowController.getDistanceFromPlayer();
+                    if (distance > this.EnemyStats.AttackRange) distance = this.EnemyStats.AttackRange;
+                    
+                    // when enemy is touching the player, it does xAttackRange damage
+                    // if it's further away, it does less damage
+                    // formula = r - d * (1 - 1 / r) where r is the radius and d the distance
+                    float damageMultiplier = this.EnemyStats.AttackRange - distance * (1 - (1 / this.EnemyStats.AttackRange));
+                    hitCollider.gameObject.GetComponent<LifeController>().TakeDamage(this.Stats.Damage * damageMultiplier, hitCrit);
                     break;
                 }
             }
