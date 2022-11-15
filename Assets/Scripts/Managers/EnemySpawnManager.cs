@@ -119,11 +119,9 @@ public class EnemySpawnManager : MonoBehaviour
         PoolableEntity PoolableEntity = _enemyPools[index].GetObject();
         if (PoolableEntity != null)
         {
-            int vertexIndex = Random.Range(0, _navMeshTriangulation.vertices.Length);
-
             NavMeshAgent agent = PoolableEntity.GetComponent<NavMeshAgent>();
 
-            if (agent != null) // TODO: MAGIC NUMBER
+            if (agent != null)
             {
                 agent.Warp(GetRandomPositionOnNavMesh(_player.transform.position, maxDistance));
                 agent.enabled = true;

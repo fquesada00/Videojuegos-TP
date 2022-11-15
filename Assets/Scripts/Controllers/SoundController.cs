@@ -31,7 +31,7 @@ namespace Controllers
         public void PlayOnShot(SoundType soundType)
         {
             SoundAudioClip soundAudioClip = GetSoundAudioClip(soundType); 
-            if(soundAudioClip != null)
+            if(soundAudioClip != null && _audioSource != null)
                 _audioSource.PlayOneShot(soundAudioClip.AudioClip, soundAudioClip.Volume);
         }
         
