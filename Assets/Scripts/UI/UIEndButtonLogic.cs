@@ -7,4 +7,6 @@ public class UIEndButtonLogic : MonoBehaviour
 {
     public void LoadMenuScene() => SceneManager.LoadScene("MainMenu");
     public void CloseGame() => Application.Quit();
+
+    public void LoadLevelScene() => SceneManager.LoadScene("LoadingScene");
 }
