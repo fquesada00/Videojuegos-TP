@@ -73,8 +73,10 @@ namespace Entities
                 IDamageable damageable = other.GetComponent<IDamageable>();
                 damageable?.TakeDamage(Damage, Crit);
             }
-            GameObject hitEffect = Instantiate(HitEffect.gameObject, transform.position, Quaternion.identity);
-            Destroy(hitEffect, 1f);
+            if(HitEffect != null){
+                GameObject hitEffect = Instantiate(HitEffect.gameObject, transform.position, Quaternion.identity);
+                 Destroy(hitEffect, 1f);
+            }
             Destroy(this.gameObject);
         }
 
