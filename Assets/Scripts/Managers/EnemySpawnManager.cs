@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Controllers.NavMesh;
+using UnityEngine.Serialization;
 
 public class EnemySpawnManager : MonoBehaviour
 {
     public int enemiesToSpawnSize;
     public float spawnDelay;
     public int batchSize;
-    public List<Enemy> enemyPrefabs;
+    public List<EnemyPoolConfig> enemyPoolConfigs;
     private Actor _player;
     private int _currentEnemyCount;
     public SpawnMethod spawnMethod;
@@ -27,9 +28,25 @@ public class EnemySpawnManager : MonoBehaviour
         spawnMethod = SpawnMethod.Random;
         _navMeshTriangulation = NavMesh.CalculateTriangulation();
         _currentEnemyCount = 0;
-        for (int i = 0; i < enemyPrefabs.Count; i++)
+        float accumProb = 0;
+        for (int i = 0; i < enemyPoolConfigs.Count; i++)
         {
-            _enemyPools.Add(i, EntityPool.CreateInstance(enemyPrefabs[i], enemiesToSpawnSize));
+            _enemyPools.Add(i, EntityPool.CreateInstance(enemyPoolConfigs[i].EnemyPrefab, enemiesToSpawnSize));
+            accumProb += enemyPoolConfigs[i].ElegibilityProb;
+            enemyPoolConfigs[i].AccumProb = accumProb;
+        }
+
+        if (accumProb < 1)
+        {
+            Debug.LogError("EnemySpawnManager: Probabilities do not add up to 1...\n...adding the difference to the last enemy");
+            enemyPoolConfigs[enemyPoolConfigs.Count - 1].AccumProb = 1;
+        } else if (accumProb > 1)
+        {
+            Debug.LogError("EnemySpawnManager: Probabilities add up to more than 1...\n...normalizing probabilities");
+            for (int i = 0; i < enemyPoolConfigs.Count; i++)
+            {
+                enemyPoolConfigs[i].AccumProb /= accumProb;
+            }
         }
     }
 
@@ -75,7 +92,18 @@ public class EnemySpawnManager : MonoBehaviour
 
     private void SpawnRandomEnemy()
     {
-        DoSpawnEnemy(Random.Range(0, enemyPrefabs.Count));
+        // get a random probability
+        float randomProb = Random.Range(0, 1f);
+        
+        // iterate through the enemy pool configs and find the one that matches the random probability
+        for (int i = 0; i < enemyPoolConfigs.Count; i++)
+        {
+            if (randomProb <= enemyPoolConfigs[i].AccumProb)
+            {
+                DoSpawnEnemy(i);
+                return;
+            }
+        }
     }
 
     private void DoSpawnEnemy(int index)
@@ -115,5 +143,22 @@ public class EnemySpawnManager : MonoBehaviour
     public enum SpawnMethod
     {
         Random
+    }
+
+    [System.Serializable]
+    public class EnemyPoolConfig
+    {
+        [SerializeField] private Enemy enemyPrefab;
+        public Enemy EnemyPrefab => enemyPrefab;
+        
+        [SerializeField] private float elegibilityProb;
+        public float ElegibilityProb => elegibilityProb;
+
+        private float _accumProb = 0;
+        public float AccumProb
+        {
+            get => _accumProb;
+            set => _accumProb = value;
+        }
     }
 }
