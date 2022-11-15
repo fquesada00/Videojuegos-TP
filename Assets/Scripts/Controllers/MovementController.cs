@@ -116,4 +116,12 @@ public class MovementController : MonoBehaviour, IMoveable
             StartCoroutine(_dashCooldown.CallbackCooldown(DASH_EFFECTS_DURATION, () => light.enabled = false));
         }
     }
+
+    //on collision enter
+    private void OnControllerColliderHit(ControllerColliderHit hit) {
+        if (hit.gameObject.CompareTag("OutOfBounds")) {
+            Vector3 pos = EnemySpawnManager.GetRandomPositionOnNavMesh(transform.position, 10);
+            transform.position = pos;
+        }
+    }
 }
