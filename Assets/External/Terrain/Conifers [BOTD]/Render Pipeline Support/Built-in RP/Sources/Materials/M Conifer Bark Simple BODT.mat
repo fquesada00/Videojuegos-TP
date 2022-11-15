@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M Conifer Bark Simple BODT
-  m_Shader: {fileID: 4800000, guid: 6934a0dff195b47e5913f17edb3770ec, type: 3}
+  m_Shader: {fileID: 4800000, guid: 00baf766089b44ee3b05e340b19c821c, type: 3}
   m_ShaderKeywords: _METALLICGLOSSMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
@@ -111,3 +111,4 @@ Material:
     - _Color: {r: 1, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HueVariation: {r: 0, g: 0.9, b: 0.8255172, a: 0.1}
+  m_BuildTextureStacks: []
