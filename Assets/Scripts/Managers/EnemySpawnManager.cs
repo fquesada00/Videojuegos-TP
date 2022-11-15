@@ -36,7 +36,15 @@ public class EnemySpawnManager : MonoBehaviour
             enemyPoolConfigs[i].AccumProb = accumProb;
         }
 
-        if (accumProb < 1)
+        if (accumProb == 0)
+        {
+            Debug.LogError("No enemy elegible to spawn");
+            #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+            #endif
+            Application.Quit();
+        }
+        else if (accumProb < 1)
         {
             Debug.LogError("EnemySpawnManager: Probabilities do not add up to 1...\n...adding the difference to the last enemy");
             enemyPoolConfigs[enemyPoolConfigs.Count - 1].AccumProb = 1;
