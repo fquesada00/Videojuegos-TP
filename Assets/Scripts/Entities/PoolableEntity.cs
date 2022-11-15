@@ -12,10 +12,10 @@ public abstract class PoolableEntity : Entity
         parent.ReturnObjectToPool(this);
     }
 
-    public override void Die()
+    public override void Die(Killer killer = Killer.PLAYER)
     {
         gameObject.SetActive(false);
-        EventsManager.instance.EnemyDeath(Stats.Id);
+        EventsManager.instance.EnemyDeath(Stats.Id, killer);
         base.DeathSound();
     }
 }

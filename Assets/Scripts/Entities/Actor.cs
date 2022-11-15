@@ -16,7 +16,7 @@ public class Actor : Entity
         base.SoundController = GetComponent<SoundController>();
     }
 
-    public override void Die()
+    public override void Die(Killer killer = Killer.ENEMY)
     {
         Destroy(gameObject);
         EventsManager.instance.GameOver(false);

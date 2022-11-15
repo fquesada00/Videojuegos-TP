@@ -11,11 +11,11 @@ public class EventsManager : MonoBehaviour
         instance = this;
     }
 
-    public event Action<int> OnEnemyDeath;
+    public event Action<int, Killer> OnEnemyDeath;
 
-    public void EnemyDeath(int enemyId)
+    public void EnemyDeath(int enemyId, Killer killer)
     {
-        OnEnemyDeath?.Invoke(enemyId);
+        OnEnemyDeath?.Invoke(enemyId, killer);
     }
 
     public event Action<bool> OnGameOver;

@@ -124,7 +124,7 @@ namespace Entities
                 }
             }
 
-            Die();
+            Die(Killer.ENEMY);
         }
 
         public override void OnDisable()

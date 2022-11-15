@@ -33,7 +33,7 @@ public class EnemySpawnManager : MonoBehaviour
         }
     }
 
-    private void EnemyDeath(int enemyId)
+    private void EnemyDeath(int enemyId, Killer killer)
     {
         _currentEnemyCount--;
     }

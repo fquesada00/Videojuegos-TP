@@ -17,7 +17,7 @@ public abstract class Entity : MonoBehaviour
         set => _soundController = value;
     }
 
-    public virtual void Die()
+    public virtual void Die(Killer killer = Killer.PLAYER)
     {
         Destroy(gameObject);
         DeathSound();
@@ -29,4 +29,10 @@ public abstract class Entity : MonoBehaviour
             new CmdDeathSound(SoundController).Execute();
     }
 
+}
+
+public enum Killer
+{
+    PLAYER,
+    ENEMY
 }

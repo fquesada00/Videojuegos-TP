@@ -36,7 +36,7 @@ public abstract class Enemy : PoolableEntity
         GetComponent<LifeController>().ResetLife();
     }
 
-    public override void Die()
+    public override void Die(Killer killer = Killer.PLAYER)
     {
         foreach (var possibleDrop in DropListStats.PossibleDropsStats)
         {
@@ -48,7 +48,7 @@ public abstract class Enemy : PoolableEntity
             }
         }
 
-        base.Die();
+        base.Die(killer);
     }
 
 }

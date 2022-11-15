@@ -37,8 +37,9 @@ namespace Managers
             Invoke("LoadEndgameScene", 1); // TODO: MAGIC NUMBER
         }
         
-        private void OnEnemyKilled(int enemyId)
+        private void OnEnemyKilled(int enemyId, Killer killer)
         {
+            if(killer != Killer.PLAYER) return;
             if (_enemiesKilled.ContainsKey(enemyId))
             {
                 _enemiesKilled[enemyId]++;

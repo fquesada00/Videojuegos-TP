@@ -127,7 +127,7 @@ public class Character : Actor
         EventsManager.instance.EventCooldownReduce(Time.deltaTime);
     }
 
-    public override void Die()
+    public override void Die(Killer killer = Killer.ENEMY)
     {
         gameObject.SetActive(false);
     }
