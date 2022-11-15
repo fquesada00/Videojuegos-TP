@@ -24,6 +24,8 @@ namespace Entities
 
         private String _collisionTag = "Enemy";
 
+        public ParticleSystem HitEffect;
+
         public String CollisionTag
         {
             get => _collisionTag;
@@ -71,6 +73,8 @@ namespace Entities
                 IDamageable damageable = other.GetComponent<IDamageable>();
                 damageable?.TakeDamage(Damage, Crit);
             }
+            GameObject hitEffect = Instantiate(HitEffect.gameObject, transform.position, Quaternion.identity);
+            Destroy(hitEffect, 1f);
             Destroy(this.gameObject);
         }
 
