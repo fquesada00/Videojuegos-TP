@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4693824, g: 0.19594327, b: 0.14082982, a: 1}
+  m_IndirectSpecularColor: {r: 0.4693825, g: 0.19594328, b: 0.14082982, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -943,7 +943,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 2.4435958e-30, w: 2.2e-44}
+  m_BoundingSphereOverride: {x: 4.5904e-41, y: -1.4006415e-38, z: 4.5904e-41, w: 9.403955e-38}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -2678,7 +2678,7 @@ Canvas:
   m_GameObject: {fileID: 740014599}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 1147808030}
   m_PlaneDistance: 0.15
   m_PixelPerfect: 0
@@ -2736,7 +2736,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 771552438}
-  m_LocalRotation: {x: 0.30542853, y: 0.000000023170717, z: -0.000000007432143, w: 0.952215}
+  m_LocalRotation: {x: 0.30542853, y: -0.000000023170722, z: 0.0000000074321456, w: 0.952215}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3085,7 +3085,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 798592720}
-  m_LocalRotation: {x: 0.2880541, y: -0.0047827247, z: 0.0014386822, w: 0.95760113}
+  m_LocalRotation: {x: 0.28805408, y: -0.004784619, z: 0.0014392518, w: 0.95760113}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4039,7 +4039,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1147808028}
-  m_LocalRotation: {x: 0.2925816, y: -0.0035341429, z: 0.001081352, w: 0.95623344}
+  m_LocalRotation: {x: 0.29258156, y: -0.0035355543, z: 0.0010817838, w: 0.95623344}
   m_LocalPosition: {x: 581.56714, y: 112.424324, z: 394.84506}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -7861,7 +7861,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 9485b0c79d11e2e4d0007da98d76c639, type: 3}
       propertyPath: m_Name
-      value: WaterBasicDaytime
+      value: Water
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 9485b0c79d11e2e4d0007da98d76c639, type: 3}
       propertyPath: m_IsActive
