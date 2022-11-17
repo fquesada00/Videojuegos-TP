@@ -7,19 +7,17 @@ using UnityEngine.Serialization;
 
 public class EnemySpawnManager : MonoBehaviour
 {
-    public int enemiesToSpawnSize;
-    public float spawnDelay;
-    public int batchSize;
-    public List<EnemyPoolConfig> enemyPoolConfigs;
-    private Actor _player;
-    private int _currentEnemyCount;
-    public SpawnMethod spawnMethod;
-
-    public float maxDistance = 100;
-
+    [SerializeField] private int enemiesToSpawnSize;
+    [SerializeField] private float batchSpawnDelay;
+    [SerializeField] private int enemiesPerBatchSize;
+    [SerializeField] private List<EnemyPoolConfig> enemyPoolConfigs;
+    [SerializeField] private SpawnMethod spawnMethod;
+    [SerializeField] private float maxDistance = 100;
     [SerializeField] private Dictionary<int, EntityPool> _enemyPools;
     
     private NavMeshTriangulation _navMeshTriangulation;
+    private Actor _player;
+    private int _currentEnemyCount;
 
     private void Awake()
     {            
@@ -66,15 +64,15 @@ public class EnemySpawnManager : MonoBehaviour
     private void Start()
     {
         EventsManager.instance.OnEnemyDeath += EnemyDeath;
-        StartCoroutine(SpawnEnemyBatchAfterSeconds(spawnDelay));
+        StartCoroutine(SpawnEnemyBatchAfterSeconds(batchSpawnDelay));
     }
 
-    private IEnumerator SpawnEnemyBatchAfterSeconds(float spawnDelay)
+    private IEnumerator SpawnEnemyBatchAfterSeconds(float batchSpawnDelay)
     {
         while (true)
         {
             SpawnEnemyBatch();
-            yield return new WaitForSeconds(spawnDelay);
+            yield return new WaitForSeconds(batchSpawnDelay);
         }
     }
 
@@ -82,7 +80,7 @@ public class EnemySpawnManager : MonoBehaviour
     {
         int enemiesSpawnedInBatch = 0;
 
-        while (_currentEnemyCount < enemiesToSpawnSize && enemiesSpawnedInBatch < batchSize )
+        while (_currentEnemyCount < enemiesToSpawnSize && enemiesSpawnedInBatch < enemiesPerBatchSize )
         {
             SpawnEnemy();
             _currentEnemyCount++;
