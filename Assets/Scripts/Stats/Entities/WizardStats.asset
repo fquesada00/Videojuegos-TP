@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: WizardStats
   m_EditorClassIdentifier: 
   _entityStatValues:
-    MaxHealth: 100
-    MovementSpeed: 10
+    MaxHealth: 500
+    BaseMovementSpeed: 0
     Damage: 10
     AttackCooldown: 1
+    CritProbability: 0
     Id: 1
   _enemyStatValues:
-    PotionPrefab: {fileID: 1000012970591572, guid: 7cafb89b5a0f61f479d0a748962abbbc, type: 3}
     AttackRange: 2
     MinSoundDistance: 5
     SoundCooldown: 10

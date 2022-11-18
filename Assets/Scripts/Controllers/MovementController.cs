@@ -37,7 +37,8 @@ public class MovementController : MonoBehaviour, IMoveable
     }
 
     private void Update() {
-        if(_ySpeed < 0 && _characterController.isGrounded) {
+        if(IsGrounded() && _ySpeed < 0) {
+            // Reset the number of jumps and yspeed only if the player is grounded and yspeed is negative because it enables the player to jump when speed is >=0
             _currentContinuosJumps = 0;
             _ySpeed = 0;
         }else{
@@ -48,7 +49,7 @@ public class MovementController : MonoBehaviour, IMoveable
 
     public bool IsGrounded()
     {
-        return Physics.Raycast(transform.position, Vector3.down, 0.3f);
+        return _characterController.isGrounded;
     }
 
     public void Travel(Vector3 direction)
@@ -97,7 +98,7 @@ public class MovementController : MonoBehaviour, IMoveable
             if (gameObject.CompareTag("Enemy"))
             {
                 IDamageable damageable = gameObject.GetComponent<IDamageable>();
-                damageable?.TakeDamage(Damage, false); 
+                damageable?.TakeDamage(Damage*3, false); 
             }
         }
 
@@ -113,7 +114,7 @@ public class MovementController : MonoBehaviour, IMoveable
         foreach (var light in _dashVisualEffects.GetComponentsInChildren<Light>())
         {
             light.enabled = true;
-            StartCoroutine(_dashCooldown.CallbackCooldown(DASH_EFFECTS_DURATION, () => light.enabled = false));
+            StartCoroutine(new Cooldown().CallbackCooldown(DASH_EFFECTS_DURATION, () => light.enabled = false));
         }
     }
 
