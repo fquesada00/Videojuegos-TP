@@ -5,6 +5,7 @@ using Controllers;
 using Strategies;
 using UnityEngine;
 using Controllers.Utils;
+using Managers;
 
 [RequireComponent(typeof(Rigidbody), typeof(Collider))]
 public class Wand : Weapon
@@ -21,6 +22,8 @@ public class Wand : Weapon
     private Cooldown _attackCooldown;
 
     private bool _crit = false;
+    
+    private float _damageMultiplier = 1f;
 
     private new void Start()
     {
@@ -35,6 +38,9 @@ public class Wand : Weapon
         _rigidbody.useGravity = false;
         _rigidbody.isKinematic = true;
         _rigidbody.collisionDetectionMode = CollisionDetectionMode.Discrete;
+        
+        // find game manager within the scene
+        _damageMultiplier = FindObjectOfType<GameManager>().GetCurrentDifficultyStats.EnemyDamageMultiplier;
     }
 
 
@@ -51,7 +57,7 @@ public class Wand : Weapon
         {
             _collider.enabled = false;
             IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
-            damageable?.TakeDamage(SwordStats.Damage, _crit);
+            damageable?.TakeDamage(SwordStats.Damage * _damageMultiplier, _crit);
         }
     }
 }

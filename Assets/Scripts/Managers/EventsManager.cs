@@ -32,6 +32,7 @@ public class EventsManager : MonoBehaviour
     public event Action<float> OnSkillCooldownReduce;
     public event Action<int, float> OnSkillCooldownChange;
     public event Action<bool> OnPauseChange;
+    public event Action<Difficulty> OnDifficultyChange;
     
     public void EventWeaponChange(int weaponIndex)
     {
@@ -61,6 +62,11 @@ public class EventsManager : MonoBehaviour
     public void EventPauseChange(bool isPaused)
     {
         if (OnPauseChange != null) OnPauseChange(isPaused);
+    }
+    
+    public void EventDifficultyChange(Difficulty difficulty)
+    {
+        if (OnDifficultyChange != null) OnDifficultyChange(difficulty);
     }
 
     #endregion
