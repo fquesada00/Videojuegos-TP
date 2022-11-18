@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 
 public class EnemySpawnManager : MonoBehaviour
 {
-    [SerializeField] private int enemiesToSpawnSize;
+    [SerializeField] private int maxSimultaneousEnemiesSize;
     [SerializeField] private float batchSpawnDelay;
     [SerializeField] private int enemiesPerBatchSize;
     [SerializeField] private List<EnemyPoolConfig> enemyPoolConfigs;
@@ -29,7 +29,7 @@ public class EnemySpawnManager : MonoBehaviour
         float accumProb = 0;
         for (int i = 0; i < enemyPoolConfigs.Count; i++)
         {
-            _enemyPools.Add(i, EntityPool.CreateInstance(enemyPoolConfigs[i].EnemyPrefab, enemiesToSpawnSize));
+            _enemyPools.Add(i, EntityPool.CreateInstance(enemyPoolConfigs[i].EnemyPrefab, maxSimultaneousEnemiesSize));
             accumProb += enemyPoolConfigs[i].ElegibilityProb;
             enemyPoolConfigs[i].AccumProb = accumProb;
         }
@@ -80,7 +80,7 @@ public class EnemySpawnManager : MonoBehaviour
     {
         int enemiesSpawnedInBatch = 0;
 
-        while (_currentEnemyCount < enemiesToSpawnSize && enemiesSpawnedInBatch < enemiesPerBatchSize )
+        while (_currentEnemyCount < maxSimultaneousEnemiesSize && enemiesSpawnedInBatch < enemiesPerBatchSize )
         {
             SpawnEnemy();
             _currentEnemyCount++;
