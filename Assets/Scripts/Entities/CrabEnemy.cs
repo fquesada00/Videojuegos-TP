@@ -7,6 +7,7 @@ using Controllers.Utils;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using FlyWeights.EntitiesStats;
+using Managers;
 
 namespace Entities
 {
@@ -18,6 +19,7 @@ namespace Entities
         [SerializeField] private GameObject _preExplosionVisualEffects;
         private Cooldown _attackCooldown = new Cooldown();
         private bool _isAttacking = false;
+        private float _damageMultiplier = 1f;
         
         private Coroutine _preExplosionCoroutine;
         private Coroutine _postExplosionCoroutine;
@@ -35,6 +37,8 @@ namespace Entities
 
         private void Start()
         {
+            _damageMultiplier = FindObjectOfType<GameManager>().GetCurrentDifficultyStats.EnemyDamageMultiplier;
+
             foreach (ParticleSystem particleSystem in
                      _preExplosionVisualEffects.GetComponentsInChildren<ParticleSystem>())
             {
@@ -119,8 +123,8 @@ namespace Entities
                     // when enemy is touching the player, it does xAttackRange damage
                     // if it's further away, it does less damage
                     // formula = r - d * (1 - 1 / r) where r is the radius and d the distance
-                    float damageMultiplier = this.EnemyStats.AttackRange - distance * (1 - (1 / this.EnemyStats.AttackRange));
-                    hitCollider.gameObject.GetComponent<LifeController>().TakeDamage(this.Stats.Damage * damageMultiplier, hitCrit);
+                    float rangeDamageMultiplier = this.EnemyStats.AttackRange - distance * (1 - (1 / this.EnemyStats.AttackRange));
+                    hitCollider.gameObject.GetComponent<LifeController>().TakeDamage(this.Stats.Damage * rangeDamageMultiplier * _damageMultiplier, hitCrit);
                     break;
                 }
             }

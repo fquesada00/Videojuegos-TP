@@ -3,33 +3,51 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Controllers.NavMesh;
+using Managers;
 using UnityEngine.Serialization;
 
 public class EnemySpawnManager : MonoBehaviour
 {
-    [SerializeField] private int maxSimultaneousEnemiesSize;
     [SerializeField] private float batchSpawnDelay;
-    [SerializeField] private int enemiesPerBatchSize;
     [SerializeField] private List<EnemyPoolConfig> enemyPoolConfigs;
     [SerializeField] private SpawnMethod spawnMethod;
     [SerializeField] private float maxDistance = 100;
     [SerializeField] private Dictionary<int, EntityPool> _enemyPools;
-    
+
+    private int _maxSimultaneousEnemiesSize;
+    private int _enemiesPerBatchSize;
+
     private NavMeshTriangulation _navMeshTriangulation;
     private Actor _player;
     private int _currentEnemyCount;
 
     private void Awake()
-    {            
+    {
         _player = FindObjectOfType<Actor>();
         _enemyPools = new Dictionary<int, EntityPool>();
         spawnMethod = SpawnMethod.Random;
         _navMeshTriangulation = NavMesh.CalculateTriangulation();
         _currentEnemyCount = 0;
+    }
+
+    private void EnemyDeath(int enemyId, Killer killer)
+    {
+        _currentEnemyCount--;
+    }
+
+    private void Start()
+    {
+        EventsManager.instance.OnEnemyDeath += EnemyDeath;
+        StartCoroutine(SpawnEnemyBatchAfterSeconds(batchSpawnDelay));
+
+        DifficultyStats difficultyStats = GetComponent<GameManager>().GetCurrentDifficultyStats;
+        _maxSimultaneousEnemiesSize = difficultyStats.MaxSimultaneousEnemiesSize;
+        _enemiesPerBatchSize = difficultyStats.EnemiesPerBatchSize;
+        
         float accumProb = 0;
         for (int i = 0; i < enemyPoolConfigs.Count; i++)
         {
-            _enemyPools.Add(i, EntityPool.CreateInstance(enemyPoolConfigs[i].EnemyPrefab, maxSimultaneousEnemiesSize));
+            _enemyPools.Add(i, EntityPool.CreateInstance(enemyPoolConfigs[i].EnemyPrefab, _maxSimultaneousEnemiesSize));
             accumProb += enemyPoolConfigs[i].ElegibilityProb;
             enemyPoolConfigs[i].AccumProb = accumProb;
         }
@@ -44,9 +62,11 @@ public class EnemySpawnManager : MonoBehaviour
         }
         else if (accumProb < 1)
         {
-            Debug.LogError("EnemySpawnManager: Probabilities do not add up to 1...\n...adding the difference to the last enemy");
+            Debug.LogError(
+                "EnemySpawnManager: Probabilities do not add up to 1...\n...adding the difference to the last enemy");
             enemyPoolConfigs[enemyPoolConfigs.Count - 1].AccumProb = 1;
-        } else if (accumProb > 1)
+        }
+        else if (accumProb > 1)
         {
             Debug.LogError("EnemySpawnManager: Probabilities add up to more than 1...\n...normalizing probabilities");
             for (int i = 0; i < enemyPoolConfigs.Count; i++)
@@ -54,17 +74,6 @@ public class EnemySpawnManager : MonoBehaviour
                 enemyPoolConfigs[i].AccumProb /= accumProb;
             }
         }
-    }
-
-    private void EnemyDeath(int enemyId, Killer killer)
-    {
-        _currentEnemyCount--;
-    }
-
-    private void Start()
-    {
-        EventsManager.instance.OnEnemyDeath += EnemyDeath;
-        StartCoroutine(SpawnEnemyBatchAfterSeconds(batchSpawnDelay));
     }
 
     private IEnumerator SpawnEnemyBatchAfterSeconds(float batchSpawnDelay)
@@ -80,7 +89,7 @@ public class EnemySpawnManager : MonoBehaviour
     {
         int enemiesSpawnedInBatch = 0;
 
-        while (_currentEnemyCount < maxSimultaneousEnemiesSize && enemiesSpawnedInBatch < enemiesPerBatchSize )
+        while (_currentEnemyCount < _maxSimultaneousEnemiesSize && enemiesSpawnedInBatch < _enemiesPerBatchSize)
         {
             SpawnEnemy();
             _currentEnemyCount++;
@@ -100,7 +109,7 @@ public class EnemySpawnManager : MonoBehaviour
     {
         // get a random probability
         float randomProb = Random.Range(0, 1f);
-        
+
         // iterate through the enemy pool configs and find the one that matches the random probability
         for (int i = 0; i < enemyPoolConfigs.Count; i++)
         {
@@ -136,7 +145,7 @@ public class EnemySpawnManager : MonoBehaviour
         while (!foundLocation)
         {
             foundLocation = NavMesh.SamplePosition(randomPosition, out hit, positionMargin, NavMesh.AllAreas);
-            if(foundLocation) return hit.position;
+            if (foundLocation) return hit.position;
 
             positionMargin += 1000; // TODO: MAGIC NUMBER
         }
@@ -154,11 +163,12 @@ public class EnemySpawnManager : MonoBehaviour
     {
         [SerializeField] private Enemy enemyPrefab;
         public Enemy EnemyPrefab => enemyPrefab;
-        
+
         [SerializeField] private float elegibilityProb;
         public float ElegibilityProb => elegibilityProb;
 
         private float _accumProb = 0;
+
         public float AccumProb
         {
             get => _accumProb;

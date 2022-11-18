@@ -51,14 +51,14 @@ namespace Controllers
             if (weapon is Gun && vanashing > 0) //weapon is gun
             {
 
-                _animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
+                _animator.SetIKPositionWeight(AvatarIKGoal.RightHand, Mathf.Lerp(0, 1,  (Time.time - lastTime)/0.2f));
                 _animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);
 
                 //lerp from lastPosition to GunLocation
                 //_animator.SetIKPosition(AvatarIKGoal.RightHand, Vector3.Lerp(lastPosition, GunLocation.transform.position, (float)(20f*(Time.time - lastTime)/vanashingTime)));
-                _animator.SetIKPosition(AvatarIKGoal.RightHand, Vector3.Lerp(lastPosition, GunLocation.transform.position, (Time.time - lastTime)/0.06f));
+                //_animator.SetIKPosition(AvatarIKGoal.RightHand, Vector3.Lerp(lastPosition, GunLocation.transform.position, (Time.time - lastTime)/0.06f));
 
-                //_animator.SetIKPosition(AvatarIKGoal.RightHand, GunLocation.transform.position);
+                _animator.SetIKPosition(AvatarIKGoal.RightHand, GunLocation.transform.position);
                 _animator.SetIKRotation(AvatarIKGoal.RightHand, GunLocation.transform.rotation);
             }
             else

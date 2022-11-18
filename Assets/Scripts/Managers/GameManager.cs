@@ -11,10 +11,21 @@ namespace Managers
         private int _objectiveKills;
         [SerializeField] private bool _isVictory;
         [SerializeField] private Dictionary<int, int> _enemiesKilled;
+        [SerializeField] private DifficultyStats _easyDifficultyStats;
+        [SerializeField] private DifficultyStats _mediumDifficultyStats;
+        [SerializeField] private DifficultyStats _hardDifficultyStats;
+
+        private DifficultyStats _currentDifficultyStats;
+        public DifficultyStats GetCurrentDifficultyStats => _currentDifficultyStats;
+
+        private void Awake()
+        {
+            _currentDifficultyStats = GetDifficultyStats();
+        }
 
         private void Start()
         {
-            _objectiveKills = BASE_OBJECTIVE_KILLS * (PlayerPrefs.GetInt("Difficulty", 0) +1);
+            _objectiveKills = _currentDifficultyStats.ObjectiveKills;
             EventsManager.instance.EventRemainingKillsChange(0, _objectiveKills);
             _enemiesKilled = new Dictionary<int, int>();
             EventsManager.instance.OnGameOver += OnGameOver;
@@ -67,7 +78,23 @@ namespace Managers
         {
             Time.timeScale= 1;
             SceneManager.LoadScene("EndScene");
-
         }
+        
+        private DifficultyStats GetDifficultyStats()
+        {
+            Difficulty difficulty = GlobalDataManager.Instance.GetDifficulty();
+            switch (difficulty)
+            {
+                case Difficulty.EASY:
+                    return _easyDifficultyStats;
+                case Difficulty.MEDIUM:
+                    return _mediumDifficultyStats;
+                case Difficulty.HARD:
+                    return _hardDifficultyStats;
+                default:
+                    return _easyDifficultyStats;
+            }
+        }
+
     }
 }

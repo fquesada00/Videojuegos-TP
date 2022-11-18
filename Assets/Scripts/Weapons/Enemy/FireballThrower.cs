@@ -2,6 +2,7 @@ using Entities;
 using FlyWeights.WeaponsStats;
 using Strategies;
 using Controllers.NavMesh;
+using Managers;
 using UnityEngine;
 
 
@@ -15,6 +16,7 @@ public class FireballThrower : Weapon, IGun
     public GameObject BulletPrefab => _stats.BulletPrefab;
     private int _bulletCount;
     public int BulletCount => _bulletCount;
+    public float _damageMultiplier = 1f;
 
     private GameObject _target;
     public GameObject Target
@@ -29,6 +31,8 @@ public class FireballThrower : Weapon, IGun
         base.Start();
 
         _bulletCount = _stats.MagSize;
+        _damageMultiplier = FindObjectOfType<GameManager>().GetCurrentDifficultyStats.EnemyDamageMultiplier;
+
     }
 
     public void Update()
@@ -56,7 +60,7 @@ public class FireballThrower : Weapon, IGun
         iBullet.CollisionTag = "Player";
         iBullet.SetSpeed(_bulletStats.Speed);
         iBullet.SetLifeTime(_bulletStats.LifeTime);
-        iBullet.Damage = Stats.Damage;
+        iBullet.Damage = Stats.Damage * _damageMultiplier;
         iBullet.Crit = crit;
 
         _bulletCount--;
