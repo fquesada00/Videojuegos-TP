@@ -6,16 +6,18 @@ using Controllers.NavMesh;
 using Controllers.Utils;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using FlyWeights.EntitiesStats;
 
 namespace Entities
 {
     [RequireComponent(typeof(LifeController), typeof(GameObject), typeof(GameObject))]
     public class CrabEnemy : Enemy
     {
-        private Cooldown _attackCooldown = new Cooldown();
-        private bool _isAttacking = false;
+        [SerializeField] private ExplosionStats _explosionStats;
         [SerializeField] private GameObject _postExplosionVisualEffects;
         [SerializeField] private GameObject _preExplosionVisualEffects;
+        private Cooldown _attackCooldown = new Cooldown();
+        private bool _isAttacking = false;
         
         private Coroutine _preExplosionCoroutine;
         private Coroutine _postExplosionCoroutine;
@@ -39,8 +41,8 @@ namespace Entities
                 ParticleSystem.MainModule main = particleSystem.main;
                 main.duration = this.EnemyStats.AttackCooldown;
                 main.startSize =
-                    3 * this.EnemyStats
-                        .AttackRange; // TODO: Check if the range of the animation is the same as the attack
+                    (_explosionStats.Range/2) * this.EnemyStats
+                        .AttackRange;
             }
 
             foreach (ParticleSystem particleSystem in _postExplosionVisualEffects
@@ -49,8 +51,8 @@ namespace Entities
                 ParticleSystem.MainModule main = particleSystem.main;
                 main.duration = 1;
                 main.startSize =
-                    5 * this.EnemyStats
-                        .AttackRange; // TODO: Check if the range of the animation is the same as the attack
+                    _explosionStats.Range * this.EnemyStats
+                        .AttackRange;
             }
         }
 
@@ -64,7 +66,7 @@ namespace Entities
             }
 
             float distanceFromPlayer = _enemyFollowController.getDistanceFromPlayer();
-            if (distanceFromPlayer < 5f) // TODO: HARDCODED
+            if (distanceFromPlayer < _explosionStats.Range)
                 Attack();
         }
 
@@ -97,8 +99,7 @@ namespace Entities
 
             // get body component
             // GameObject.Find("Body").SetActive(false);
-            _postExplosionCoroutine = StartCoroutine(new Cooldown().CallbackCooldown(2f,
-                AfterExplosion)); // last little bit longer to wait for animation to finish
+            _postExplosionCoroutine = StartCoroutine(new Cooldown().CallbackCooldown(2f, AfterExplosion)); // last little bit longer to wait for animation to finish
         }
 
         private void AfterExplosion()

@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EntityStats : ScriptableObject
- {
-        [SerializeField] private EntityStatValues _entityStatValues;
+{
+    [SerializeField] private EntityStatValues _entityStatValues;
 
+    public float MaxHealth => _entityStatValues.MaxHealth;
 
-        public float MaxHealth => _entityStatValues.MaxHealth;
+    public float BaseMovementSpeed => _entityStatValues.BaseMovementSpeed;
 
-        public float BaseMovementSpeed => _entityStatValues.BaseMovementSpeed;
+    public float Damage => _entityStatValues.Damage;
 
-        public float Damage => _entityStatValues.Damage;
+    public float AttackCooldown => _entityStatValues.AttackCooldown;
 
-        public float AttackCooldown => _entityStatValues.AttackCooldown;
-
-        public float CritProbability => _entityStatValues.CritProbability;
-        
-        public int Id => _entityStatValues.Id;
-    }
+    public float CritProbability => _entityStatValues.CritProbability;
+    
+    public int Id => _entityStatValues.Id;
+}
 
 [System.Serializable]
 public struct EntityStatValues

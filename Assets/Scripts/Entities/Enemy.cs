@@ -14,8 +14,8 @@ public abstract class Enemy : PoolableEntity
 
     public override EntityStats Stats => _enemyStats;
     public EnemyStats EnemyStats => _enemyStats;
-    public DropListStats DropListStats => _dropListStats;
     [SerializeField] private EnemyStats _enemyStats;
+    public DropListStats DropListStats => _dropListStats;
     [SerializeField] private DropListStats _dropListStats;
     private Spawner<Drop> _dropSpawner;
 
