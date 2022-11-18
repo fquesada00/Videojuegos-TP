@@ -37,7 +37,7 @@ public class MovementController : MonoBehaviour, IMoveable
     }
 
     private void Update() {
-        if(IsGrounded() && _ySpeed < 0) {
+        if(_characterController.isGrounded && _ySpeed < 0) {
             // Reset the number of jumps and yspeed only if the player is grounded and yspeed is negative because it enables the player to jump when speed is >=0
             _currentContinuosJumps = 0;
             _ySpeed = 0;

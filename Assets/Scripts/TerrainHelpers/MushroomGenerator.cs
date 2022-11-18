@@ -87,9 +87,6 @@ public class MushroomGenerator : MonoBehaviour
             GameObject mushroom = Instantiate(mushroomPrefab, pos, rot);
             mushroom.transform.parent = parent.transform;
 
-            //set static
-            mushroom.isStatic = true;
-            
         }
 
     }
