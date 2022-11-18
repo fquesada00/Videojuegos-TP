@@ -45,7 +45,6 @@ namespace Controllers
                 }
             }
             
-            Debug.LogWarning("Sound " + soundType + " not found!");
             return null;
         }
 
