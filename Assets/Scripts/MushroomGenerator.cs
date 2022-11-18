@@ -15,8 +15,29 @@ public class MushroomGenerator : MonoBehaviour
 
     [SerializeField] private Vector2 heightRange = new Vector2(110, 400);
 
+    private float margin = 10f;
+
     public void generate()
     {
+
+        if (_mushroomPrefabs.Length == 0)
+        {
+            Debug.LogError("No prefabs to generate");
+            return;
+        }
+
+        if (_mushroomCount == 0)
+        {
+            Debug.LogError("No mushrooms to generate");
+            return;
+        }
+
+        if (heightRange.x + margin> heightRange.y)
+        {
+            Debug.LogError("Height range must start lower than it ends, with a margin of " + margin);
+            return;
+        }
+
         Terrain terrain = GetComponent<Terrain>();
         TerrainData terrainData = terrain.terrainData;
         
