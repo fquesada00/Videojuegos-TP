@@ -14,17 +14,20 @@ namespace Controllers
     {
         [SerializeField] private List<Weapon> _weapons;
 
-        private IWeapon _currentWeapon;
-        public IWeapon CurrentWeapon => _currentWeapon;
+        private Weapon _currentWeapon;
+        public Weapon CurrentWeapon => _currentWeapon;
 
         private AnimationController _animationController;
         private Cooldown _gunAnimationCooldown;
+
+        private Coroutine _vanishingCoroutine;
         
         private void Start()
         {
             _animationController = GetComponentInChildren<AnimationController>();
             _gunAnimationCooldown = new Cooldown();
         }
+
 
         public void Attack()
         {
@@ -45,9 +48,12 @@ namespace Controllers
             // {
             //     _currentWeapon.Attack();
             // }
+            if(_vanishingCoroutine != null)StopCoroutine(_vanishingCoroutine);
             float critProbability = GetComponent<Entity>().Stats.CritProbability;
             bool crit = UnityEngine.Random.Range(0.0f,1.0f) <= critProbability;
+            _currentWeapon.gameObject.SetActive(true);
             _currentWeapon.Attack(crit);
+            _vanishingCoroutine = StartCoroutine(new Cooldown().CallbackCooldown(_currentWeapon.WeaponStats.VanashingTime, () => _currentWeapon.gameObject.SetActive(false)));
         }
 
         public void SwitchWeapon(int index)
@@ -59,11 +65,11 @@ namespace Controllers
 
             for (int i = 0; i < _weapons.Count; i++)
             {
-                _weapons[i].gameObject.SetActive(i == index);
+                _weapons[i].gameObject.SetActive(false);
             }
 
             _currentWeapon = _weapons[index];
-            _animationController.SetWeapon(index);
+            _animationController.SetWeapon(index, _currentWeapon);
         }
     }
 }

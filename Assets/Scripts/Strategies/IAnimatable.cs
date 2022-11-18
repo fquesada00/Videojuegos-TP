@@ -7,7 +7,7 @@
     
         void setGrounded(bool grounded);
 
-        void SetWeapon(int index);
+        void SetWeapon(int index, Weapon weapon);
         
         void Run(float speed);
         

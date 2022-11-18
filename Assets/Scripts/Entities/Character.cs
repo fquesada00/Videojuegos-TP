@@ -125,7 +125,9 @@ public class Character : Actor
         #endregion
 
         EventsManager.instance.EventCooldownReduce(Time.deltaTime);
+  
     }
+
 
     public override void Die(Killer killer = Killer.ENEMY)
     {

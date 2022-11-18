@@ -15,6 +15,7 @@ MonoBehaviour:
   _weaponStatValues:
     Cooldown: 0
     Damage: 50
+    VanashingTime: 1
   _statValues:
     BulletPrefab: {fileID: 1000011023395326, guid: 2ce15a1900ef14a459f78260cd05a3dc, type: 3}
     MagSize: 10

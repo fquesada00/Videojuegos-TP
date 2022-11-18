@@ -27,7 +27,7 @@ namespace Weapons
         {
             //look at center of screen
             var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0));
-            transform.LookAt(ray.GetPoint(100));
+            transform.parent.LookAt(ray.GetPoint(100));
             
         }
 
