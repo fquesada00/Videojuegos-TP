@@ -4135,6 +4135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyStats: {fileID: 11400000, guid: 8071d529fdc7bf647b2736d0ed83d652, type: 2}
   _dropListStats: {fileID: 11400000, guid: bde8f90de6af18046b429cd314b58a92, type: 2}
+  _explosionStats: {fileID: 11400000, guid: 27bf343e3e89ac6428ea7e789cd5efe5, type: 2}
   _postExplosionVisualEffects: {fileID: 5359134806903142733}
   _preExplosionVisualEffects: {fileID: 1342073330560418336}
 --- !u!114 &950915356219703157

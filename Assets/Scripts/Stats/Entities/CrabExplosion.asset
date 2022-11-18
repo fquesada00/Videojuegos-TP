@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: CrabExplosion
   m_EditorClassIdentifier: 
   _explosionStatValues:
-    Range: 0
+    Range: 5

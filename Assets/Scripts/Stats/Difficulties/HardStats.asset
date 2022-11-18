@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: HardStats
   m_EditorClassIdentifier: 
   _difficultyStatsValues:
-    MaxSimultaneousEnemiesSize: 0
-    EnemiesPerBatchSize: 0
-    ObjectiveKills: 0
+    MaxSimultaneousEnemiesSize: 40
+    EnemiesPerBatchSize: 15
+    ObjectiveKills: 150
+    EnemyDamageMultiplier: 2

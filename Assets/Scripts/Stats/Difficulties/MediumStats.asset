@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MediumStats
   m_EditorClassIdentifier: 
   _difficultyStatsValues:
-    MaxSimultaneousEnemiesSize: 0
-    EnemiesPerBatchSize: 0
-    ObjectiveKills: 0
+    MaxSimultaneousEnemiesSize: 20
+    EnemiesPerBatchSize: 10
+    ObjectiveKills: 75
+    EnemyDamageMultiplier: 1

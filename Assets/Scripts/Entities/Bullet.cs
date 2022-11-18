@@ -22,7 +22,7 @@ namespace Entities
         private Collider _collider;
         public Collider Collider => _collider;
 
-        private String _collisionTag = "Enemy";
+        protected String _collisionTag = "Enemy";
 
         public ParticleSystem HitEffect;
 

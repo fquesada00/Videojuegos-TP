@@ -16,7 +16,7 @@ public class FireballThrower : Weapon, IGun
     public GameObject BulletPrefab => _stats.BulletPrefab;
     private int _bulletCount;
     public int BulletCount => _bulletCount;
-    public float _damageMultiplier = 1f;
+    private float _damageMultiplier = 1f;
 
     private GameObject _target;
     public GameObject Target
