@@ -17,11 +17,11 @@ public abstract class Enemy : PoolableEntity
     [SerializeField] private EnemyStats _enemyStats;
     public DropListStats DropListStats => _dropListStats;
     [SerializeField] private DropListStats _dropListStats;
-    private Spawner<Drop> _dropSpawner;
+    private DropSpawner _dropSpawner;
 
     private void Awake()
     {
-        _dropSpawner = new Spawner<Drop>();
+        _dropSpawner = FindObjectOfType<DropSpawner>();
         GetComponent<NavMeshAgent>().speed = _enemyStats.BaseMovementSpeed;
     }
 
@@ -43,7 +43,7 @@ public abstract class Enemy : PoolableEntity
         {
             if (Random.Range(0f, 1f) < possibleDrop.DropChance)
             {
-                var drop = _dropSpawner.Create(possibleDrop.prefab);
+                var drop = Instantiate(_dropSpawner.Create(possibleDrop.DropEnum));
                 drop.transform.position = transform.position;
                 break; // only one drop per enemy
             }

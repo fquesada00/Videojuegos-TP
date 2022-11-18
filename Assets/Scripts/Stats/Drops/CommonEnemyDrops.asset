@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _possibleDropsStats:
   - DropChance: 0.25
-    prefab: {fileID: 5247667137446652117, guid: 7cafb89b5a0f61f479d0a748962abbbc, type: 3}
+    DropEnum: 0
   - DropChance: 0.15
-    prefab: {fileID: -6895938806456393971, guid: 2cf6690298568294cb6b655c0a3aeb87, type: 3}
+    DropEnum: 1

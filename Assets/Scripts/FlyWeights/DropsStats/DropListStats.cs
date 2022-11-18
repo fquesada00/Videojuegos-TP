@@ -16,6 +16,6 @@ namespace FlyWeights.DropsStats
     public struct PossibleDrop
     {
         public float DropChance;
-        public Drop prefab;
+        public DropEnum DropEnum;
     }
 }

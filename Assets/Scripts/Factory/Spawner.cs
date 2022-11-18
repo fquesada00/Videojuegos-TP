@@ -2,10 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner<T> : IFactory<T> where T : MonoBehaviour
+public abstract class Spawner<T,V> : MonoBehaviour, IFactory<T,V> where T : MonoBehaviour
 {
-    public T Create(T prefab)
-    {
-        return GameObject.Instantiate(prefab);
-    }
+    public abstract T Create(V prefab);
 }
