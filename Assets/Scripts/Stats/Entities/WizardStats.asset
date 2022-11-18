@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entityStatValues:
     MaxHealth: 500
-    BaseMovementSpeed: 0
-    Damage: 10
+    BaseMovementSpeed: 7
+    Damage: 7
     AttackCooldown: 1
     CritProbability: 0
     Id: 1
