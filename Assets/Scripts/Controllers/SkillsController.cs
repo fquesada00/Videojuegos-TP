@@ -11,7 +11,7 @@ namespace Controllers
     public class SkillsController : MonoBehaviour, ISkills
     {
         [SerializeField] private Weapon _boomerang;
-        public float BoomerangCooldown => 2; // TODO: MOVE TO STATS
+        public float BoomerangCooldown => GetComponent<Actor>().ActorStats.BoomerangCooldown;
         private Cooldown _boomerangCooldown = new Cooldown();
 
         public void throwBoomerang()

@@ -14,6 +14,7 @@ public class ActorStats : EntityStats
     public int MaxContinuosJumps => _actorStatValues.MaxContinuosJumps;
     public float DashPower => _actorStatValues.DashPower;
     public float DashCooldown => _actorStatValues.DashCooldown;
+    public float BoomerangCooldown => _actorStatValues.BoomerangCooldown;
 }
 
 [System.Serializable]
@@ -24,4 +25,5 @@ public struct ActorStatValues
     public int MaxContinuosJumps;
     public float DashPower;
     public float DashCooldown;
+    public float BoomerangCooldown;
 }

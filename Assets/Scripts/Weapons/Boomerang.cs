@@ -1,32 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
+using Strategies;
 using UnityEngine;
 
 namespace Weapons
 {
     public class Boomerang : Weapon
     {
-        private float _speed;
-        public float Speed => _speed;
-        
-        private float _range;
-        public float Range => _range;
+        [SerializeField] private BoomerangStats _stats;
+        [SerializeField] private TrailRenderer _trail;
+        public BoomerangStats BoomerangStats => _stats;
+        public override WeaponStats WeaponStats => _stats;
+        public float MaxSpeed => BoomerangStats.MaxSpeed;
+        public float Range => BoomerangStats.Range;
+
+        private float _speed = 0;
+        private float _acceleration = 0;
         private Transform _parent;
         private Vector3 _idlePosition;
         private Quaternion _idleRotation;
         private Vector3 _attackDirection;
         private BoomerangState _state;
-
-        public override WeaponStats WeaponStats => throw new System.NotImplementedException();
+        private Collider _collider;
 
         private new void Start()
         {
-            _speed = 5f;
-            _range = 15f;
+            base.Start();
             _parent = transform.parent;
             _state = BoomerangState.IDLE;
             _idlePosition = transform.localPosition;
             _idleRotation = transform.localRotation;
+            _collider = GetComponent<Collider>();
+            _collider.enabled = false;
+            _acceleration = Mathf.Pow(MaxSpeed, 2) / (2 * Range);
+            _trail.enabled = false;
         }
 
         void Update()
@@ -40,39 +47,58 @@ namespace Weapons
             {
                 case BoomerangState.GOING:
                     direction = _attackDirection;
-                    if(distance > Range) {
-                        Debug.Log("Boomerang out of range");
+                    if(distance > Range || _speed < 0) {
                         _state = BoomerangState.RETURNING;
                     }
                     break;
                 case BoomerangState.RETURNING:
-                    direction = _parent.position - transform.position;
+                    direction = transform.position - _parent.position; // speed when returning is negative
                     if(distance < 0.5) {
                         transform.parent = _parent;
                         transform.localPosition = _idlePosition;
                         transform.localRotation = _idleRotation;
                         _state = BoomerangState.IDLE;
+                        _collider.enabled = false;
+                        _speed = 0;
+                        _trail.enabled = false;
+                        return;
                     }
                     break;
 
                 default:
                     throw new System.NotImplementedException();
             }
-            transform.position += direction.normalized * Time.deltaTime * Speed;
+
+            _speed -= _acceleration * Time.deltaTime;
+            transform.position += direction.normalized * Time.deltaTime * _speed;
         }
 
         public override void Attack(bool crit)
         {
             if (_state == BoomerangState.IDLE)
             {
+                _trail.enabled = true;
+                _speed = MaxSpeed;
+                _collider.enabled = true;
                 _attackDirection = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2f, Screen.height / 2f, 100)) - transform.position;
                 _state = BoomerangState.GOING;
                 transform.parent = null;
                 transform.rotation = Quaternion.LookRotation(_attackDirection);
-                base.Attack(crit);
+                base.Attack(false);
             }
         }
 
+        public void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.CompareTag("Enemy"))
+            {
+                IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
+                damageable?.TakeDamage(WeaponStats.Damage, false);
+                // FIXME: Collider should be disabled after first hit against the same entity
+            } else if (other.gameObject.isStatic) {
+                _state = BoomerangState.RETURNING;
+            }
+        }
     }
 
     public enum BoomerangState
