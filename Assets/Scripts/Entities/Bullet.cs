@@ -63,7 +63,6 @@ namespace Entities
 
         public void Travel()
         {
-            //transform.Translate(Vector3.forward * (Time.deltaTime * Speed));
         }
 
         public void OnTriggerEnter(Collider other)

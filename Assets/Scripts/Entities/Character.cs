@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Commands.Animations;
 using Commands.Weapons;
+using Commands.Movements;
 using Controllers;
 using UnityEngine;
 
@@ -18,9 +19,11 @@ public class Character : Actor
     private MovementController _movementController;
     private AnimationController _animationController;
     private WeaponController _weaponController;
+    private SkillsController _skillsController;
 
     // KEYCODES
-    [SerializeField] private KeyCode _weaponSwitch = KeyCode.Q;
+    [SerializeField] private KeyCode _weaponSwitchKeyCode = KeyCode.Q;
+    [SerializeField] private KeyCode _boomerangKeyCode = KeyCode.R;
 
     // VARIABLES
     private int _currentWeaponIndex = 0;
@@ -31,6 +34,7 @@ public class Character : Actor
         _movementController = GetComponent<MovementController>();
         _animationController = GetComponentInChildren<AnimationController>();
         _weaponController = GetComponent<WeaponController>();
+        _skillsController = GetComponent<SkillsController>();
 
         _cmdJump = new CmdJump(_movementController);
 
@@ -51,10 +55,21 @@ public class Character : Actor
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
         
 
-        // Dash
+        #region DASH
+        
         bool isDashing = Input.GetButtonDown("Fire3");
         if (isDashing) 
             EventQueueManager.instance.AddCommand(new CmdDash(_movementController ,_mainCamera.transform.forward));
+
+        #endregion
+
+        #region BOOMERANG
+
+        bool throwBoomerang = Input.GetKeyDown(_boomerangKeyCode);
+        if (throwBoomerang) 
+            EventQueueManager.instance.AddCommand(new CmdBoomerang(_skillsController));
+
+        #endregion
 
         #region JUMP
 
@@ -108,7 +123,7 @@ public class Character : Actor
         
         // Switch Weapon
         //Weapon Slot 1
-        bool switchWeapon = Input.GetKeyDown(_weaponSwitch);
+        bool switchWeapon = Input.GetKeyDown(_weaponSwitchKeyCode);
         if (switchWeapon)
         {
             _currentWeaponIndex = 1 - _currentWeaponIndex; // max 2 weapons
