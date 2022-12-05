@@ -77,7 +77,7 @@ public class MovementController : MonoBehaviour, IMoveable
     {
         if (_dashCooldown.IsOnCooldown()) return;
         
-        EventsManager.instance.EventSkillCooldownChange(1, DashCooldown);
+        EventsManager.instance.EventSkillCooldownChange(0, DashCooldown);
         __DashVisualEffects();
         __DashDamage(forwardDir);
 

@@ -25,3 +25,4 @@ MonoBehaviour:
     MaxContinuosJumps: 3
     DashPower: 15
     DashCooldown: 4
+    BoomerangCooldown: 2

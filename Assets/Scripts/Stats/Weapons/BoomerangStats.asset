@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponStatValues:
     Cooldown: 0
-    Damage: 0
+    Damage: 250
     VanashingTime: 0
   _boomerangStatValues:
-    Range: 0
-    MaxSpeed: 0
+    Range: 20
+    MaxSpeed: 25

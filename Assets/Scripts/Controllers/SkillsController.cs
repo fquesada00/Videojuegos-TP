@@ -18,7 +18,7 @@ namespace Controllers
         {
             if (_boomerangCooldown.IsOnCooldown()) return;
             
-            // EventsManager.instance.EventSkillCooldownChange(2, BoomerangCooldown);
+            EventsManager.instance.EventSkillCooldownChange(1, BoomerangCooldown);
 
             _boomerang.Attack(false);
 
