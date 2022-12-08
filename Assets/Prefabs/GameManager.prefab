@@ -1,0 +1,154 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2334262209671231725
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2334262209671231701}
+  - component: {fileID: 2334262209671231700}
+  - component: {fileID: 2334262209671231703}
+  - component: {fileID: 2334262209671231702}
+  - component: {fileID: 2334262209671231721}
+  - component: {fileID: 2334262209671231720}
+  - component: {fileID: 2334262209671231722}
+  - component: {fileID: 2334262209671231723}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2334262209671231701
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2334262209671231725}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.12860397, y: -0.08223352, z: 3.3821785}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2334262209671231700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2334262209671231725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e26982466afb423baae8093f1277003e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isVictory: 0
+  _easyDifficultyStats: {fileID: 11400000, guid: 857ce727b73268f4a9503df90746ddfb, type: 2}
+  _mediumDifficultyStats: {fileID: 11400000, guid: 72e523a34cbcd0f459a5e347aa577bbb, type: 2}
+  _hardDifficultyStats: {fileID: 11400000, guid: 29aa05e3102be0b42b349a2e10328f54, type: 2}
+--- !u!114 &2334262209671231703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2334262209671231725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60838f367141730489a0c87bb84d9b0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2334262209671231702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2334262209671231725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0e9903ba4577ea46bc5b1338a74c286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2334262209671231721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2334262209671231725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6793f1e0b027798418f6ff3184589be9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  batchSpawnDelay: 10
+  enemyPoolConfigs:
+  - enemyPrefab: {fileID: -213610173481840871, guid: 4e7afdf31c20ebf419ea38bf1d358719, type: 3}
+    elegibilityProb: 0.1
+  - enemyPrefab: {fileID: 312207747050156958, guid: 3c9c8a8bf50e6b5439ab9db67bc82586, type: 3}
+    elegibilityProb: 0.5
+  - enemyPrefab: {fileID: 1312828205, guid: dcf56777c6c6fc6469501dcbc7aa5b90, type: 3}
+    elegibilityProb: 0.4
+  spawnMethod: 0
+  maxDistance: 100
+--- !u!114 &2334262209671231720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2334262209671231725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b9d02e57f077024a8481f498f7690ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lifebarImage: {fileID: 0}
+  _skillsCooldownImage:
+  - {fileID: 0}
+  - {fileID: 0}
+  _currentWeaponImage: {fileID: 0}
+  _nextWeaponImage: {fileID: 0}
+  _pauseMenu: {fileID: 0}
+  _lifeText: {fileID: 0}
+  _remainingKillsText: {fileID: 0}
+  _weaponSprites:
+  - {fileID: 21300000, guid: 16b4390d98da29241a9d30b09dc8c3c0, type: 3}
+  - {fileID: 21300000, guid: d6a73fbb65608254e93b1c85c347eb76, type: 3}
+--- !u!114 &2334262209671231722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2334262209671231725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baea944884c1bc64c85c02601e90d3d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2334262209671231723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2334262209671231725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e82ada45d73260c4e969f4d4a29cfeec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dropEnumWithPrefabs:
+  - DropEnum: 0
+    Prefab: {fileID: 5247667137446652117, guid: 7cafb89b5a0f61f479d0a748962abbbc, type: 3}
+  - DropEnum: 1
+    Prefab: {fileID: -6895938806456393971, guid: 2cf6690298568294cb6b655c0a3aeb87, type: 3}
