@@ -25,10 +25,8 @@ public class MovementController : MonoBehaviour, IMoveable
     public float DashCooldown => GetComponent<Actor>().ActorStats.DashCooldown;
     protected int _currentContinuosJumps = 0;
     private float _turnSmoothVelocity;
-    private Rigidbody _rigidbody;
 
     private void Start() {
-        _rigidbody = GetComponent<Rigidbody>();
         foreach (ParticleSystem particleSystem in _dashVisualEffects.GetComponentsInChildren<ParticleSystem>())
         {
             ParticleSystem.MainModule main = particleSystem.main;
@@ -124,5 +122,10 @@ public class MovementController : MonoBehaviour, IMoveable
             Vector3 pos = EnemySpawnManager.GetRandomPositionOnNavMesh(transform.position, 10);
             transform.position = pos;
         }
+    }
+
+    public void AddYSpeed(float ySpeed)
+    {
+        _ySpeed += ySpeed;
     }
 }
