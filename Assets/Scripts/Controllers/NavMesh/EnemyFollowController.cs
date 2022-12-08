@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.AI;
+using Vector3 = UnityEngine.Vector3;
 
 namespace Controllers.NavMesh
 {
@@ -30,12 +32,19 @@ namespace Controllers.NavMesh
             
             _navMeshAgent.SetDestination(_player.transform.position);
             //look at player y axis
-            transform.LookAt(new Vector3(_player.transform.position.x, transform.position.y, _player.transform.position.z));
-            // transform.LookAt(_player.transform);
+            LookAtPlayer();
         }
 
         public float getDistanceFromPlayer(){
             return Vector3.Distance(_player.transform.position, transform.position);
+        }
+        
+        public Actor Player => _player;
+        
+        public void LookAtPlayer()
+        {
+            Vector3 playerPosition = _player.transform.position;
+            transform.LookAt(new Vector3(playerPosition.x, transform.position.y, playerPosition.z));
         }
     }
 }
