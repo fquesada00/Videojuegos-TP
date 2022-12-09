@@ -16,7 +16,7 @@ MonoBehaviour:
     MaxHealth: 3500
     BaseMovementSpeed: 0
     Damage: 200
-    AttackCooldown: 5
+    AttackCooldown: 8
     CritProbability: 60
     Id: 4
   _enemyStatValues:

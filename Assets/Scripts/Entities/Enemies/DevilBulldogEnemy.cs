@@ -2,6 +2,7 @@
 using Controllers;
 using Controllers.NavMesh;
 using Controllers.Utils;
+using Strategies;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -14,6 +15,7 @@ namespace Entities
         private Cooldown _sniffCooldown;
         private Animator _animator;
         private Actor _player;
+        [SerializeField] private GameObject _poisonSpellPrefab;
 
         new void OnEnable()
         {
@@ -53,6 +55,18 @@ namespace Entities
             if (_attackCooldown.IsOnCooldown()) return;
             _animator.SetTrigger("roar");
             StartCoroutine(_attackCooldown.BooleanCooldown(Stats.AttackCooldown));
+            StartCoroutine(new Cooldown().CallbackCooldown(2f, CastPoisonSpell));
+        }
+
+        private void CastPoisonSpell()
+        {
+            Vector3 playerPosition = _player.transform.position;
+            var poisonSpell = Instantiate(_poisonSpellPrefab, playerPosition, Quaternion.identity);
+            ISpell IPoisonSpell = poisonSpell.GetComponent<ISpell>();
+            IPoisonSpell.Damage = Stats.Damage;
+            IPoisonSpell.Duration = 10;
+            IPoisonSpell.Crit = true;
+            IPoisonSpell.Range = 5;
         }
 
         private void Sniff()
