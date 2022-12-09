@@ -38,7 +38,7 @@ namespace Entities
             _enemyFollowController.LookAtPlayer();
             
             float distanceFromPlayer = _enemyFollowController.getDistanceFromPlayer();
-            if (distanceFromPlayer < 20f)
+            if (distanceFromPlayer < EnemyStats.AttackRange)
             {
                 Attack();
             }
@@ -52,7 +52,7 @@ namespace Entities
         {
             if (_attackCooldown.IsOnCooldown()) return;
             _animator.SetTrigger("roar");
-            StartCoroutine(_attackCooldown.BooleanCooldown(this.EnemyStats.AttackCooldown));
+            StartCoroutine(_attackCooldown.BooleanCooldown(Stats.AttackCooldown));
         }
 
         private void Sniff()

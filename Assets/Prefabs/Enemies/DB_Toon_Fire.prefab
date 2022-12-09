@@ -268,7 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f6ebf78df094a3a84fa57626cb7a02d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyStats: {fileID: 11400000, guid: 8071d529fdc7bf647b2736d0ed83d652, type: 2}
+  _enemyStats: {fileID: 11400000, guid: a0fd88680ec06e345a288d6207573628, type: 2}
   _dropListStats: {fileID: 11400000, guid: bde8f90de6af18046b429cd314b58a92, type: 2}
 --- !u!195 &284691704695032592
 NavMeshAgent:
