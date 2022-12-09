@@ -14,6 +14,8 @@ namespace Managers
         [SerializeField] private DifficultyStats _easyDifficultyStats;
         [SerializeField] private DifficultyStats _mediumDifficultyStats;
         [SerializeField] private DifficultyStats _hardDifficultyStats;
+        private Level _currentLevel;
+        private LevelStatus _currentLevelStatus;
 
         private DifficultyStats _currentDifficultyStats;
         public DifficultyStats GetCurrentDifficultyStats => _currentDifficultyStats;
@@ -35,6 +37,9 @@ namespace Managers
             Physics.IgnoreLayerCollision((int)Constants.Layers.PLAYER, (int)Constants.Layers.ENEMY, true);
             //lock cursor
             Cursor.lockState = CursorLockMode.Locked;
+            
+            _currentLevel = Level.LEVEL_1;
+            _currentLevelStatus = LevelStatus.KILLING_ENEMIES;
         }
 
         private void OnGameOver(bool isVictory)
@@ -50,6 +55,8 @@ namespace Managers
         
         private void OnEnemyKilled(int enemyId, Killer killer)
         {
+            if (_currentLevelStatus != LevelStatus.KILLING_ENEMIES) return;
+            
             if(killer != Killer.PLAYER) return;
             if (_enemiesKilled.ContainsKey(enemyId))
             {
@@ -70,8 +77,30 @@ namespace Managers
 
             if (totalEnemiesKilled >= _objectiveKills)
             {
-                OnGameOver(true);
+                _currentLevelStatus = LevelStatus.BOSS_FIGHT;
+                // OnGameOver(true);
             }
+        }
+
+        private void OnBossKilled()
+        {
+            // TODO: implement logic
+            NextLevel();
+        }
+        
+        private void NextLevel()
+        {
+            if (_currentLevel == Level.LEVEL_2)
+            {
+                OnGameOver(true);
+                return;
+            }
+            
+            _currentLevel++;
+            _currentLevelStatus = LevelStatus.KILLING_ENEMIES;
+            _objectiveKills = _currentDifficultyStats.ObjectiveKills;
+            EventsManager.instance.EventRemainingKillsChange(0, _objectiveKills);
+            _enemiesKilled = new Dictionary<int, int>();
         }
 
         private void LoadEndgameScene()
@@ -96,5 +125,18 @@ namespace Managers
             }
         }
 
+    }
+    
+    public enum Level
+    {
+        LEVEL_1,
+        LEVEL_2
+    }
+
+    public enum LevelStatus
+    {
+        KILLING_ENEMIES,
+        BOSS_FIGHT,
+        FINISHED
     }
 }
