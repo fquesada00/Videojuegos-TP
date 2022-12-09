@@ -14,8 +14,8 @@ namespace Managers
         [SerializeField] private DifficultyStats _easyDifficultyStats;
         [SerializeField] private DifficultyStats _mediumDifficultyStats;
         [SerializeField] private DifficultyStats _hardDifficultyStats;
-        private Level _currentLevel;
         private LevelStatus _currentLevelStatus;
+        private Level _currentLevel;
 
         private DifficultyStats _currentDifficultyStats;
         public DifficultyStats GetCurrentDifficultyStats => _currentDifficultyStats;
@@ -23,6 +23,7 @@ namespace Managers
         private void Awake()
         {
             _currentDifficultyStats = GetDifficultyStats();
+            _currentLevel = GlobalDataManager.Instance.CurrentLevel;
         }
 
         private void Start()
@@ -38,7 +39,6 @@ namespace Managers
             //lock cursor
             Cursor.lockState = CursorLockMode.Locked;
             
-            _currentLevel = Level.LEVEL_1;
             _currentLevelStatus = LevelStatus.KILLING_ENEMIES;
         }
 
@@ -90,17 +90,13 @@ namespace Managers
         
         private void NextLevel()
         {
-            if (_currentLevel == Level.LEVEL_2)
+            if (_currentLevel.IsLastLevel())
             {
                 OnGameOver(true);
                 return;
             }
             
-            _currentLevel++;
-            _currentLevelStatus = LevelStatus.KILLING_ENEMIES;
-            _objectiveKills = _currentDifficultyStats.ObjectiveKills;
-            EventsManager.instance.EventRemainingKillsChange(0, _objectiveKills);
-            _enemiesKilled = new Dictionary<int, int>();
+            // TODO: go to next level with the scene name!
         }
 
         private void LoadEndgameScene()
@@ -127,11 +123,7 @@ namespace Managers
 
     }
     
-    public enum Level
-    {
-        LEVEL_1,
-        LEVEL_2
-    }
+
 
     public enum LevelStatus
     {
