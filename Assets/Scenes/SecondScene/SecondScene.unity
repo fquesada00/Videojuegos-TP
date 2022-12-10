@@ -11483,7 +11483,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1674475616}
-  m_LocalRotation: {x: 0.2925816, y: -0.0035344944, z: 0.0010814597, w: 0.95623344}
+  m_LocalRotation: {x: 0.29258043, y: -0.0044171363, z: 0.001351524, w: 0.9562298}
   m_LocalPosition: {x: 385.09177, y: 155.06918, z: 615.84296}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -12245,6 +12245,22 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.061438233
       objectReference: {fileID: 0}
+    - target: {fileID: 1136529201288420557, guid: 60d9abfc9c6fd894382cca78590a335d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.93395036
+      objectReference: {fileID: 0}
+    - target: {fileID: 1136529201288420557, guid: 60d9abfc9c6fd894382cca78590a335d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.28093976
+      objectReference: {fileID: 0}
+    - target: {fileID: 1136529201288420557, guid: 60d9abfc9c6fd894382cca78590a335d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.21156456
+      objectReference: {fileID: 0}
+    - target: {fileID: 1136529201288420557, guid: 60d9abfc9c6fd894382cca78590a335d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.06364032
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60d9abfc9c6fd894382cca78590a335d, type: 3}
 --- !u!1001 &2334262209542819702
@@ -12330,6 +12346,18 @@ PrefabInstance:
       propertyPath: _skillsCooldownImage.Array.data[1]
       value: 
       objectReference: {fileID: 1196940874}
+    - target: {fileID: 2334262209671231721, guid: fe49764624e7fba469da19f9434627a4, type: 3}
+      propertyPath: enemyPoolConfigs.Array.data[2].enemyPrefab
+      value: 
+      objectReference: {fileID: 3800531127089429769, guid: b87b68b37d7bd4682a4c3582d9942d7f, type: 3}
+    - target: {fileID: 2334262209671231721, guid: fe49764624e7fba469da19f9434627a4, type: 3}
+      propertyPath: enemyPoolConfigs.Array.data[1].elegibilityProb
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334262209671231721, guid: fe49764624e7fba469da19f9434627a4, type: 3}
+      propertyPath: enemyPoolConfigs.Array.data[2].elegibilityProb
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 2334262209671231725, guid: fe49764624e7fba469da19f9434627a4, type: 3}
       propertyPath: m_Name
       value: GameManager
