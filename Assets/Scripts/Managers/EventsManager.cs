@@ -33,7 +33,8 @@ public class EventsManager : MonoBehaviour
     public event Action<int, float> OnSkillCooldownChange;
     public event Action<bool> OnPauseChange;
     public event Action<Difficulty> OnDifficultyChange;
-    
+    public event Action OnBossKilled; 
+
     public void EventWeaponChange(int weaponIndex)
     {
         if (OnWeaponChange != null) OnWeaponChange(weaponIndex);
@@ -67,6 +68,11 @@ public class EventsManager : MonoBehaviour
     public void EventDifficultyChange(Difficulty difficulty)
     {
         if (OnDifficultyChange != null) OnDifficultyChange(difficulty);
+    }
+    
+    public void BossKilled()
+    {
+        OnBossKilled?.Invoke();
     }
 
     #endregion

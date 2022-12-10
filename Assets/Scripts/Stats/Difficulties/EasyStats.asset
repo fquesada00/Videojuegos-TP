@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EasyStats
   m_EditorClassIdentifier: 
   _difficultyStatsValues:
-    MaxSimultaneousEnemiesSize: 10
+    MaxSimultaneousEnemiesSize: 0
     EnemiesPerBatchSize: 5
     ObjectiveKills: 25
     EnemyDamageMultiplier: 0.75

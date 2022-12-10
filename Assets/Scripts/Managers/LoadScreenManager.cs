@@ -9,11 +9,12 @@ public class LoadScreenManager : MonoBehaviour
 {
     [SerializeField] private Image _progressBar;
     [SerializeField] private Text _progressValue;
-    [SerializeField] private string _targetScene = "Level"; // podria ser un parametro
+    [SerializeField] private string _targetScene;
 
     // Start is called before the first frame update
     void Start()
     {
+        _targetScene = GlobalDataManager.Instance.CurrentLevel.SceneName;
         StartCoroutine(LoadAsync());
     }
 
@@ -28,7 +29,7 @@ public class LoadScreenManager : MonoBehaviour
             Debug.Log(async.progress);
             _progressBar.fillAmount = async.progress;
             _progressValue.text = $"LOADING - {Math.Round(async.progress * 100, 2)}%";
-            yield return  new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }

@@ -9,8 +9,8 @@ public class GlobalDataManager : MonoBehaviour
     public bool IsVictory => _isVictory;
     [SerializeField] private bool _isVictory;
 
-    private Difficulty _difficulty;
-    private Level _currentLevel;
+    private Difficulty? _difficulty;
+    private Level _currentLevel = Level.LEVEL_1;
 
     private void Awake()
     {
@@ -28,7 +28,7 @@ public class GlobalDataManager : MonoBehaviour
 
     public void SetIsVictory(bool isVictory) => _isVictory = isVictory;
 
-    public Difficulty GetDifficulty() => _difficulty;
+    public Difficulty? GetDifficulty() => _difficulty;
 
     public void SetDifficulty(Difficulty difficulty) => _difficulty = difficulty;
 
@@ -38,7 +38,6 @@ public class GlobalDataManager : MonoBehaviour
     {
         _currentLevel = _currentLevel.NextLevel();
     }
-    public bool IsLastLevel() => _currentLevel == Level.LEVEL_2;
 }
 
 public enum Difficulty
@@ -62,16 +61,11 @@ public abstract class LevelEnumeration
 
 public class Level : LevelEnumeration
 {
-    public static readonly Level LEVEL_1 = new Level(1, "Level1Scene");
-    public static readonly Level LEVEL_2 = new Level(2, "Level2Scene");
+    public static readonly Level LEVEL_1 = new Level(1, "MainScene");
+    public static readonly Level LEVEL_2 = new Level(2, "SecondScene");
 
     private Level(int number, string sceneName) : base(number, sceneName){}
-    
-    // public void Load()
-    // {
-    //     UnityEngine.SceneManagement.SceneManager.LoadScene(SceneName);
-    // }
-    
+
     public Level NextLevel()
     {
         if (this == LEVEL_1)
