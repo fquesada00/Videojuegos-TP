@@ -4,19 +4,20 @@ using Controllers.Utils;
 using System;
 using UnityEngine;
 using Strategies;
+using Weapons;
 
 namespace Controllers
 {
     [RequireComponent(typeof(Entity))]
     public class SkillsController : MonoBehaviour, ISkills
     {
-        [SerializeField] private Weapon _boomerang;
+        [SerializeField] private Boomerang _boomerang;
         public float BoomerangCooldown => GetComponent<Actor>().ActorStats.BoomerangCooldown;
         private Cooldown _boomerangCooldown = new Cooldown();
 
         public void throwBoomerang()
         {
-            if (_boomerangCooldown.IsOnCooldown()) return;
+            if (_boomerangCooldown.IsOnCooldown() || !_boomerang.isAvailable()) return;
             
             EventsManager.instance.EventSkillCooldownChange(1, BoomerangCooldown);
 

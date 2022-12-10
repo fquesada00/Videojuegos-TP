@@ -34,7 +34,7 @@ namespace Controllers
         public void Die()
         {
             GetComponent<Entity>().Die();
-            if(tag == "Player")
+            if(CompareTag("Player"))
             {
                 EventsManager.instance.GameOver(false);
             }
@@ -60,7 +60,7 @@ namespace Controllers
 
         private void CallCharacterLifeChangeEvent()
         {
-            if(tag == "Player")
+            if(CompareTag("Player"))
             {
                 EventsManager.instance.EventCharacterLifeChange(_currentLife, MaxHealth); 
             }

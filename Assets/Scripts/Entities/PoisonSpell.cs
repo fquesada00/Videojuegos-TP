@@ -55,6 +55,8 @@ namespace Entities
             Destroy(gameObject, _duration);
             
             DisplayParticles();
+            
+            StartCoroutine(new Cooldown().BooleanCooldown(2f));
         }
 
         private void Update()
@@ -65,7 +67,11 @@ namespace Entities
         public void Activate()
         {
             if (_cooldown.IsOnCooldown()) return;
-            StartCoroutine(_cooldown.BooleanCooldown(1f));
+            StartCoroutine(_cooldown.CallbackCooldown(1f, Attack));
+        }
+
+        private void Attack()
+        {
             // detect if the player is in range
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, _range);
             foreach (var hitCollider in hitColliders)

@@ -23,7 +23,7 @@ namespace Managers
         private void Awake()
         {
             _currentDifficultyStats = GetDifficultyStats();
-            _currentLevel = GlobalDataManager.Instance.CurrentLevel;
+            _currentLevel = GlobalDataManager.Instance?.CurrentLevel ?? Level.LEVEL_1;
         }
 
         private void Start()
@@ -33,6 +33,7 @@ namespace Managers
             _enemiesKilled = new Dictionary<int, int>();
             EventsManager.instance.OnGameOver += OnGameOver;
             EventsManager.instance.OnEnemyDeath += OnEnemyKilled;
+            EventsManager.instance.OnBossKilled += OnBossKilled;
             
             // avoid collision with enemies
             Physics.IgnoreLayerCollision((int)Constants.Layers.PLAYER, (int)Constants.Layers.ENEMY, true);
@@ -84,7 +85,7 @@ namespace Managers
 
         private void OnBossKilled()
         {
-            // TODO: implement logic
+            // TODO: add whatever we want to happen between the killing of the boss and the end of the level
             NextLevel();
         }
         
@@ -96,7 +97,8 @@ namespace Managers
                 return;
             }
             
-            // TODO: go to next level with the scene name!
+            GlobalDataManager.Instance.NextLevel();
+            SceneManager.LoadScene("LoadingScene");
         }
 
         private void LoadEndgameScene()
@@ -107,7 +109,7 @@ namespace Managers
         
         private DifficultyStats GetDifficultyStats()
         {
-            Difficulty difficulty = GlobalDataManager.Instance.GetDifficulty();
+            Difficulty difficulty = GlobalDataManager.Instance?.GetDifficulty() ?? Difficulty.EASY;
             switch (difficulty)
             {
                 case Difficulty.EASY:

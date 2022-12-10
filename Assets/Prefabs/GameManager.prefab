@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6793f1e0b027798418f6ff3184589be9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  batchSpawnDelay: 10
+  batchSpawnDelay: 0
   enemyPoolConfigs:
   - enemyPrefab: {fileID: -213610173481840871, guid: 4e7afdf31c20ebf419ea38bf1d358719, type: 3}
     elegibilityProb: 0.1

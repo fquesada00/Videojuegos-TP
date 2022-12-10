@@ -88,13 +88,17 @@ namespace Weapons
             }
         }
 
+        public bool isAvailable()
+        {
+            return _state == BoomerangState.IDLE;
+        }
+
         public void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag("Enemy"))
             {
                 IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
                 damageable?.TakeDamage(WeaponStats.Damage, false);
-                // FIXME: Collider should be disabled after first hit against the same entity
             } else if (other.gameObject.isStatic) {
                 _state = BoomerangState.RETURNING;
             }

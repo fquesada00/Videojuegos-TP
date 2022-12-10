@@ -269,7 +269,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyStats: {fileID: 11400000, guid: a0fd88680ec06e345a288d6207573628, type: 2}
-  _dropListStats: {fileID: 11400000, guid: bde8f90de6af18046b429cd314b58a92, type: 2}
   _poisonSpellPrefab: {fileID: 1380137617764531939, guid: 3de839c510c99874c8cffab7f4f9268e, type: 3}
 --- !u!195 &284691704695032592
 NavMeshAgent:
@@ -1603,7 +1602,7 @@ GameObject:
   - component: {fileID: 3987423686733464398}
   m_Layer: 0
   m_Name: root
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1615,8 +1614,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3622766634416213962}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 1225143820153343530}
@@ -2993,7 +2992,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6506371074489454489}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -4396,6 +4395,26 @@ PrefabInstance:
     - target: {fileID: 5315485246223777169, guid: fb29452b85e8f4541a8c137ae4f0e4d7, type: 3}
       propertyPath: m_Name
       value: HealthDisplay
+      objectReference: {fileID: 0}
+    - target: {fileID: 5315485246223777169, guid: fb29452b85e8f4541a8c137ae4f0e4d7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441981882138823570, guid: fb29452b85e8f4541a8c137ae4f0e4d7, type: 3}
+      propertyPath: m_Text
+      value: 0 / 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7341199298797202895, guid: fb29452b85e8f4541a8c137ae4f0e4d7, type: 3}
+      propertyPath: m_Color.g
+      value: 0.032773755
+      objectReference: {fileID: 0}
+    - target: {fileID: 7341199298797202895, guid: fb29452b85e8f4541a8c137ae4f0e4d7, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7341199298797202895, guid: fb29452b85e8f4541a8c137ae4f0e4d7, type: 3}
+      propertyPath: m_FillAmount
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb29452b85e8f4541a8c137ae4f0e4d7, type: 3}
