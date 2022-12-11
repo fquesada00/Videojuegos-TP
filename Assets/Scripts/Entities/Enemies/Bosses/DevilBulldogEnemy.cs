@@ -39,7 +39,7 @@ namespace Entities
             {
                 Attack();
             }
-            else if (distanceFromPlayer < 50f && Random.Range(0, 100) < 50)
+            else if (distanceFromPlayer < (EnemyStats.AttackRange * 2) && Random.Range(0, 100) < 50)
             {
                 Sniff();
             }
@@ -61,7 +61,7 @@ namespace Entities
             IPoisonSpell.Damage = Stats.Damage;
             IPoisonSpell.Duration = 10;
             IPoisonSpell.Crit = true;
-            IPoisonSpell.Range = 5;
+            IPoisonSpell.Range = 10;
         }
 
         private void Sniff()
