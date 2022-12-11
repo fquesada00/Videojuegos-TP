@@ -79,7 +79,7 @@ namespace Managers
             if (totalEnemiesKilled >= _objectiveKills)
             {
                 _currentLevelStatus = LevelStatus.BOSS_FIGHT;
-                // OnGameOver(true);
+                EventsManager.instance.EnemyObjectiveReach();
             }
         }
 

@@ -9,6 +9,9 @@ TagManager:
   - Weapon
   - OutOfBounds
   - Record
+  - Fire
+  - FxTemporaire
+  - SleepingBoss
   layers:
   - Default
   - TransparentFX

@@ -34,6 +34,7 @@ public class EventsManager : MonoBehaviour
     public event Action<bool> OnPauseChange;
     public event Action<Difficulty> OnDifficultyChange;
     public event Action OnBossKilled; 
+    public event Action OnEnemyObjectiveReach;
 
     public void EventWeaponChange(int weaponIndex)
     {
@@ -73,6 +74,11 @@ public class EventsManager : MonoBehaviour
     public void BossKilled()
     {
         OnBossKilled?.Invoke();
+    }
+    
+    public void EnemyObjectiveReach()
+    {
+        OnEnemyObjectiveReach?.Invoke();
     }
 
     #endregion
