@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     // Text references
     [SerializeField] private Text _lifeText;
     [SerializeField] private Text _remainingKillsText;
+    [SerializeField] private Text _objectiveDescription;
 
     // Sprites references
     [SerializeField] private List<Sprite> _weaponSprites;
@@ -34,6 +35,7 @@ public class UIManager : MonoBehaviour
         EventsManager.instance.OnRemainingKillsChange += OnRemainingKillsChange;
         EventsManager.instance.OnWeaponChange += OnWeaponChange;
         EventsManager.instance.OnPauseChange += OnPauseChange;
+        EventsManager.instance.OnObjectiveChange += OnObjectiveChange;
     }
 
     private void OnCharacterLifeChange(float currentLife, float maxLife)
@@ -91,5 +93,10 @@ public class UIManager : MonoBehaviour
             _pauseMenu.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
         }
+    }
+
+    private void OnObjectiveChange(string objectiveText)
+    {
+        _objectiveDescription.text = objectiveText;
     }
 }

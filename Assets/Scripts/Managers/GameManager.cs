@@ -29,6 +29,7 @@ namespace Managers
         private void Start()
         {
             _objectiveKills = _currentDifficultyStats.ObjectiveKills;
+            EventsManager.instance.EventObjectiveChange("Kill " + _objectiveKills + " enemies");
             EventsManager.instance.EventRemainingKillsChange(0, _objectiveKills);
             _enemiesKilled = new Dictionary<int, int>();
             EventsManager.instance.OnGameOver += OnGameOver;
@@ -75,11 +76,14 @@ namespace Managers
             }
 
             EventsManager.instance.EventRemainingKillsChange(totalEnemiesKilled, _objectiveKills);
+            int remainingKills = _objectiveKills - totalEnemiesKilled;
+            EventsManager.instance.EventObjectiveChange("Kill " + remainingKills + " more " + (remainingKills > 1 ? "enemies" : "enemy"));
 
             if (totalEnemiesKilled >= _objectiveKills)
             {
                 _currentLevelStatus = LevelStatus.BOSS_FIGHT;
                 EventsManager.instance.EnemyObjectiveReach();
+                EventsManager.instance.EventObjectiveChange("Find the boss and kill it!");
             }
         }
 
