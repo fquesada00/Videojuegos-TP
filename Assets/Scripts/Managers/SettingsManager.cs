@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Cinemachine;
 public class SettingsManager : MonoBehaviour
 {
 
@@ -10,9 +11,9 @@ public class SettingsManager : MonoBehaviour
     [SerializeField] private Dropdown _resolutionDropdown;
     [SerializeField] private Dropdown _qualityDropdown;
     [SerializeField] private Slider _mouseSensitivitySlider;
-
     [SerializeField] private Vector2 _mouseSensivity = new Vector2(700, 3);   
     
+    [SerializeField] private CinemachineFreeLook _camera;
 
     // Start is called before the first frame update
     void Start()
@@ -52,7 +53,10 @@ public class SettingsManager : MonoBehaviour
         _qualityDropdown.value = QualitySettings.GetQualityLevel();
         _qualityDropdown.RefreshShownValue();
 
-        //set mouse sensitivity state TODO 
+        //set mouse sensitivity state
+        _mouseSensitivitySlider.value = GlobalDataManager.Instance.MouseSensivity;
+        setSense(_mouseSensitivitySlider.value);
+
 
     }
 
@@ -77,6 +81,14 @@ public class SettingsManager : MonoBehaviour
 
     public void setQuality(int qualityIndex){
         QualitySettings.SetQualityLevel(qualityIndex);
+    }
+
+    public void setSense(float sense){
+        if(_camera != null){
+            _camera.m_XAxis.m_MaxSpeed = sense * _mouseSensivity.x;
+            _camera.m_YAxis.m_MaxSpeed = sense * _mouseSensivity.y;
+            GlobalDataManager.Instance.SetMouseSensivity(sense);
+        }
     }
 
 
