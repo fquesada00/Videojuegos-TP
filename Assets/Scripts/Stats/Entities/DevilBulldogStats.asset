@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DevilBulldogStats
   m_EditorClassIdentifier: 
   _entityStatValues:
-    MaxHealth: 200
+    MaxHealth: 2000
     BaseMovementSpeed: 0
     Damage: 100
     AttackCooldown: 8
