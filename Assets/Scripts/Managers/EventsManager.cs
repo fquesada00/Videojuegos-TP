@@ -24,6 +24,24 @@ public class EventsManager : MonoBehaviour
     {
         OnGameOver?.Invoke(isVictory);
     }
+    public event Action OnEnemyObjectiveReach;
+    
+    public void EnemyObjectiveReach()
+    {
+        OnEnemyObjectiveReach?.Invoke();
+    }
+
+    public event Action<Difficulty> OnDifficultyChange;
+    public void EventDifficultyChange(Difficulty difficulty)
+    {
+        if (OnDifficultyChange != null) OnDifficultyChange(difficulty);
+    }
+
+    public event Action OnBossKilled; 
+    public void BossKilled()
+    {
+        OnBossKilled?.Invoke();
+    }
     
     #region UI_HUD_EVENTS
     public event Action<int> OnWeaponChange;
@@ -32,8 +50,7 @@ public class EventsManager : MonoBehaviour
     public event Action<float> OnSkillCooldownReduce;
     public event Action<int, float> OnSkillCooldownChange;
     public event Action<bool> OnPauseChange;
-    public event Action<Difficulty> OnDifficultyChange;
-    public event Action OnBossKilled; 
+    public event Action<string> OnObjectiveChange;
 
     public void EventWeaponChange(int weaponIndex)
     {
@@ -64,16 +81,11 @@ public class EventsManager : MonoBehaviour
     {
         if (OnPauseChange != null) OnPauseChange(isPaused);
     }
-    
-    public void EventDifficultyChange(Difficulty difficulty)
-    {
-        if (OnDifficultyChange != null) OnDifficultyChange(difficulty);
-    }
-    
-    public void BossKilled()
-    {
-        OnBossKilled?.Invoke();
-    }
 
+    public void EventObjectiveChange(string objectiveText)
+    {
+        if (OnObjectiveChange != null) OnObjectiveChange(objectiveText);
+    }
+    
     #endregion
 }

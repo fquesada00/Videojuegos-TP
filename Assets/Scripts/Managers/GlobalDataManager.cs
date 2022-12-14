@@ -7,10 +7,15 @@ public class GlobalDataManager : MonoBehaviour
     public static GlobalDataManager Instance;
 
     public bool IsVictory => _isVictory;
+
+    public float MouseSensivity => _mouseSensivity;
+
     [SerializeField] private bool _isVictory;
 
     private Difficulty? _difficulty;
     private Level _currentLevel = Level.LEVEL_1;
+
+    private float _mouseSensivity = 1f;
 
     private void Awake()
     {
@@ -31,6 +36,8 @@ public class GlobalDataManager : MonoBehaviour
     public Difficulty? GetDifficulty() => _difficulty;
 
     public void SetDifficulty(Difficulty difficulty) => _difficulty = difficulty;
+
+    public void SetMouseSensivity(float mouseSensivity) => _mouseSensivity = mouseSensivity;
 
     public Level CurrentLevel => _currentLevel;
 

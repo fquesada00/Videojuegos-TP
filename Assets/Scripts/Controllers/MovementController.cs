@@ -67,6 +67,7 @@ public class MovementController : MonoBehaviour, IMoveable
         if (_currentContinuosJumps < MaxContinuosJumps)
         {
             _currentContinuosJumps++;
+            if (_ySpeed < 0) _ySpeed = 0;
             _ySpeed += Mathf.Sqrt(JumpHeight * -2f * Physics.gravity.y);
         }
     }
