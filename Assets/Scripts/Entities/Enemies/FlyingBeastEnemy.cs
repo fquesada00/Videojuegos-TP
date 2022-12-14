@@ -6,7 +6,7 @@ using Controllers.Utils;
 using Entities;
 
 [RequireComponent(typeof(LifeController))]
-public class FlyingBeastEnemy : PatrolEnemy
+public class FlyingBeastEnemy : FlyingEnemy
 {
     private Animator _animator;
 

@@ -95,7 +95,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 441527864738791489}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 1
   m_Speed: 3.5
@@ -125,6 +125,7 @@ MonoBehaviour:
   _enemyStats: {fileID: 11400000, guid: 13c17da7e0d1b4211bcdec381812c1cc, type: 2}
   _dropListStats: {fileID: 11400000, guid: bde8f90de6af18046b429cd314b58a92, type: 2}
   _patrolStats: {fileID: 11400000, guid: 70c442c09b52049ec9847b8374752e33, type: 2}
+  _flightHeight: 10
   _wanderTarget: {x: 0, y: 0, z: 0}
   _fireballThrower: {fileID: 1573659995079431262}
 --- !u!114 &1063105520006989268
