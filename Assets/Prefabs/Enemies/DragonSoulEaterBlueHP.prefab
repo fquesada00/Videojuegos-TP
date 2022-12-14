@@ -1139,6 +1139,7 @@ GameObject:
   - component: {fileID: 1354929438826853557}
   - component: {fileID: 4754583349240780362}
   - component: {fileID: 6783522125953711690}
+  - component: {fileID: 5315448320234886250}
   m_Layer: 0
   m_Name: DragonSoulEaterBlueHP
   m_TagString: Enemy
@@ -1208,7 +1209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f9cb25c28eb4e48976b2ac75563088f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyStats: {fileID: 0}
+  _enemyStats: {fileID: 11400000, guid: cbf52d9938846e54b8963b90217ba8a9, type: 2}
 --- !u!195 &6783522125953711690
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1231,6 +1232,18 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &5315448320234886250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5195356529275013850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 704fdc66ef214b66ae6f711682c03abc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5365679892838847631
 GameObject:
   m_ObjectHideFlags: 0
