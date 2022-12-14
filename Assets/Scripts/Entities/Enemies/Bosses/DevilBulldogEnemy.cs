@@ -8,14 +8,15 @@ using Random = UnityEngine.Random;
 
 namespace Entities
 {
-    [RequireComponent(typeof(LifeController), typeof(GameObject))]
+    [RequireComponent(typeof(LifeController), typeof(GameObject), typeof(EnemyFollowController))]
     public class DevilBulldogEnemy : Boss
     {
         private Cooldown _attackCooldown;
         private Cooldown _sniffCooldown;
-        private Animator _animator;
         private Actor _player;
         [SerializeField] private GameObject _poisonSpellPrefab;
+        private static readonly int RoarTrigger = Animator.StringToHash("roar");
+        private static readonly int SniffTrigger = Animator.StringToHash("sniff");
 
         private void Start()
         {
@@ -48,7 +49,7 @@ namespace Entities
         public override void Attack()
         {
             if (_attackCooldown.IsOnCooldown()) return;
-            _animator.SetTrigger("roar");
+            _animator.SetTrigger(RoarTrigger);
             StartCoroutine(_attackCooldown.BooleanCooldown(Stats.AttackCooldown));
             StartCoroutine(new Cooldown().CallbackCooldown(2f, CastPoisonSpell));
         }
@@ -67,7 +68,7 @@ namespace Entities
         private void Sniff()
         {
             if (_sniffCooldown.IsOnCooldown()) return;
-            _animator.SetTrigger("sniff");
+            _animator.SetTrigger(SniffTrigger);
             StartCoroutine(_sniffCooldown.BooleanCooldown(2f));
         }
     }

@@ -11,6 +11,7 @@ namespace Entities
         public override EntityStats Stats => _enemyStats;
         public EnemyStats EnemyStats => _enemyStats;
         [SerializeField] private EnemyStats _enemyStats;
+        protected Animator _animator;
 
         public abstract void Attack();
 
