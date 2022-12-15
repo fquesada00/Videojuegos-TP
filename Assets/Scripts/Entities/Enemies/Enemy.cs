@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+using UnityEngine;
 using FlyWeights.EntitiesStats;
 using FlyWeights.DropsStats;
-using Controllers.NavMesh;
 using Controllers;
+using Controllers.NavMesh;
 using Entities.Drops;
 
 public abstract class Enemy : PoolableEntity
@@ -14,15 +14,14 @@ public abstract class Enemy : PoolableEntity
 
     public override EntityStats Stats => _enemyStats;
     public EnemyStats EnemyStats => _enemyStats;
-    [SerializeField] private EnemyStats _enemyStats;
+    [SerializeField] protected EnemyStats _enemyStats;
     public DropListStats DropListStats => _dropListStats;
     [SerializeField] private DropListStats _dropListStats;
     private DropSpawner _dropSpawner;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _dropSpawner = FindObjectOfType<DropSpawner>();
-        GetComponent<NavMeshAgent>().speed = _enemyStats.BaseMovementSpeed;
     }
 
     public abstract void Attack();
@@ -53,3 +52,4 @@ public abstract class Enemy : PoolableEntity
     }
 
 }
+

@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 
 
 [RequireComponent(typeof(LifeController))]
-public class WizardEnemy : Enemy
+public class WizardEnemy : NavMeshEnemy
 {
     private GameObject _weapon;
 

@@ -28,12 +28,24 @@ namespace Controllers.NavMesh
 
         private void Update()
         {
-            if(!_chasePlayer) return;
-            
-            _navMeshAgent.SetDestination(_player.transform.position);
             //look at player y axis
             LookAtPlayer();
+            
+            if (!_chasePlayer)
+            {
+                if (_navMeshAgent != null)
+                {
+                    _navMeshAgent.velocity = Vector3.zero;
+                }
+                return;
+            }
+            
+            _navMeshAgent.SetDestination(_player.transform.position);
+
         }
+        
+        public void ChangeDestination(Vector3 destination) => _navMeshAgent.SetDestination(destination);
+        
 
         public float getDistanceFromPlayer(){
             return Vector3.Distance(_player.transform.position, transform.position);
