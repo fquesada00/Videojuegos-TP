@@ -42,7 +42,7 @@ public class WizardEnemy : NavMeshEnemy
     // Update is called once per frame
     void Update()
     {
-        float distanceFromPlayer = _enemyFollowController.getDistanceFromPlayer();
+        float distanceFromPlayer = _enemyFollowController.GetDistanceFromPlayer();
         if (distanceFromPlayer < this.EnemyStats.AttackRange)
         {
             Attack();

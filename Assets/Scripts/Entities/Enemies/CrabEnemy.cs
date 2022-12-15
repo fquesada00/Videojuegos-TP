@@ -69,7 +69,7 @@ namespace Entities
                 return;
             }
 
-            float distanceFromPlayer = _enemyFollowController.getDistanceFromPlayer();
+            float distanceFromPlayer = _enemyFollowController.GetDistanceFromPlayer();
             if (distanceFromPlayer < _explosionStats.Range)
                 Attack();
         }
@@ -117,7 +117,7 @@ namespace Entities
                     bool hitCrit = Random.Range(0, 1) < this.Stats.CritProbability;
                     
                     // get the distance within the sphere and multiply it by the damage
-                    float distance = _enemyFollowController.getDistanceFromPlayer();
+                    float distance = _enemyFollowController.GetDistanceFromPlayer();
                     if (distance > this.EnemyStats.AttackRange) distance = this.EnemyStats.AttackRange;
                     
                     // when enemy is touching the player, it does xAttackRange damage

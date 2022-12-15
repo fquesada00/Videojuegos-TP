@@ -32,7 +32,7 @@ namespace Entities
 
         void Update()
         {
-            float distanceFromPlayer = _enemyFollowController.getDistanceFromPlayer();
+            float distanceFromPlayer = _enemyFollowController.GetDistanceFromPlayer();
             if (distanceFromPlayer < EnemyStats.AttackRange)
             {
                 Attack();
