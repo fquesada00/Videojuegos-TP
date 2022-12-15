@@ -12,6 +12,8 @@ namespace Controllers
 
         [SerializeField] private HealthDisplay _healthDisplay;
 
+        public Action<float> OnTakeDamage;
+
         private void Start()
         {
             _currentLife = MaxHealth;
@@ -25,6 +27,7 @@ namespace Controllers
             if(_currentLife < 0) _currentLife = 0;
             _healthDisplay?.TakeDamage(_currentLife, MaxHealth, damage, crit);
             CallCharacterLifeChangeEvent();
+            OnTakeDamageEvent(damage);
             if(_currentLife <= 0)
             {
                 Die();
@@ -64,6 +67,11 @@ namespace Controllers
             {
                 EventsManager.instance.EventCharacterLifeChange(_currentLife, MaxHealth); 
             }
+        }
+
+        private void OnTakeDamageEvent(float damage)
+        {
+            OnTakeDamage?.Invoke(damage);
         }
     }
 }

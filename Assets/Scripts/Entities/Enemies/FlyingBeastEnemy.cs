@@ -22,7 +22,7 @@ public class FlyingBeastEnemy : FlyingEnemy
         base.OnEnable();
         _animator = GetComponent<Animator>();
         _attackCooldown = new Cooldown();
-        
+        _animator.SetFloat("animationSpeed", Random.Range(0.8f, 1.2f));
         _patrolEnemy = GetComponent<PatrolEnemy>();
     }
 

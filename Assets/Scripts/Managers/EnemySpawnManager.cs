@@ -141,6 +141,12 @@ public class EnemySpawnManager : MonoBehaviour
         return origin + Random.insideUnitSphere * maxDistance;
     }
 
+    public static Vector3 GetRandomNearbyPositionXZ(Vector3 origin, float maxDistance)
+    {
+        Vector2 randomPosition = new Vector2(origin.x, origin.z) + Random.insideUnitCircle * maxDistance;
+        return new Vector3(randomPosition.x, origin.y, randomPosition.y);
+    }
+
     public static Vector3 GetRandomPositionOnNavMesh(Vector3 origin, float maxDistance)
     {
         Vector3 randomPosition = origin + Random.insideUnitSphere * maxDistance;

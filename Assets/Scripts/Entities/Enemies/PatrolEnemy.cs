@@ -3,6 +3,7 @@ using Controllers.NavMesh;
 using UnityEngine;
 using UnityEngine.AI;
 using FlyWeights.EntitiesStats;
+using Controllers;
 
 namespace Entities
 {
@@ -15,13 +16,16 @@ namespace Entities
         protected Actor _player;
         private NavMeshAgent _navMeshAgent;
 
+        private bool _chasing;
+
         protected override void OnEnable()
         {
             base.OnEnable();
             _player = FindObjectOfType<Actor>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _wanderTarget = EnemySpawnManager.GetRandomPositionOnNavMesh(this.transform.position, _patrolStats.MinWanderTargetDistance);
-            _navMeshAgent.speed = this.PatrolStats.Speed;       
+            _navMeshAgent.speed = this.PatrolStats.Speed;    
+            GetComponent<LifeController>().OnTakeDamage += OnTakeDamage;   
         }
 
         private void Patrol()
@@ -39,10 +43,12 @@ namespace Entities
             float distanceFromPlayer = GetDistanceFromPlayer();
             if (distanceFromPlayer < this.PatrolStats.MaxTargetDistance)
             {
+                _chasing = true;
                 _navMeshAgent.SetDestination(_player.transform.position);
             }
             else
             {
+                _chasing = false;
                 // if enemy is not near the player, wander around the game board
                 Patrol();
             }
@@ -58,6 +64,13 @@ namespace Entities
         public bool IsOnEnemyRange()
         {
             return GetDistanceFromPlayer() < this.EnemyStats.AttackRange;
+        }
+
+         private void OnTakeDamage(float damage)
+        {
+            // Go To player only if not chasing
+            if (_chasing) return;
+            _navMeshAgent.SetDestination(_player.transform.position);
         }
     }
 }
