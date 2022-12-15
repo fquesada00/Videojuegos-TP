@@ -9,6 +9,7 @@ using Entities.Drops;
 
 public abstract class Enemy : PoolableEntity
 {
+    public static float deSpawnDistance = 300f;
     protected EnemyFollowController _enemyFollowController;
 
     public override EntityStats Stats => _enemyStats;
@@ -18,9 +19,12 @@ public abstract class Enemy : PoolableEntity
     [SerializeField] private DropListStats _dropListStats;
     private DropSpawner _dropSpawner;
 
+    protected Actor _player;
+
     protected virtual void Awake()
     {
         _dropSpawner = FindObjectOfType<DropSpawner>();
+        _player = FindObjectOfType<Actor>();
     }
 
     public abstract void Attack();
@@ -50,6 +54,21 @@ public abstract class Enemy : PoolableEntity
         }
 
         base.Die(killer);
+    }
+
+    void LateUpdate()
+    {
+        Debug.Log("LateUpdate");
+        if (GetDistanceFromPlayerXZ() > deSpawnDistance)
+        {
+            base.Die(Killer.NONE);
+        }
+    }
+
+    private float GetDistanceFromPlayerXZ()
+    {
+        return Vector3.Distance(new Vector3(_player.transform.position.x, 0, _player.transform.position.z),
+            new Vector3(transform.position.x, 0, transform.position.z));
     }
 
 }

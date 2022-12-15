@@ -34,5 +34,6 @@ public abstract class Entity : MonoBehaviour
 public enum Killer
 {
     PLAYER,
-    ENEMY
+    ENEMY,
+    NONE
 }

@@ -13,15 +13,12 @@ namespace Entities
         [SerializeField] private float _flightHeight;
         private float _speed;
         public Vector3 _wanderTarget;
-        protected Actor _player;
-
         private LifeController _lifeController;
 
         private bool _chasing;
         protected override void Awake()
         {
             base.Awake();
-            _player = FindObjectOfType<Actor>();
             _lifeController = GetComponent<LifeController>();
             _lifeController.OnTakeDamage += OnTakeDamage;
         }

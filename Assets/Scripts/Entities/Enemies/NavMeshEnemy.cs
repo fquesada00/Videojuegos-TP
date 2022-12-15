@@ -10,4 +10,5 @@ public abstract class NavMeshEnemy : Enemy
         base.Awake();
         GetComponent<NavMeshAgent>().speed = _enemyStats.BaseMovementSpeed;
     }
+
 }
