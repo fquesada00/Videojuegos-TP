@@ -77,7 +77,6 @@ GameObject:
   - component: {fileID: 6824748377082782864}
   - component: {fileID: 7128923719671122085}
   - component: {fileID: 1485297686011089997}
-  - component: {fileID: 9210445390421741671}
   m_Layer: 0
   m_Name: GreenBoarPBR
   m_TagString: Enemy
@@ -194,22 +193,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.38, y: 2.9, z: 6.93}
-  m_Center: {x: 0, y: 1.49, z: 0.36}
---- !u!64 &9210445390421741671
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 107872}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 3fd80404506c6734282c368b3d3b36f0, type: 3}
+  m_Size: {x: 1.7140626, y: 2.3319929, z: 4.834247}
+  m_Center: {x: 0.019586181, y: 1.7740042, z: 1.4078764}
 --- !u!1 &108470
 GameObject:
   m_ObjectHideFlags: 0
