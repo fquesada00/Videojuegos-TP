@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.AI;
-using Controllers.NavMesh;
+using UnityEngine;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public abstract class NavMeshEnemy : Enemy
 {
 

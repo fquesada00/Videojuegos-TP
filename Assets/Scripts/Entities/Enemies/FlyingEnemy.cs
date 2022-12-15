@@ -15,44 +15,35 @@ namespace Entities
         private float _speed;
         public Vector3 _wanderTarget;
         protected Actor _player;
-        private IEnumerator _moveCoroutine;
+        protected override void Awake() {
+            base.Awake();
+            _player = FindObjectOfType<Actor>();
+        }
 
         protected override void OnEnable()
         {
             base.OnEnable();
-            _player = FindObjectOfType<Actor>();
-            Vector3 newPos = EnemySpawnManager.GetRandomNearbyPosition(this.transform.position, _patrolStats.MinWanderTargetDistance);
+            Vector3 newPos = EnemySpawnManager.GetRandomNearbyPosition(_player.transform.position, _patrolStats.MinWanderTargetDistance);
+            Debug.Log("New position: " + newPos);
             _wanderTarget = GetFlightPosition(newPos);
             _speed = this.PatrolStats.Speed;
-            _moveCoroutine = StartCoroutine(MoveObject(transform, transform.position, _wanderTarget, _speed));
         }
 
         private void Patrol()
         {
-            if (Vector3.Distance(transform.position, _wanderTarget) < 1)
-            {
-                StopCoroutine(_moveCoroutine);
+            //Distance ignoring Y axis less than 1
 
+            if (Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z), new Vector3(_wanderTarget.x, 0, _wanderTarget.z)) < 1)
+            {
                 Vector3 newPos = EnemySpawnManager.GetRandomNearbyPosition(this.transform.position, _patrolStats.MinWanderTargetDistance);
                 _wanderTarget = GetFlightPosition(newPos);
-                // Move object to new position gradually
-                _moveCoroutine = StartCoroutine(MoveObject(transform, transform.position, _wanderTarget, _speed));
+                Debug.Log("New position: " + newPos);
             }
+            this.transform.position = Vector3.MoveTowards(transform.position, _wanderTarget, _speed * Time.deltaTime);
+            //Rotate gradually ignoring Y axis
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(_wanderTarget.x, 0, _wanderTarget.z) - new Vector3(transform.position.x, 0, transform.position.z)), 1);
         }
 
-        private IEnumerator MoveObject(Transform thisTransform, Vector3 startPos, Vector3 endPos, float time)
-        {
-            float i = 0.0f;
-            float rate = 1.0f / time;
-            while (i < 1.0f)
-            {
-                i += Time.deltaTime * rate;
-                //Rotate
-                thisTransform.rotation = Quaternion.Lerp(thisTransform.rotation, Quaternion.LookRotation(endPos - thisTransform.position), i);
-                thisTransform.position = Vector3.Lerp(startPos, endPos, i);
-                yield return null;
-            }
-        }
 
         protected void Update()
         {
@@ -60,9 +51,11 @@ namespace Entities
             float distanceFromPlayer = GetDistanceFromPlayer();
             if (distanceFromPlayer < this.PatrolStats.MaxTargetDistance)
             {
-                transform.rotation = Quaternion.LookRotation(_player.transform.position - transform.position);
+                // Set wander target 1 unit in front of the player in the xz plane
+                _wanderTarget = GetFlightPosition(_player.transform.position + _player.transform.forward * 5);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(_wanderTarget.x, 0, _wanderTarget.z) - new Vector3(transform.position.x, 0, transform.position.z)), 1);
                 transform.position = Vector3.MoveTowards(transform.position, _wanderTarget, _speed * Time.deltaTime);
-
+                Debug.Log("Chasing player");
             }
             else
             {
@@ -75,7 +68,8 @@ namespace Entities
 
         private float GetDistanceFromPlayer()
         {
-            return Vector3.Distance(transform.position,GetFlightPosition(_player.transform.position));
+            // Distance ignoring Y axis
+            return Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z), new Vector3(_player.transform.position.x, 0, _player.transform.position.z));
         }
         
         public bool IsOnEnemyRange()
@@ -85,10 +79,11 @@ namespace Entities
 
         private Vector3 GetFlightPosition(Vector3 pos)
         {
-            //Ray cast to ground tag and calculate the desired height
+            //Ray cast to ground Layer
             RaycastHit hit;
             if (Physics.Raycast(pos, Vector3.down, out hit, Mathf.Infinity, LayerMask.GetMask("Ground")))
             {
+                Debug.DrawRay(pos, Vector3.down * hit.distance, Color.red);
                 return new Vector3(pos.x, hit.point.y + _flightHeight, pos.z);
             }
             return pos;

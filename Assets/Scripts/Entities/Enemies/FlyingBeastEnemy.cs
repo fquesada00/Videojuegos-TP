@@ -29,7 +29,7 @@ public class FlyingBeastEnemy : FlyingEnemy
     new void Update()
     {
         base.Update();
-        if(_patrolEnemy.IsOnEnemyRange())
+        if(IsOnEnemyRange())
         {
             var position = _player.transform.position;
             transform.LookAt(new Vector3(position.x, transform.position.y, position.z));

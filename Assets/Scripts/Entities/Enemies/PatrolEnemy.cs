@@ -6,7 +6,7 @@ using FlyWeights.EntitiesStats;
 
 namespace Entities
 {
-    public abstract class PatrolEnemy : Enemy
+    public abstract class PatrolEnemy : NavMeshEnemy
     {
         public PatrolStats PatrolStats => _patrolStats;
         [SerializeField] private PatrolStats _patrolStats;
