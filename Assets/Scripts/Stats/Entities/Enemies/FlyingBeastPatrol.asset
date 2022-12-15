@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _patrolStatsValues:
     Speed: 5
-    MaxTargetDistance: 40
-    MinWanderTargetDistance: 4
+    MaxTargetDistance: 20
+    MinWanderTargetDistance: 30

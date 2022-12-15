@@ -20,6 +20,6 @@ MonoBehaviour:
     CritProbability: 0
     Id: 5
   _enemyStatValues:
-    AttackRange: 20
+    AttackRange: 10
     MinSoundDistance: 5
     SoundCooldown: 10
