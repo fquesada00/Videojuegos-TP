@@ -27,14 +27,11 @@ namespace Entities
             _animator = GetComponent<Animator>();
             SoundController = GetComponent<SoundController>();
             
-            _player = _enemyFollowController.Player;
             _enemyFollowController.ChasePlayer = false;
         }
 
         void Update()
         {
-            _enemyFollowController.LookAtPlayer();
-            
             float distanceFromPlayer = _enemyFollowController.getDistanceFromPlayer();
             if (distanceFromPlayer < EnemyStats.AttackRange)
             {

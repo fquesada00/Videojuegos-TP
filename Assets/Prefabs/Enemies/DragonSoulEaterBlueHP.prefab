@@ -1140,6 +1140,7 @@ GameObject:
   - component: {fileID: 4754583349240780362}
   - component: {fileID: 6783522125953711690}
   - component: {fileID: 5315448320234886250}
+  - component: {fileID: 989588903}
   m_Layer: 0
   m_Name: DragonSoulEaterBlueHP
   m_TagString: Enemy
@@ -1156,7 +1157,7 @@ Transform:
   m_GameObject: {fileID: 5195356529275013850}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 3391315491471484357}
   - {fileID: 6959929827599120423}
@@ -1196,7 +1197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentLife: 0
-  _healthDisplay: {fileID: 0}
+  _healthDisplay: {fileID: 9106466444884537149}
 --- !u!114 &4754583349240780362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1244,6 +1245,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704fdc66ef214b66ae6f711682c03abc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &989588903
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5195356529275013850}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.1977844, y: 3.678074, z: 6.6144867}
+  m_Center: {x: 0.20385742, y: 2.064783, z: -0.27187347}
 --- !u!1 &5365679892838847631
 GameObject:
   m_ObjectHideFlags: 0
@@ -2289,6 +2303,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb29452b85e8f4541a8c137ae4f0e4d7, type: 3}
+--- !u!114 &9106466444884537149 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6544004292585862071, guid: fb29452b85e8f4541a8c137ae4f0e4d7, type: 3}
+  m_PrefabInstance: {fileID: 2643705066479770762}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 357aa00400e7f1848a7a83c38304db08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &3391315491471484357 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 837683519198247247, guid: fb29452b85e8f4541a8c137ae4f0e4d7, type: 3}

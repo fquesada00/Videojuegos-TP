@@ -16,10 +16,10 @@ MonoBehaviour:
     MaxHealth: 5000
     BaseMovementSpeed: 1
     Damage: 200
-    AttackCooldown: 0
+    AttackCooldown: 3
     CritProbability: 80
     Id: 8
   _enemyStatValues:
-    AttackRange: 150
+    AttackRange: 40
     MinSoundDistance: 0
     SoundCooldown: 0
