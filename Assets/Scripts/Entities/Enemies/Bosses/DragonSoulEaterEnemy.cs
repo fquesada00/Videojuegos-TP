@@ -39,7 +39,7 @@ namespace Entities
 
         private void Update()
         {
-            float distanceFromPlayer = _enemyFollowController.getDistanceFromPlayer();
+            float distanceFromPlayer = _enemyFollowController.GetDistanceFromPlayer();
             switch (_state)
             {
                 case DragonSoulEaterEnemyState.RETURN:

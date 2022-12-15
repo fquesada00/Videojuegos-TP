@@ -36,8 +36,6 @@ namespace Controllers.NavMesh
         private void Update()
         {
             if (_chasePlayer) {
-                //look at player y axis
-                // LookAtPlayer(); TODO: BORRAR?
                 _navMeshAgent.SetDestination(_player.transform.position);
             } else if(!_chaseDestination) {
                 // not chasing player nor destination
@@ -47,16 +45,10 @@ namespace Controllers.NavMesh
         
         public void ChangeDestination(Vector3 destination) => _navMeshAgent.SetDestination(destination);
         
-        public float getDistanceFromPlayer(){
+        public float GetDistanceFromPlayer(){
             return Vector3.Distance(_player.transform.position, transform.position);
         }
         
         public Actor Player => _player;
-        
-        public void LookAtPlayer()
-        {
-            Vector3 playerPosition = _player.transform.position;
-            transform.LookAt(new Vector3(playerPosition.x, transform.position.y, playerPosition.z));
-        }
     }
 }
