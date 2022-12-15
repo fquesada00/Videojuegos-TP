@@ -95,7 +95,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 441527864738791489}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 1
   m_Speed: 3.5
@@ -125,6 +125,7 @@ MonoBehaviour:
   _enemyStats: {fileID: 11400000, guid: 13c17da7e0d1b4211bcdec381812c1cc, type: 2}
   _dropListStats: {fileID: 11400000, guid: bde8f90de6af18046b429cd314b58a92, type: 2}
   _patrolStats: {fileID: 11400000, guid: 70c442c09b52049ec9847b8374752e33, type: 2}
+  _flightHeight: 10
   _wanderTarget: {x: 0, y: 0, z: 0}
   _fireballThrower: {fileID: 1573659995079431262}
 --- !u!114 &1063105520006989268
@@ -1294,6 +1295,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fbd051e8f574fc341badab1c4c2bf7c2, type: 3}
+--- !u!4 &4580419591821238383 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3046166403073202771, guid: fbd051e8f574fc341badab1c4c2bf7c2, type: 3}
+  m_PrefabInstance: {fileID: 1573659995035597372}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1573659995079431262 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 44379746, guid: fbd051e8f574fc341badab1c4c2bf7c2, type: 3}
@@ -1305,11 +1311,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab21b79d845b9734da6fc399adb529b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &4580419591821238383 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3046166403073202771, guid: fbd051e8f574fc341badab1c4c2bf7c2, type: 3}
-  m_PrefabInstance: {fileID: 1573659995035597372}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4580419591821238378 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3046166403073202774, guid: fbd051e8f574fc341badab1c4c2bf7c2, type: 3}

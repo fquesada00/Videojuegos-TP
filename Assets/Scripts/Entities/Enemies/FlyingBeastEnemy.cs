@@ -6,7 +6,7 @@ using Controllers.Utils;
 using Entities;
 
 [RequireComponent(typeof(LifeController))]
-public class FlyingBeastEnemy : PatrolEnemy
+public class FlyingBeastEnemy : FlyingEnemy
 {
     private Animator _animator;
 
@@ -29,7 +29,7 @@ public class FlyingBeastEnemy : PatrolEnemy
     new void Update()
     {
         base.Update();
-        if(_patrolEnemy.IsOnEnemyRange())
+        if(IsOnEnemyRange())
         {
             var position = _player.transform.position;
             transform.LookAt(new Vector3(position.x, transform.position.y, position.z));
