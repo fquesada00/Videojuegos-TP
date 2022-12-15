@@ -12,7 +12,7 @@ using Managers;
 namespace Entities
 {
     [RequireComponent(typeof(LifeController), typeof(GameObject), typeof(GameObject))]
-    public class CrabEnemy : Enemy
+    public class CrabEnemy : NavMeshEnemy
     {
         [SerializeField] private ExplosionStats _explosionStats;
         [SerializeField] private GameObject _postExplosionVisualEffects;
