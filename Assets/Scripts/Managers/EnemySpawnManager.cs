@@ -8,10 +8,10 @@ using UnityEngine.Serialization;
 
 public class EnemySpawnManager : MonoBehaviour
 {
+    public static float maxDistance = 100;
     [SerializeField] private float batchSpawnDelay;
     [SerializeField] private List<EnemyPoolConfig> enemyPoolConfigs;
     [SerializeField] private SpawnMethod spawnMethod;
-    [SerializeField] private float maxDistance = 100;
     [SerializeField] private Dictionary<int, EntityPool> _enemyPools;
 
     private int _maxSimultaneousEnemiesSize;
@@ -134,11 +134,6 @@ public class EnemySpawnManager : MonoBehaviour
                 agent.enabled = true;
             }
         }
-    }
-
-    public static Vector3 GetRandomNearbyPosition(Vector3 origin, float maxDistance)
-    {
-        return origin + Random.insideUnitSphere * maxDistance;
     }
 
     public static Vector3 GetRandomNearbyPositionXZ(Vector3 origin, float maxDistance)
