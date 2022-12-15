@@ -42,7 +42,9 @@ public abstract class Enemy : PoolableEntity
             if (Random.Range(0f, 1f) < possibleDrop.DropChance)
             {
                 var drop = Instantiate(_dropSpawner.Create(possibleDrop.DropEnum));
-                drop.transform.position = transform.position;
+                Vector3 pos = transform.position;
+                pos.y = Terrain.activeTerrain.SampleHeight(transform.position);
+                drop.transform.position = pos;
                 break; // only one drop per enemy
             }
         }
