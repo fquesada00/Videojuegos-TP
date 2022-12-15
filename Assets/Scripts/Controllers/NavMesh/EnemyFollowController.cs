@@ -18,35 +18,35 @@ namespace Controllers.NavMesh
             set => _chasePlayer = value;
             get => _chasePlayer;
         }
+        private bool _chaseDestination;
+        public bool ChaseDestination
+        {
+            set => _chaseDestination = value;
+            get => _chaseDestination;
+        }
 
         private void Awake()
         {
             _player = FindObjectOfType<Actor>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _chasePlayer = true;
+            _chaseDestination = false;
         }
 
         private void Update()
         {
-            //look at player y axis
-            LookAtPlayer();
-            
-            if (!_chasePlayer)
-            {
-                if (_navMeshAgent != null)
-                {
-                    _navMeshAgent.velocity = Vector3.zero;
-                }
-                return;
+            if (_chasePlayer) {
+                //look at player y axis
+                // LookAtPlayer(); TODO: BORRAR?
+                _navMeshAgent.SetDestination(_player.transform.position);
+            } else if(!_chaseDestination) {
+                // not chasing player nor destination
+                _navMeshAgent.velocity = Vector3.zero;
             }
-            
-            _navMeshAgent.SetDestination(_player.transform.position);
-
         }
         
         public void ChangeDestination(Vector3 destination) => _navMeshAgent.SetDestination(destination);
         
-
         public float getDistanceFromPlayer(){
             return Vector3.Distance(_player.transform.position, transform.position);
         }

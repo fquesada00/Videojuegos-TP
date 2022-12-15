@@ -17,12 +17,12 @@ namespace Entities
         private static readonly int BiteTrigger = Animator.StringToHash("bite");
         private static readonly int FireballTrigger = Animator.StringToHash("fireball");
 
-        private static float _chaseDistance = 50f;
-        private static float _minChaseDistance = 30f;
+        private static float _maxChaseDistance = 70f;
+        private static float _minChaseDistance = 20f;
 
-        private Cooldown _attackCooldown;
-
-        private DragonSoulEaterEnemyState _state = DragonSoulEaterEnemyState.SLEEP;
+        private Cooldown _fireballCooldown;
+        private Cooldown _biteCooldown;
+        private DragonSoulEaterEnemyState _state;
         private Vector3 _initialPosition;
 
         private void Start()
@@ -31,104 +31,98 @@ namespace Entities
             _animator = GetComponent<Animator>();
             SoundController = GetComponent<SoundController>();
             _initialPosition = transform.position;
+            _fireballCooldown = new Cooldown();
+            _biteCooldown = new Cooldown();
+            _state = DragonSoulEaterEnemyState.SLEEP;
             _enemyFollowController.ChasePlayer = false;
-            _attackCooldown = new Cooldown();
-            Animate(SleepTrigger);
         }
 
         private void Update()
         {
             float distanceFromPlayer = _enemyFollowController.getDistanceFromPlayer();
-            if (distanceFromPlayer > _chaseDistance)
+            switch (_state)
             {
-                if (Vector3.Distance(transform.position, _initialPosition) < 1)
-                {
-                    GoToInitialPosition();
-                }
-                else
-                {
-                    GoToSleep();
-                }
+                case DragonSoulEaterEnemyState.RETURN:
+                    if (Vector3.Distance(transform.position, _initialPosition) < 5f)
+                    {
+                        _enemyFollowController.ChaseDestination = false;
+                        Sleep();
+                    } else if (distanceFromPlayer < _maxChaseDistance) {
+                        _enemyFollowController.ChaseDestination = false;
+                        _enemyFollowController.ChasePlayer = true;
+                        _state = DragonSoulEaterEnemyState.CHASE;
+                    }
+                    break;
+
+                case DragonSoulEaterEnemyState.SLEEP:
+                    if (distanceFromPlayer < _maxChaseDistance) {
+                        SleepToChase();
+                    }
+                    break;
+
+                case DragonSoulEaterEnemyState.CHASE:
+                    if(distanceFromPlayer < _minChaseDistance){
+                        StopChasing();
+                    }
+                    else if (distanceFromPlayer > _maxChaseDistance)
+                    {
+                        GoToInitialPosition();
+                        return;
+                    }
+                    else if (distanceFromPlayer < EnemyStats.AttackRange && !_fireballCooldown.IsOnCooldown())
+                    {
+                        StartCoroutine(_fireballCooldown.BooleanCooldown(EnemyStats.AttackCooldown));
+                        FireballAttack();
+                    }
+
+                    break;
+
+                case DragonSoulEaterEnemyState.CLOSE_ATTACK:
+                    if (distanceFromPlayer >= _minChaseDistance)
+                    {
+                        AttackToChase();
+                    } else if (!_biteCooldown.IsOnCooldown()) {
+                        StartCoroutine(_biteCooldown.BooleanCooldown(1.5f));
+                        Attack();
+                    }
+                    break;
             }
-            else if (distanceFromPlayer > EnemyStats.AttackRange)
+        }
+
+        public void FireballAttack()
+        {
+            // throw fireball and go to chase
+            _enemyFollowController.ChasePlayer = false;
+            Animate(FireballTrigger);
+            StartCoroutine(new Cooldown().CallbackCooldown(4f, () =>
             {
-                Chase();
-            }
-            else
-            {
-                Attack();
-            }
-            // switch (_state)
-            // {
-            //     case DragonSoulEaterEnemyState.SLEEP:
-            //         if (distanceFromPlayer < _chaseDistance)
-            //         {
-            //             Chase();
-            //         }
-            //
-            //         break;
-            //     case DragonSoulEaterEnemyState.CHASE:
-            //         if (distanceFromPlayer > _chaseDistance)
-            //         {
-            //             GoToSleep();
-            //         }
-            //         else if (distanceFromPlayer < EnemyStats.AttackRange)
-            //         {
-            //             Attack();
-            //         }
-            //
-            //         break;
-            //     case DragonSoulEaterEnemyState.ATTACK:
-            //         if (distanceFromPlayer > _chaseDistance)
-            //         {
-            //             GoToSleep();
-            //         }
-            //
-            //         if (distanceFromPlayer > EnemyStats.AttackRange)
-            //         {
-            //             Chase();
-            //         }
-            //         else
-            //         {
-            //             Attack();
-            //         }
-            //
-            //         break;
-            // }
+                AttackToChase();
+            }));
         }
 
         public override void Attack()
         {
-            if (_attackCooldown.IsOnCooldown()) return;
-
-                StopChasing();
-                // StartCoroutine(new Cooldown().BooleanCooldown(1f));
-            Debug.Log("Attacking");
-            _state = DragonSoulEaterEnemyState.ATTACK;
-            Animate(FireballTrigger);
-            StartCoroutine(_attackCooldown.BooleanCooldown(EnemyStats.AttackCooldown));
+            Animate(BiteTrigger);
         }
 
         private void Animate(int trigger) => _animator.SetTrigger(trigger);
 
-        private void GoToSleep()
+        private void Sleep()
         {
-            if (_state == DragonSoulEaterEnemyState.SLEEP) return;
-            StopChasing();
             _state = DragonSoulEaterEnemyState.SLEEP;
             Animate(IdleTrigger);
             Animate(SleepTrigger);
         }
 
-        private void Chase()
+        private void AttackToChase()
         {
-            if (_enemyFollowController.getDistanceFromPlayer() < _minChaseDistance)
-            {
-                StopChasing();
-                return;
-            }
+            _state = DragonSoulEaterEnemyState.CHASE;
+            Animate(WalkTrigger);
+            _enemyFollowController.ChasePlayer = true;
+        }
 
-            if (_state == DragonSoulEaterEnemyState.CHASE) return;
+        private void SleepToChase()
+        {
             _state = DragonSoulEaterEnemyState.CHASE;
 
             Animate(ScreamTrigger);
@@ -140,21 +134,27 @@ namespace Entities
             }));
         }
 
-        private void StopChasing() =>
+        private void StopChasing() {
             _enemyFollowController.ChasePlayer = false;
+            Animate(IdleTrigger);
+            _state = DragonSoulEaterEnemyState.CLOSE_ATTACK;
+        }
         
         private void GoToInitialPosition()
         {
+            Debug.Log("Going to initial position");
             _enemyFollowController.ChasePlayer = false;
+            _enemyFollowController.ChaseDestination = true;
             _enemyFollowController.ChangeDestination(_initialPosition);
-            Animate(WalkTrigger);
+            _state = DragonSoulEaterEnemyState.RETURN;
         }
 
         private enum DragonSoulEaterEnemyState
         {
-            ATTACK,
+            CLOSE_ATTACK,
             CHASE,
-            SLEEP
+            SLEEP,
+            RETURN
         }
     }
 }
