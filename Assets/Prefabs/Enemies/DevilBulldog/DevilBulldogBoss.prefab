@@ -23,7 +23,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5179625260229008966}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 311.8, y: 211.4, z: 381}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62f21f36ae2e42d2b5d677da982c50db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _boss: {fileID: 4748007744628695147}
+  _boss: {fileID: 0}
   _particleSystems:
   - {fileID: 1672201610506906928}
   - {fileID: 5179625261363822876}
@@ -96,7 +96,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5179625261056585142
 Transform:
   m_ObjectHideFlags: 0
@@ -247,6 +247,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DB_Toon_Fire
       objectReference: {fileID: 0}
+    - target: {fileID: 434023797309887072, guid: cf32d1dc353245644b4351266129b21b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 958746602439739610, guid: cf32d1dc353245644b4351266129b21b, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -293,11 +297,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf32d1dc353245644b4351266129b21b, type: 3}
---- !u!1 &4748007744628695147 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 434023797309887072, guid: cf32d1dc353245644b4351266129b21b, type: 3}
-  m_PrefabInstance: {fileID: 5179625260736934411}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5381695245070498513 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 958746602439739610, guid: cf32d1dc353245644b4351266129b21b, type: 3}

@@ -36,6 +36,7 @@ namespace Controllers.NavMesh
         private void Update()
         {
             if (_chasePlayer) {
+                Debug.Log("HEREEE");
                 _navMeshAgent.SetDestination(_player.transform.position);
             } else if(!_chaseDestination) {
                 // not chasing player nor destination
