@@ -176,7 +176,9 @@ namespace Entities
 
         public override void Die(Killer killer = Killer.PLAYER)
         {
-            _state = DragonBoarState.DYING; // tricky
+            _state = DragonBoarState.DYING; // hacky
+            _enemyFollowController.ChaseDestination = false;
+            _enemyFollowController.ChasePlayer = false;
             Animate(DieTrigger);
             StartCoroutine(new Cooldown().CallbackCooldown(3f, () => base.Die(killer)));
         }
