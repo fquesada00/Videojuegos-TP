@@ -1,9 +1,8 @@
-﻿using System;
-using Controllers;
+﻿using Controllers;
 using Controllers.NavMesh;
 using Utils;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using FlyWeights.EntitiesStats;
 
 namespace Entities
 {
@@ -14,19 +13,22 @@ namespace Entities
         private static readonly int WalkTrigger = Animator.StringToHash("walk");
         private static readonly int SleepTrigger = Animator.StringToHash("sleep");
         private static readonly int ScreamTrigger = Animator.StringToHash("scream");
-        private static readonly int BiteTrigger = Animator.StringToHash("bite");
+        private static readonly int BasicAttackTrigger = Animator.StringToHash("basic_attack");
         private static readonly int FireballTrigger = Animator.StringToHash("fireball");
         private static readonly int DieTrigger = Animator.StringToHash("die");
 
-        private static float _maxChaseDistance = 70f;
-        private static float _minChaseDistance = 20f;
+        private static float _maxChaseDistance = 90f;
+        private static float _minChaseDistance = 30f;
 
         [SerializeField] private CannonballThrower _canonballThrower;
+        [SerializeField] private GameObject _landAttackParticleSystems;
+        [SerializeField] private ExplosionStats _landAttackExplosionStats;
 
         private Cooldown _fireballCooldown;
-        private Cooldown _biteCooldown;
+        private Cooldown _basicAttackCooldown;
         private DragonSoulEaterEnemyState _state;
         private Vector3 _initialPosition;
+        private bool _attacking = false;
 
         private void Start()
         {
@@ -35,13 +37,15 @@ namespace Entities
             SoundController = GetComponent<SoundController>();
             _initialPosition = transform.position;
             _fireballCooldown = new Cooldown();
-            _biteCooldown = new Cooldown();
+            _basicAttackCooldown = new Cooldown();
             _state = DragonSoulEaterEnemyState.SLEEP;
             _enemyFollowController.ChasePlayer = false;
         }
 
         private void Update()
         {
+            if (_attacking) return;
+
             float distanceFromPlayer = _enemyFollowController.GetDistanceFromPlayer();
             switch (_state)
             {
@@ -70,12 +74,11 @@ namespace Entities
                     else if (distanceFromPlayer > _maxChaseDistance)
                     {
                         GoToInitialPosition();
-                        return;
                     }
                     else if (distanceFromPlayer < EnemyStats.AttackRange && !_fireballCooldown.IsOnCooldown())
                     {
                         StartCoroutine(_fireballCooldown.BooleanCooldown(EnemyStats.AttackCooldown));
-                        CannonballAttack();
+                        CannonballAttackAnimation();
                     }
 
                     break;
@@ -83,9 +86,10 @@ namespace Entities
                 case DragonSoulEaterEnemyState.CLOSE_ATTACK:
                     if (distanceFromPlayer >= _minChaseDistance)
                     {
+                        Debug.Log("AttackToChase");
                         AttackToChase();
-                    } else if (!_biteCooldown.IsOnCooldown()) {
-                        StartCoroutine(_biteCooldown.BooleanCooldown(1.5f));
+                    } else if (!_basicAttackCooldown.IsOnCooldown()) {
+                        StartCoroutine(_basicAttackCooldown.BooleanCooldown(10f));
                         Attack();
                     }
                     break;
@@ -95,30 +99,44 @@ namespace Entities
             }
         }
 
-        public void ThrowCannonball() 
+        public void ExecuteCannonballAttack() 
         {
             _canonballThrower.Target = _enemyFollowController.Player.gameObject.transform.position;
             StartCoroutine(new Cooldown().CallbackCooldown(.5f, () =>
             {
                 _canonballThrower.Attack(false);
             }));
-        }
-
-        public void CannonballAttack()
-        {
-            // throw fireball and go to chase
-            _enemyFollowController.ChasePlayer = false;
-            Animate(FireballTrigger);
 
             StartCoroutine(new Cooldown().CallbackCooldown(4f, () =>
             {
-                AttackToChase();
+                _enemyFollowController.ChasePlayer = true;
+                _attacking = false;
             }));
+        }
+
+        private void CannonballAttackAnimation()
+        {
+            _attacking = true;
+            // throw fireball and go to chase
+            _enemyFollowController.ChasePlayer = false;
+            Animate(FireballTrigger);
         }
 
         public override void Attack()
         {
-            Animate(BiteTrigger);
+            _attacking = true;
+            Animate(BasicAttackTrigger);
+        }
+
+        public void ExecuteLandAttack()
+        {
+            Debug.Log("ExecuteLandAttack");
+            foreach(ParticleSystem particleSystem in _landAttackParticleSystems.GetComponentsInChildren<ParticleSystem>())
+                particleSystem.Play();
+
+            ExplosionRaycast.Explode(transform.position, _landAttackExplosionStats.Range, _landAttackExplosionStats.Damage);
+        
+            _attacking = false;
         }
 
         private void Animate(int trigger) => _animator.SetTrigger(trigger);
@@ -133,8 +151,8 @@ namespace Entities
         private void AttackToChase()
         {
             _state = DragonSoulEaterEnemyState.CHASE;
-            Animate(WalkTrigger);
             _enemyFollowController.ChasePlayer = true;
+            Animate(WalkTrigger);
         }
 
         private void SleepToChase()
@@ -142,7 +160,6 @@ namespace Entities
             _state = DragonSoulEaterEnemyState.CHASE;
 
             Animate(ScreamTrigger);
-            Animate(WalkTrigger);
 
             StartCoroutine(new Cooldown().CallbackCooldown(2f, () =>
             {
@@ -151,6 +168,7 @@ namespace Entities
         }
 
         private void StopChasing() {
+            Debug.Log("StopChasing");
             _enemyFollowController.ChasePlayer = false;
             Animate(IdleTrigger);
             _state = DragonSoulEaterEnemyState.CLOSE_ATTACK;
@@ -166,6 +184,10 @@ namespace Entities
 
         public override void Die(Killer killer = Killer.PLAYER)
         {
+            if (_state == DragonSoulEaterEnemyState.DIE) return;
+            
+            this.StopAllCoroutines();
+
             _enemyFollowController.ChaseDestination = false;
             _enemyFollowController.ChasePlayer = false;
             _state = DragonSoulEaterEnemyState.DIE;
