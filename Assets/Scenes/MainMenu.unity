@@ -2133,6 +2133,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isVictory: 0
+  SpeedMultiplier: 1
+  DamageMultiplier: 1
 --- !u!4 &1953390863
 Transform:
   m_ObjectHideFlags: 0
