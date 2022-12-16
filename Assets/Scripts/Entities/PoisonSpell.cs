@@ -1,5 +1,5 @@
 ﻿using Controllers;
-using Controllers.Utils;
+using Utils;
 using Strategies;
 using UnityEngine;
 

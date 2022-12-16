@@ -13,7 +13,6 @@ namespace Entities
         [SerializeField] private PatrolStats _patrolStats;
         public Vector3 _wanderTarget;
         public NavMeshAgent NavMeshAgent => _navMeshAgent;
-        protected Actor _player;
         private NavMeshAgent _navMeshAgent;
 
         private bool _chasing;

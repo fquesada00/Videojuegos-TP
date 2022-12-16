@@ -1162,6 +1162,7 @@ Transform:
   - {fileID: 3391315491471484357}
   - {fileID: 6959929827599120423}
   - {fileID: 5469791884105311943}
+  - {fileID: 4282278254336855120}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1211,6 +1212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyStats: {fileID: 11400000, guid: cbf52d9938846e54b8963b90217ba8a9, type: 2}
+  _canonballThrower: {fileID: 7993172187399763241}
 --- !u!195 &6783522125953711690
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1539,6 +1541,69 @@ Transform:
   m_Father: {fileID: 2620889465416597938}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6622721382256091507
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4282278254336855120}
+  - component: {fileID: 1597719505952592610}
+  - component: {fileID: 7993172187399763241}
+  m_Layer: 0
+  m_Name: CannonballThrower
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4282278254336855120
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6622721382256091507}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 4.3333335, z: 4.3333335}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 697721053865966269}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1597719505952592610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6622721382256091507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87d272814d634dac8de02c65335fc4a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioSource: {fileID: 0}
+  _audioClip: {fileID: 0}
+  _volume: 0
+  _soundAudioClips: []
+--- !u!114 &7993172187399763241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6622721382256091507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 001c2d1fb82e0bb40b8fa1941d704b61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundController: {fileID: 0}
+  _stats: {fileID: 11400000, guid: f9ae79441297a564d8637b8d49192556, type: 2}
+  BulletPrefab: {fileID: 100004, guid: 7c687a4414095c349a8ec5ac5f3cccb2, type: 3}
 --- !u!1 &6775180078589954550
 GameObject:
   m_ObjectHideFlags: 0

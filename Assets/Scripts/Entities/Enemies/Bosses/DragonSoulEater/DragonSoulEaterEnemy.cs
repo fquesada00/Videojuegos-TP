@@ -1,7 +1,7 @@
 ﻿using System;
 using Controllers;
 using Controllers.NavMesh;
-using Controllers.Utils;
+using Utils;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -16,9 +16,12 @@ namespace Entities
         private static readonly int ScreamTrigger = Animator.StringToHash("scream");
         private static readonly int BiteTrigger = Animator.StringToHash("bite");
         private static readonly int FireballTrigger = Animator.StringToHash("fireball");
+        private static readonly int DieTrigger = Animator.StringToHash("die");
 
         private static float _maxChaseDistance = 70f;
         private static float _minChaseDistance = 20f;
+
+        [SerializeField] private CannonballThrower _canonballThrower;
 
         private Cooldown _fireballCooldown;
         private Cooldown _biteCooldown;
@@ -72,7 +75,7 @@ namespace Entities
                     else if (distanceFromPlayer < EnemyStats.AttackRange && !_fireballCooldown.IsOnCooldown())
                     {
                         StartCoroutine(_fireballCooldown.BooleanCooldown(EnemyStats.AttackCooldown));
-                        FireballAttack();
+                        CannonballAttack();
                     }
 
                     break;
@@ -86,14 +89,27 @@ namespace Entities
                         Attack();
                     }
                     break;
+                case DragonSoulEaterEnemyState.DIE:
+                default:
+                    return;
             }
         }
 
-        public void FireballAttack()
+        public void ThrowCannonball() 
+        {
+            _canonballThrower.Target = _enemyFollowController.Player.gameObject.transform.position;
+            StartCoroutine(new Cooldown().CallbackCooldown(.5f, () =>
+            {
+                _canonballThrower.Attack(false);
+            }));
+        }
+
+        public void CannonballAttack()
         {
             // throw fireball and go to chase
             _enemyFollowController.ChasePlayer = false;
             Animate(FireballTrigger);
+
             StartCoroutine(new Cooldown().CallbackCooldown(4f, () =>
             {
                 AttackToChase();
@@ -142,11 +158,23 @@ namespace Entities
         
         private void GoToInitialPosition()
         {
-            Debug.Log("Going to initial position");
             _enemyFollowController.ChasePlayer = false;
             _enemyFollowController.ChaseDestination = true;
             _enemyFollowController.ChangeDestination(_initialPosition);
             _state = DragonSoulEaterEnemyState.RETURN;
+        }
+
+        public override void Die(Killer killer = Killer.PLAYER)
+        {
+            _enemyFollowController.ChaseDestination = false;
+            _enemyFollowController.ChasePlayer = false;
+            _state = DragonSoulEaterEnemyState.DIE;
+            Animate(DieTrigger);
+            
+            StartCoroutine(new Cooldown().CallbackCooldown(5f, () =>
+            {
+                base.Die(killer);
+            }));
         }
 
         private enum DragonSoulEaterEnemyState
@@ -154,7 +182,8 @@ namespace Entities
             CLOSE_ATTACK,
             CHASE,
             SLEEP,
-            RETURN
+            RETURN,
+            DIE
         }
     }
 }

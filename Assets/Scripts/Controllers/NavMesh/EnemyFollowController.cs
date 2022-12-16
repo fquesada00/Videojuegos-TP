@@ -10,6 +10,7 @@ namespace Controllers.NavMesh
     {
         public NavMeshAgent NavMeshAgent => _navMeshAgent;
         private Actor _player;
+        public Actor Player => _player;
         private NavMeshAgent _navMeshAgent;
         
         private bool _chasePlayer;
@@ -36,7 +37,6 @@ namespace Controllers.NavMesh
         private void Update()
         {
             if (_chasePlayer) {
-                Debug.Log("HEREEE");
                 _navMeshAgent.SetDestination(_player.transform.position);
             } else if(!_chaseDestination) {
                 // not chasing player nor destination
@@ -50,6 +50,5 @@ namespace Controllers.NavMesh
             return Vector3.Distance(_player.transform.position, transform.position);
         }
         
-        public Actor Player => _player;
     }
 }

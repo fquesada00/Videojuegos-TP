@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Controllers.Utils
+namespace Utils
 {
     public class Cooldown
     {

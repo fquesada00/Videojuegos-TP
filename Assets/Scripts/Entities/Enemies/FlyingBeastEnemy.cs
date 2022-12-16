@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Controllers;
-using Controllers.Utils;
+using Utils;
 using Entities;
 
 [RequireComponent(typeof(LifeController))]

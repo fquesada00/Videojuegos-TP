@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Controllers.Utils;
+using Utils;
 using UnityEngine;
 
 namespace Entities
