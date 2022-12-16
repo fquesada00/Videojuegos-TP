@@ -20,6 +20,8 @@ namespace Entities
         private static float _maxChaseDistance = 70f;
         private static float _minChaseDistance = 20f;
 
+        [SerializeField] private CannonballThrower _canonballThrower;
+
         private Cooldown _fireballCooldown;
         private Cooldown _biteCooldown;
         private DragonSoulEaterEnemyState _state;
@@ -72,7 +74,7 @@ namespace Entities
                     else if (distanceFromPlayer < EnemyStats.AttackRange && !_fireballCooldown.IsOnCooldown())
                     {
                         StartCoroutine(_fireballCooldown.BooleanCooldown(EnemyStats.AttackCooldown));
-                        FireballAttack();
+                        CannonballAttack();
                     }
 
                     break;
@@ -89,11 +91,21 @@ namespace Entities
             }
         }
 
-        public void FireballAttack()
+        public void ThrowCannonball() 
+        {
+            _canonballThrower.Target = _enemyFollowController.Player.gameObject.transform.position;
+            StartCoroutine(new Cooldown().CallbackCooldown(.5f, () =>
+            {
+                _canonballThrower.Attack(false);
+            }));
+        }
+
+        public void CannonballAttack()
         {
             // throw fireball and go to chase
             _enemyFollowController.ChasePlayer = false;
             Animate(FireballTrigger);
+
             StartCoroutine(new Cooldown().CallbackCooldown(4f, () =>
             {
                 AttackToChase();
@@ -142,7 +154,6 @@ namespace Entities
         
         private void GoToInitialPosition()
         {
-            Debug.Log("Going to initial position");
             _enemyFollowController.ChasePlayer = false;
             _enemyFollowController.ChaseDestination = true;
             _enemyFollowController.ChangeDestination(_initialPosition);

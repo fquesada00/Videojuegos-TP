@@ -58,7 +58,6 @@ public abstract class Enemy : PoolableEntity
 
     void LateUpdate()
     {
-        Debug.Log("LateUpdate");
         if (GetDistanceFromPlayerXZ() > deSpawnDistance)
         {
             base.Die(Killer.NONE);
