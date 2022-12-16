@@ -129,13 +129,11 @@ namespace Managers
 
         private void OnBossKilled()
         {
-            EventsManager.instance.EventObjectiveChange("Reach the pedestal");
+            EventsManager.instance.EventObjectiveChange("Reach the portal");
         }
 
     }
     
-
-
     public enum LevelStatus
     {
         KILLING_ENEMIES,
