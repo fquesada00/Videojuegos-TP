@@ -2,6 +2,7 @@
 using Commands.Sounds;
 using Controllers;
 using Controllers.NavMesh;
+using Managers;
 using Strategies;
 using UnityEngine;
 using Utils;
@@ -22,7 +23,8 @@ namespace Entities
         private DragonBoarState _state;
         [SerializeField] private float _maxChaseDistance = 100f;
         [SerializeField] private float _minChaseDistance = 35f;
-        
+        private float _damageMultiplier;
+
         private Cooldown _screamCooldown;
         private Cooldown _screamAnimationCooldown;
         
@@ -41,6 +43,7 @@ namespace Entities
             _screamCooldown = new Cooldown();
             _screamAnimationCooldown = new Cooldown();
             _attackSound = new CmdAttackSound(SoundController);
+            _damageMultiplier = FindObjectOfType<GameManager>().GetCurrentDifficultyStats.EnemyDamageMultiplier;
         }
 
         private void Update()
@@ -181,7 +184,7 @@ namespace Entities
             Vector3 playerPosition = _enemyFollowController.Player.transform.position;
             var poisonSpell = Instantiate(_poisonSpellPrefab, playerPosition, Quaternion.identity);
             ISpell IPoisonSpell = poisonSpell.GetComponent<ISpell>();
-            IPoisonSpell.Damage = Stats.Damage;
+            IPoisonSpell.Damage = Stats.Damage * _damageMultiplier;
             IPoisonSpell.Duration = 10;
             IPoisonSpell.Crit = true;
             IPoisonSpell.Range = 10;

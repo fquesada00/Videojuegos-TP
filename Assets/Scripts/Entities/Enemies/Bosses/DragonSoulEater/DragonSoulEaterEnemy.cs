@@ -4,6 +4,7 @@ using Controllers.NavMesh;
 using Utils;
 using UnityEngine;
 using FlyWeights.EntitiesStats;
+using Managers;
 
 namespace Entities
 {
@@ -30,7 +31,8 @@ namespace Entities
         private DragonSoulEaterEnemyState _state;
         private Vector3 _initialPosition;
         private bool _attacking = false;
-        
+        private float _damageMultiplier;
+
         private CmdAttackSound _attackSound;
         private LifeController _lifeController;
 
@@ -47,6 +49,7 @@ namespace Entities
             _enemyFollowController.ChasePlayer = false;
             _attackSound = new CmdAttackSound(SoundController);
             _lifeController.AddShield();
+            _damageMultiplier = FindObjectOfType<GameManager>().GetCurrentDifficultyStats.EnemyDamageMultiplier;
         }
 
         private void Update()
@@ -142,7 +145,7 @@ namespace Entities
             foreach(ParticleSystem particleSystem in _landAttackParticleSystems.GetComponentsInChildren<ParticleSystem>())
                 particleSystem.Play();
 
-            ExplosionRaycast.Explode(transform.position, _landAttackExplosionStats.Range, _landAttackExplosionStats.Damage);
+            ExplosionRaycast.Explode(transform.position, _landAttackExplosionStats.Range, _landAttackExplosionStats.Damage * _damageMultiplier);
         
             _attacking = false;
         }
