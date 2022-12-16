@@ -34,8 +34,8 @@ namespace Managers
             _enemiesKilled = new Dictionary<int, int>();
             EventsManager.instance.OnGameOver += OnGameOver;
             EventsManager.instance.OnEnemyDeath += OnEnemyKilled;
+            EventsManager.instance.OnPlayerEnterPortal += OnPlayerEnterPortal;
             EventsManager.instance.OnBossKilled += OnBossKilled;
-            
             // avoid collision with enemies
             Physics.IgnoreLayerCollision((int)Constants.Layers.PLAYER, (int)Constants.Layers.ENEMY, true);
             //lock cursor
@@ -87,7 +87,7 @@ namespace Managers
             }
         }
 
-        private void OnBossKilled()
+        private void OnPlayerEnterPortal()
         {
             // TODO: add whatever we want to happen between the killing of the boss and the end of the level
             NextLevel();
@@ -125,6 +125,11 @@ namespace Managers
                 default:
                     return _easyDifficultyStats;
             }
+        }
+
+        private void OnBossKilled()
+        {
+            EventsManager.instance.EventObjectiveChange("Reach the pedestal");
         }
 
     }

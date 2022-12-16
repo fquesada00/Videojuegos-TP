@@ -16,9 +16,9 @@ public class JumpPad : MonoBehaviour
         _target = transform.Find("Target");
         _origin = transform.Find("Origin");
         Vector3 direction = _target.position - transform.position;
-        float range = Vector3.Distance(transform.position, _target.position);
-        _jumpTotalTime = range / _horizontalSpeed;
         float deltaY = _target.position.y - transform.position.y;
+        float range = Vector3.Distance(transform.position, _target.position - deltaY * Vector3.up); // delta horizontal
+        _jumpTotalTime = range / _horizontalSpeed;
         float _ySpeed = (deltaY - 0.5f * Physics.gravity.y * Mathf.Pow(_jumpTotalTime, 2) ) / _jumpTotalTime;
         _initialSpeed = _ySpeed * Vector3.up + _horizontalSpeed * direction.normalized;
 

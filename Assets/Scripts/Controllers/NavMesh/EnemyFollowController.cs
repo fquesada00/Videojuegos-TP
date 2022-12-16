@@ -10,6 +10,7 @@ namespace Controllers.NavMesh
     {
         public NavMeshAgent NavMeshAgent => _navMeshAgent;
         private Actor _player;
+        public Actor Player => _player;
         private NavMeshAgent _navMeshAgent;
         
         private bool _chasePlayer;
@@ -49,6 +50,5 @@ namespace Controllers.NavMesh
             return Vector3.Distance(_player.transform.position, transform.position);
         }
         
-        public Actor Player => _player;
     }
 }

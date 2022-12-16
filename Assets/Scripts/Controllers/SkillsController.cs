@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Controllers.Utils;
+using Utils;
 using System;
 using UnityEngine;
 using Strategies;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Controllers;
 using Strategies;
 using UnityEngine;
-using Controllers.Utils;
+using Utils;
 
 [RequireComponent(typeof(Rigidbody), typeof(Collider))]
 public class Sword : Weapon

@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Controllers.Utils;
+using Utils;
 using Strategies;
 using UnityEngine;
 using Constants;

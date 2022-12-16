@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Commands.Sounds;
-using Controllers.Utils;
+using Utils;
 using Strategies;
 using UnityEngine;
 using Weapons;
