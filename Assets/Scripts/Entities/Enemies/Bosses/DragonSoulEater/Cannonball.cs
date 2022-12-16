@@ -26,8 +26,11 @@ public class Cannonball : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
+
         this.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        Debug.Log("Cannonball collided with " + other.gameObject.name);
+        this.GetComponent<Rigidbody>().isKinematic = true;
+        this.GetComponent<Collider>().enabled = false;
+        // this.GetComponent<SoundController>().PlaySound("Explosion"); TODO: LO HACE OCTAVIO
         foreach (ParticleSystem particleSystem in _flyParticleSystems.GetComponentsInChildren<ParticleSystem>())
         {
             particleSystem.Stop();
