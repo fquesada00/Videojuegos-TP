@@ -16,20 +16,28 @@ public class FlyingBeastEnemy : FlyingEnemy
     [SerializeField] private FireballThrower _fireballThrower;
 
     private PatrolEnemy _patrolEnemy;
-    
+
+    private AudioSource _audioSource;
+
+    private void Start() {
+        EventsManager.instance.OnPauseChange += OnPauseChange;    
+    }
     new void OnEnable()
     {
         base.OnEnable();
         _animator = GetComponent<Animator>();
         _attackCooldown = new Cooldown();
-        _animator.SetFloat("animationSpeed", Random.Range(0.8f, 1.2f));
+        _audioSource = GetComponent<AudioSource>();
+        float random = Random.Range(0.8f, 1.2f);
+        _animator.SetFloat("animationSpeed", random);
         _patrolEnemy = GetComponent<PatrolEnemy>();
+        _audioSource.pitch = random;
     }
 
     new void Update()
     {
         base.Update();
-        if(IsOnEnemyRange())
+        if (IsOnEnemyRange())
         {
             var position = _player.transform.position;
             transform.LookAt(new Vector3(position.x, transform.position.y, position.z));
@@ -44,5 +52,16 @@ public class FlyingBeastEnemy : FlyingEnemy
         _animator.SetTrigger(AttackId);
         _fireballThrower.Attack(false);
         StartCoroutine(_attackCooldown.BooleanCooldown(this.EnemyStats.AttackCooldown));
+    }
+
+    public void OnPauseChange(bool isPaused)
+    {
+        if (isPaused)
+        {
+            _audioSource.Pause();
+        } else
+        {
+            _audioSource.UnPause();
+        }
     }
 }
