@@ -11801,7 +11801,7 @@ GameObject:
   - component: {fileID: 1775034470}
   m_Layer: 0
   m_Name: SleepingBoss
-  m_TagString: Untagged
+  m_TagString: SleepingBoss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12540,19 +12540,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7959157918722581846, guid: 02f2f45c93bbab74b90e26d1854760e9, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.21821049
+      value: -0.21820681
       objectReference: {fileID: 0}
     - target: {fileID: 7959157918722581846, guid: 02f2f45c93bbab74b90e26d1854760e9, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.06563946
+      value: -0.065638356
       objectReference: {fileID: 0}
     - target: {fileID: 7959157918722581846, guid: 02f2f45c93bbab74b90e26d1854760e9, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.93241996
+      value: -0.9324208
       objectReference: {fileID: 0}
     - target: {fileID: 7959157918722581846, guid: 02f2f45c93bbab74b90e26d1854760e9, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.28047937
+      value: 0.28047964
       objectReference: {fileID: 0}
     - target: {fileID: 7959157918844936255, guid: 02f2f45c93bbab74b90e26d1854760e9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -12604,11 +12604,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7959157919967443590, guid: 02f2f45c93bbab74b90e26d1854760e9, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0035383282
+      value: -0.0035355403
       objectReference: {fileID: 0}
     - target: {fileID: 7959157919967443590, guid: 02f2f45c93bbab74b90e26d1854760e9, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0010826327
+      value: 0.0010817796
       objectReference: {fileID: 0}
     - target: {fileID: 7959157920151029006, guid: 02f2f45c93bbab74b90e26d1854760e9, type: 3}
       propertyPath: m_LocalPosition.x
