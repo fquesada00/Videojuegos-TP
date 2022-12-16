@@ -10,17 +10,13 @@ namespace FlyWeights.EntitiesStats
     {
         [SerializeField] private ExplosionStatsValues _explosionStatValues;
         public float Range => _explosionStatValues.Range;
+        public float Damage => _explosionStatValues.Damage;
     }
 
     [System.Serializable]
     public struct ExplosionStatsValues
     {
         public float Range;
+        public float Damage;
     }
-}
-
-[System.Serializable]
-public struct DifficultyStatValues
-{
-    public int MaxHealth;
 }

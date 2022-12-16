@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Commands.Sounds;
 using Controllers;
 using Controllers.NavMesh;
-using Controllers.Utils;
+using Utils;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using FlyWeights.EntitiesStats;
@@ -19,7 +19,7 @@ namespace Entities
         [SerializeField] private GameObject _preExplosionVisualEffects;
         private Cooldown _attackCooldown = new Cooldown();
         private bool _isAttacking = false;
-        private float _damageMultiplier = 1f;
+        private float _damageMultiplier;
         
         private Coroutine _preExplosionCoroutine;
         private Coroutine _postExplosionCoroutine;
@@ -108,27 +108,7 @@ namespace Entities
 
         private void AfterExplosion()
         {
-            // detect if the player is in range
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, this.EnemyStats.AttackRange);
-            foreach (var hitCollider in hitColliders)
-            {
-                if (hitCollider.gameObject.CompareTag("Player"))
-                {
-                    bool hitCrit = Random.Range(0, 1) < this.Stats.CritProbability;
-                    
-                    // get the distance within the sphere and multiply it by the damage
-                    float distance = _enemyFollowController.GetDistanceFromPlayer();
-                    if (distance > this.EnemyStats.AttackRange) distance = this.EnemyStats.AttackRange;
-                    
-                    // when enemy is touching the player, it does xAttackRange damage
-                    // if it's further away, it does less damage
-                    // formula = r - d * (1 - 1 / r) where r is the radius and d the distance
-                    float rangeDamageMultiplier = this.EnemyStats.AttackRange - distance * (1 - (1 / this.EnemyStats.AttackRange));
-                    hitCollider.gameObject.GetComponent<LifeController>().TakeDamage(this.Stats.Damage * rangeDamageMultiplier * _damageMultiplier, hitCrit);
-                    break;
-                }
-            }
-
+            ExplosionRaycast.Explode(transform.position, this._explosionStats.Range, this._explosionStats.Damage * _damageMultiplier);
             Die(Killer.ENEMY);
         }
 

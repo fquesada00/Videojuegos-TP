@@ -1,7 +1,7 @@
 ﻿using System;
 using Controllers;
 using Controllers.NavMesh;
-using Controllers.Utils;
+using Utils;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

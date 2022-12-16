@@ -5,7 +5,7 @@ using Commands.Sounds;
 using UnityEngine;
 using Controllers;
 using Controllers.NavMesh;
-using Controllers.Utils;
+using Utils;
 using Random = UnityEngine.Random;
 
 
