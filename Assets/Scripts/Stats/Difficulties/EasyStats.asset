@@ -15,5 +15,5 @@ MonoBehaviour:
   _difficultyStatsValues:
     MaxSimultaneousEnemiesSize: 15
     EnemiesPerBatchSize: 5
-    ObjectiveKills: 1
+    ObjectiveKills: 25
     EnemyDamageMultiplier: 0.75
