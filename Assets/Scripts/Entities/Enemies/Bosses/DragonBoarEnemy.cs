@@ -15,6 +15,7 @@ namespace Entities
         private static readonly int IdleTrigger = Animator.StringToHash("Idle");
         private static readonly int ScreamTrigger = Animator.StringToHash("Scream");
         private static readonly int WalkTrigger = Animator.StringToHash("Walk");
+        private static readonly int DieTrigger = Animator.StringToHash("Die");
 
         private Vector3 _initialPosition;
         private DragonBoarState _state;
@@ -118,6 +119,9 @@ namespace Entities
                         return DragonBoarState.IDLING;
                     }
                     break;
+                case DragonBoarState.DYING:
+                    // do nothing
+                    break;
             }
 
             return state;
@@ -169,6 +173,13 @@ namespace Entities
             IPoisonSpell.Crit = true;
             IPoisonSpell.Range = 10;
         }
+
+        public override void Die(Killer killer = Killer.PLAYER)
+        {
+            _state = DragonBoarState.DYING; // tricky
+            Animate(DieTrigger);
+            StartCoroutine(new Cooldown().CallbackCooldown(3f, () => base.Die(killer)));
+        }
     }
 
     public enum DragonBoarState
@@ -176,6 +187,7 @@ namespace Entities
         IDLING,
         SCREAMING,
         CHASING,
-        RETURNING_TO_INITIAL_POSITION
+        RETURNING_TO_INITIAL_POSITION,
+        DYING
     }
 }
