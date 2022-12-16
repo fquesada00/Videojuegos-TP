@@ -11,7 +11,6 @@ namespace Entities
     {
         public PatrolStats PatrolStats => _patrolStats;
         [SerializeField] private PatrolStats _patrolStats;
-        public Vector3 _wanderTarget;
         public NavMeshAgent NavMeshAgent => _navMeshAgent;
         private NavMeshAgent _navMeshAgent;
 
@@ -22,7 +21,6 @@ namespace Entities
             base.OnEnable();
             _player = FindObjectOfType<Actor>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
-            _wanderTarget = EnemySpawnManager.GetRandomPositionOnNavMesh(this.transform.position, _patrolStats.MinWanderTargetDistance);
             _navMeshAgent.speed = this.PatrolStats.Speed;    
             GetComponent<LifeController>().OnTakeDamage += OnTakeDamage;   
         }
@@ -31,8 +29,8 @@ namespace Entities
         {
             if (_navMeshAgent.remainingDistance < 6f)
             {
-                _wanderTarget = EnemySpawnManager.GetRandomPositionOnNavMesh(this.transform.position, _patrolStats.MinWanderTargetDistance);
-                _navMeshAgent.SetDestination(_wanderTarget);
+                Vector3 target = EnemySpawnManager.GetRandomPositionOnNavMesh(this.transform.position, _patrolStats.MinWanderTargetDistance);
+                _navMeshAgent.SetDestination(target);
             }
         }
 
@@ -43,8 +41,7 @@ namespace Entities
             if (distanceFromPlayer < this.PatrolStats.MaxTargetDistance)
             {
                 _chasing = true;
-                _wanderTarget = _player.transform.position;
-                _navMeshAgent.SetDestination(_player.transform.position);
+                _navMeshAgent.SetDestination(EnemySpawnManager.GetNavMeshPosition(_player.transform.position));
             }
             else
             {
@@ -70,8 +67,7 @@ namespace Entities
         {
             // Go To player only if not chasing
             if (_chasing) return;
-            _wanderTarget = _player.transform.position;
-            _navMeshAgent.SetDestination(_player.transform.position);
+            _navMeshAgent.SetDestination(EnemySpawnManager.GetNavMeshPosition(_player.transform.position));
         }
     }
 }

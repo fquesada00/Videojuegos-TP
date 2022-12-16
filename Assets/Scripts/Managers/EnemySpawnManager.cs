@@ -159,6 +159,17 @@ public class EnemySpawnManager : MonoBehaviour
         return Vector3.zero;
     }
 
+    public static Vector3 GetNavMeshPosition(Vector3 origin)
+    {
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(origin, out hit, 1000, NavMesh.AllAreas))
+        {
+            return hit.position;
+        }
+
+        return Vector3.zero;
+    }
+
     public enum SpawnMethod
     {
         Random

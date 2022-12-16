@@ -37,7 +37,7 @@ namespace Controllers.NavMesh
         private void Update()
         {
             if (_chasePlayer) {
-                _navMeshAgent.SetDestination(_player.transform.position);
+                _navMeshAgent.SetDestination(EnemySpawnManager.GetNavMeshPosition(_player.transform.position));
             } else if(!_chaseDestination) {
                 // not chasing player nor destination
                 _navMeshAgent.velocity = Vector3.zero;
