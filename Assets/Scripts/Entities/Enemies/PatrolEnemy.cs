@@ -29,7 +29,7 @@ namespace Entities
 
         private void Patrol()
         {
-            if (Vector3.Distance(transform.position, _wanderTarget) < 1)
+            if (_navMeshAgent.remainingDistance < 6f)
             {
                 _wanderTarget = EnemySpawnManager.GetRandomPositionOnNavMesh(this.transform.position, _patrolStats.MinWanderTargetDistance);
                 _navMeshAgent.SetDestination(_wanderTarget);
@@ -43,6 +43,7 @@ namespace Entities
             if (distanceFromPlayer < this.PatrolStats.MaxTargetDistance)
             {
                 _chasing = true;
+                _wanderTarget = _player.transform.position;
                 _navMeshAgent.SetDestination(_player.transform.position);
             }
             else
@@ -69,6 +70,7 @@ namespace Entities
         {
             // Go To player only if not chasing
             if (_chasing) return;
+            _wanderTarget = _player.transform.position;
             _navMeshAgent.SetDestination(_player.transform.position);
         }
     }

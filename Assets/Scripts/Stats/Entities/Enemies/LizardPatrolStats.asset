@@ -15,4 +15,4 @@ MonoBehaviour:
   _patrolStatsValues:
     Speed: 2
     MaxTargetDistance: 40
-    MinWanderTargetDistance: 4
+    MinWanderTargetDistance: 30
