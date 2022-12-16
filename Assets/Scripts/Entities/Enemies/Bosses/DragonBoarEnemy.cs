@@ -1,4 +1,5 @@
 ﻿using System;
+using Commands.Sounds;
 using Controllers;
 using Controllers.NavMesh;
 using Strategies;
@@ -24,6 +25,8 @@ namespace Entities
         
         private Cooldown _screamCooldown;
         private Cooldown _screamAnimationCooldown;
+        
+        private CmdAttackSound _attackSound;
 
         private void Start()
         {
@@ -35,6 +38,7 @@ namespace Entities
             _state = DragonBoarState.IDLING;
             _screamCooldown = new Cooldown();
             _screamAnimationCooldown = new Cooldown();
+            _attackSound = new CmdAttackSound(SoundController);
         }
 
         private void Update()
@@ -156,6 +160,7 @@ namespace Entities
         public override void Attack()
         {
             Animate(ScreamTrigger);
+            StartCoroutine(new Cooldown().CallbackCooldown(1f, () => _attackSound.Execute()));
             StartCoroutine(_screamAnimationCooldown.BooleanCooldown(3f));
             _enemyFollowController.ChasePlayer = false;
             _enemyFollowController.ChaseDestination = false;
