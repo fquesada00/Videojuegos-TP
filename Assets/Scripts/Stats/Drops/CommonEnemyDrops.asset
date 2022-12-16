@@ -17,5 +17,5 @@ MonoBehaviour:
     DropEnum: 0
   - DropChance: 0.15
     DropEnum: 1
-  - DropChance: 0.8
+  - DropChance: 0.2
     DropEnum: 2

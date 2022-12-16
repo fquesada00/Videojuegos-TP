@@ -79,6 +79,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isVictory: 0
+  SpeedMultiplier: 1
+  DamageMultiplier: 1
 --- !u!1 &7959157918464636277
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,6 +235,8 @@ MonoBehaviour:
     Prefab: {fileID: 5247667137446652117, guid: 7cafb89b5a0f61f479d0a748962abbbc, type: 3}
   - DropEnum: 1
     Prefab: {fileID: -6895938806456393971, guid: 2cf6690298568294cb6b655c0a3aeb87, type: 3}
+  - DropEnum: 2
+    Prefab: {fileID: 9094164833047249812, guid: 11e31a2ebb4e6e246bcf8c0ba034a031, type: 3}
 --- !u!114 &5625115686049745265
 MonoBehaviour:
   m_ObjectHideFlags: 0
