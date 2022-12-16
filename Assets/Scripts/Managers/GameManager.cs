@@ -35,6 +35,7 @@ namespace Managers
             EventsManager.instance.OnGameOver += OnGameOver;
             EventsManager.instance.OnEnemyDeath += OnEnemyKilled;
             EventsManager.instance.OnPlayerEnterPortal += OnPlayerEnterPortal;
+            EventsManager.instance.OnBossKilled += OnBossKilled;
             // avoid collision with enemies
             Physics.IgnoreLayerCollision((int)Constants.Layers.PLAYER, (int)Constants.Layers.ENEMY, true);
             //lock cursor
@@ -124,6 +125,11 @@ namespace Managers
                 default:
                     return _easyDifficultyStats;
             }
+        }
+
+        private void OnBossKilled()
+        {
+            EventsManager.instance.EventObjectiveChange("Reach the pedestal");
         }
 
     }
