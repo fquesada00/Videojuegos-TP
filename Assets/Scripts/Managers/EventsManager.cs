@@ -51,6 +51,7 @@ public class EventsManager : MonoBehaviour
     public event Action<int, float> OnSkillCooldownChange;
     public event Action<bool> OnPauseChange;
     public event Action<string> OnObjectiveChange;
+    public event Action OnPlayerEnterPortal;
 
     public void EventWeaponChange(int weaponIndex)
     {
@@ -85,6 +86,11 @@ public class EventsManager : MonoBehaviour
     public void EventObjectiveChange(string objectiveText)
     {
         if (OnObjectiveChange != null) OnObjectiveChange(objectiveText);
+    }
+    
+    public void PlayerEnterPortal()
+    {
+        OnPlayerEnterPortal?.Invoke();
     }
     
     #endregion
