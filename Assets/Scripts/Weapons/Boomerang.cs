@@ -71,7 +71,24 @@ namespace Weapons
             }
 
             _speed -= _acceleration * Time.deltaTime;
+            //transform.position += direction.normalized * Time.deltaTime * _speed;
+            //check if the boomerang is going to hit something
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, direction, out hit, Time.deltaTime * _speed))
+            {
+               if (hit.collider.gameObject.isStatic)
+                {
+                    //bounce
+                    Vector3 normal = hit.normal;
+                    Vector3 reflected = Vector3.Reflect(direction, normal);
+                    _attackDirection = reflected;
+
+
+                }
+            }
+            
             transform.position += direction.normalized * Time.deltaTime * _speed;
+            
         }
 
         public override void Attack(bool crit)
@@ -100,8 +117,6 @@ namespace Weapons
             {
                 IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
                 damageable?.TakeDamage(Damage, false);
-            } else if (other.gameObject.isStatic) {
-                _state = BoomerangState.RETURNING;
             }
         }
     }
