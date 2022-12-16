@@ -1,4 +1,5 @@
-﻿using Controllers;
+﻿using Commands.Sounds;
+using Controllers;
 using Controllers.NavMesh;
 using Utils;
 using UnityEngine;
@@ -29,6 +30,8 @@ namespace Entities
         private DragonSoulEaterEnemyState _state;
         private Vector3 _initialPosition;
         private bool _attacking = false;
+        
+        private CmdAttackSound _attackSound;
 
         private void Start()
         {
@@ -40,6 +43,7 @@ namespace Entities
             _basicAttackCooldown = new Cooldown();
             _state = DragonSoulEaterEnemyState.SLEEP;
             _enemyFollowController.ChasePlayer = false;
+            _attackSound = new CmdAttackSound(SoundController);
         }
 
         private void Update()
@@ -120,6 +124,7 @@ namespace Entities
             // throw fireball and go to chase
             _enemyFollowController.ChasePlayer = false;
             Animate(FireballTrigger);
+            _attackSound.Execute();
         }
 
         public override void Attack()
