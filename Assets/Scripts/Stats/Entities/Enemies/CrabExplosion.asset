@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _explosionStatValues:
     Range: 5
+    Damage: 100
