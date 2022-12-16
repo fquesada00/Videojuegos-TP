@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: DragonSoulEaterCannonball
   m_EditorClassIdentifier: 
   _explosionStatValues:
-    Range: 3
-    Damage: 50
+    Range: 10
+    Damage: 300
