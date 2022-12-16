@@ -58,7 +58,6 @@ namespace Entities
             ISpell IPoisonSpell = poisonSpell.GetComponent<ISpell>();
             IPoisonSpell.Damage = Stats.Damage;
             IPoisonSpell.Duration = 10;
-            IPoisonSpell.Crit = true;
             IPoisonSpell.Range = 10;
         }
 

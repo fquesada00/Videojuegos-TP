@@ -17,14 +17,6 @@ namespace Entities
             set => _damage = value;
         }
 
-        private bool _crit;
-
-        public bool Crit
-        {
-            get => _crit;
-            set => _crit = value;
-        }
-
         private float _range;
 
         public float Range
@@ -56,7 +48,6 @@ namespace Entities
             
             DisplayParticles();
             
-            StartCoroutine(new Cooldown().BooleanCooldown(2f));
         }
 
         private void Update()
@@ -66,19 +57,23 @@ namespace Entities
 
         public void Activate()
         {
+            Debug.Log("PoisonSpell.Activate()");
             if (_cooldown.IsOnCooldown()) return;
-            StartCoroutine(_cooldown.CallbackCooldown(1f, Attack));
+            StartCoroutine(_cooldown.CallbackCooldown(5f, Attack));
         }
 
         private void Attack()
         {
+            Debug.Log("PoisonSpell.Attack()");
             // detect if the player is in range
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, _range);
             foreach (var hitCollider in hitColliders)
             {
                 if (hitCollider.gameObject.CompareTag("Player"))
                 {
-                    hitCollider.gameObject.GetComponent<LifeController>().TakeDamage(_damage, _crit);
+                    Debug.Log("PoisonSpell.Attack() - Player hit");
+                    Debug.Log("PoisonSpell.Attack() - Damage: " + _damage);
+                    hitCollider.gameObject.GetComponent<LifeController>().TakeDamage(_damage);
                     break;
                 }
             }

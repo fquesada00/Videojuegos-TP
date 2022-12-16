@@ -23,7 +23,7 @@ namespace Controllers
             CallCharacterLifeChangeEvent();
         }
 
-        public void TakeDamage(float damage, bool crit)
+        public void TakeDamage(float damage, bool crit = false)
         {
             if (HasShield) return;
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DragonBoarStats
   m_EditorClassIdentifier: 
   _entityStatValues:
-    MaxHealth: 5000
+    MaxHealth: 15000
     BaseMovementSpeed: 0
     Damage: 250
     AttackCooldown: 10
