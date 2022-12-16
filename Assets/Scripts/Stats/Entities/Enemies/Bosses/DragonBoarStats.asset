@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a0e786a89264cc2b91a74c6b6398be2, type: 3}
-  m_Name: DevilBulldogStats
+  m_Name: DragonBoarStats
   m_EditorClassIdentifier: 
   _entityStatValues:
-    MaxHealth: 2000
+    MaxHealth: 5000
     BaseMovementSpeed: 0
-    Damage: 100
-    AttackCooldown: 10
-    CritProbability: 60
-    Id: 4
+    Damage: 300
+    AttackCooldown: 8
+    CritProbability: 50
+    Id: 8
   _enemyStatValues:
-    AttackRange: 75
+    AttackRange: 80
     MinSoundDistance: 0
     SoundCooldown: 0

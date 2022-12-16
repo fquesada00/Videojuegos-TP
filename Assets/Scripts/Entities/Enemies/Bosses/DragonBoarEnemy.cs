@@ -18,8 +18,8 @@ namespace Entities
 
         private Vector3 _initialPosition;
         private DragonBoarState _state;
-        private float _maxChaseDistance = 100f;
-        private float _minChaseDistance = 50f;
+        [SerializeField] private float _maxChaseDistance = 100f;
+        [SerializeField] private float _minChaseDistance = 35f;
         
         private Cooldown _screamCooldown;
         private Cooldown _screamAnimationCooldown;
