@@ -29,6 +29,8 @@ public class Sword : Weapon
         set => _collisionTag = value;
     }
 
+    private HashSet<IDamageable> _damageables = new HashSet<IDamageable>();
+
     private new void Start()
     {
         base.Start();
@@ -44,31 +46,33 @@ public class Sword : Weapon
         _rigidbody.collisionDetectionMode = CollisionDetectionMode.Discrete;
     }
 
+    public void finishAttack(){
+        _collider.enabled = false;
+        foreach (var damageable in _damageables)
+        {
+            damageable.TakeDamage(_swordStats.Damage, _crit);
+        }
+        _damageables.Clear();
+    }
+
 
     public override void Attack(bool crit)
     {
         base.Attack(crit);
         _crit = crit;
         _collider.enabled = true;
-        // StartCoroutine(
-        //  _attackCooldown.CallbackCooldown(SwordStats.AttackCooldown, () =>
-        //  {
-        //      _collider.enabled = false;
-        //      Debug.Log("Attack cooldown ended");
-        //  }));
-        StartCoroutine(new Cooldown().CallbackCooldown(1, () =>
-        {
-            _collider.enabled = false;
-        }));
+        _damageables.Clear();
+
     }
 
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag(_collisionTag))
         {
-            _collider.enabled = false;
-            IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
-            damageable?.TakeDamage(SwordStats.Damage, _crit);
+            var damageable = other.gameObject.GetComponent<IDamageable>();
+            if(damageable != null){
+                _damageables.Add(damageable);
+            }
         }
     }
 }
