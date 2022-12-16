@@ -15,8 +15,8 @@ public class JumpPad : MonoBehaviour
     {
         _target = transform.Find("Target");
         _origin = transform.Find("Origin");
-        Vector3 direction = _target.position - transform.position;
         float deltaY = _target.position.y - transform.position.y;
+        Vector3 direction = _target.position - transform.position - deltaY * Vector3.up;
         float range = Vector3.Distance(transform.position, _target.position - deltaY * Vector3.up); // delta horizontal
         _jumpTotalTime = range / _horizontalSpeed;
         float _ySpeed = (deltaY - 0.5f * Physics.gravity.y * Mathf.Pow(_jumpTotalTime, 2) ) / _jumpTotalTime;
@@ -33,10 +33,17 @@ public class JumpPad : MonoBehaviour
             float dt = Time.time - _jumpTime;
             _jumper.transform.position = _origin.position + _initialSpeed * (float)dt + 0.5f * Physics.gravity * (float)Mathf.Pow(dt, 2);
 
-            if(dt >= _jumpTotalTime - 0.4f) {    
+            if(dt >= _jumpTotalTime) {    
                 _isJumping = false;
             }
         }
+    }
+
+    public void levelTarget()
+    {
+        Transform _target = transform.Find("Target");
+        float targetHeight = Terrain.activeTerrain.SampleHeight(_target.position);
+        _target.position = new Vector3(_target.position.x, targetHeight, _target.position.z);
     }
 
     private void OnTriggerEnter(Collider other) {
