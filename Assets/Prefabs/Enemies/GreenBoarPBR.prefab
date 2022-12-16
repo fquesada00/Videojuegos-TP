@@ -160,6 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyStats: {fileID: 11400000, guid: a0fd88680ec06e345a288d6207573628, type: 2}
+  _poisonSpellPrefab: {fileID: 1380137617764531939, guid: 3de839c510c99874c8cffab7f4f9268e, type: 3}
 --- !u!195 &7128923719671122085
 NavMeshAgent:
   m_ObjectHideFlags: 0
