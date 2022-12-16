@@ -16,6 +16,8 @@ public class GlobalDataManager : MonoBehaviour
     private Level _currentLevel = Level.LEVEL_1;
 
     private float _mouseSensivity = 1f;
+    public float SpeedMultiplier = 1f;
+    public float DamageMultiplier = 1f;
 
     private void Awake()
     {

@@ -14,14 +14,13 @@ public class MovementController : MonoBehaviour, IMoveable
     private Cooldown _dashCooldown = new Cooldown();
     private float _ySpeed = 0f;
     private float DASH_EFFECTS_DURATION = 0.5f;
-    public float SpeedMultiplier {get; set;} = 1f;
-    public float Speed => GetComponent<Actor>().ActorStats.BaseMovementSpeed * SpeedMultiplier;
-    public float Damage => GetComponent<Actor>().ActorStats.Damage;
+    public float Speed => GetComponent<Actor>().ActorStats.BaseMovementSpeed * GlobalDataManager.Instance.SpeedMultiplier;
+    public float Damage => Mathf.Ceil(GetComponent<Actor>().ActorStats.Damage * GlobalDataManager.Instance.DamageMultiplier);
     public float JumpHeight => GetComponent<Actor>().ActorStats.JumpHeight;
     public float RotationSmoothSpeed => GetComponent<Actor>().ActorStats.RotationSmoothSpeed;
     public int MaxContinuosJumps => GetComponent<Actor>().ActorStats.MaxContinuosJumps;
     public int CurrentContinuosJumps { get; }
-    public float DashPower => GetComponent<Actor>().ActorStats.DashPower;
+    public float DashPower => GetComponent<Actor>().ActorStats.DashPower * GlobalDataManager.Instance.SpeedMultiplier;
     public float DashCooldown => GetComponent<Actor>().ActorStats.DashCooldown;
     protected int _currentContinuosJumps = 0;
     private float _turnSmoothVelocity;
@@ -97,7 +96,7 @@ public class MovementController : MonoBehaviour, IMoveable
             if (gameObject.CompareTag("Enemy"))
             {
                 IDamageable damageable = gameObject.GetComponent<IDamageable>();
-                damageable?.TakeDamage(Damage*3, false); 
+                damageable?.TakeDamage(Damage * 3, false); 
             }
         }
 

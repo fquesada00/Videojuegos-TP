@@ -6,7 +6,7 @@ namespace Entities.Drops
     {
         public override void Take(Entity entity)
         {
-            entity.GetComponentInChildren<MovementController>().SpeedMultiplier *= (1 + DropStats.Value);
+            GlobalDataManager.Instance.SpeedMultiplier *= (1 + DropStats.Value);
         }
     }
 }

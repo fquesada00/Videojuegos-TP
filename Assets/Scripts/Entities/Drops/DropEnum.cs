@@ -5,5 +5,6 @@ using UnityEngine;
 public enum DropEnum
 {
     HEALTH,
-    SPEED
+    SPEED,
+    DAMAGE
 }
