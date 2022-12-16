@@ -13,6 +13,7 @@ namespace Weapons
         public override WeaponStats WeaponStats => _stats;
         public float MaxSpeed => BoomerangStats.MaxSpeed;
         public float Range => BoomerangStats.Range;
+        private float Damage => Mathf.Ceil(_stats.Damage * GlobalDataManager.Instance.DamageMultiplier);
 
         private float _speed = 0;
         private float _acceleration = 0;
@@ -98,7 +99,7 @@ namespace Weapons
             if (other.gameObject.CompareTag("Enemy"))
             {
                 IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
-                damageable?.TakeDamage(WeaponStats.Damage, false);
+                damageable?.TakeDamage(Damage, false);
             } else if (other.gameObject.isStatic) {
                 _state = BoomerangState.RETURNING;
             }

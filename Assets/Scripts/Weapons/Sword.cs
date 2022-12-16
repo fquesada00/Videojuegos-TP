@@ -12,6 +12,7 @@ public class Sword : Weapon
     public override WeaponStats WeaponStats => _swordStats;
     public SwordStats SwordStats => _swordStats;
     [SerializeField] private SwordStats _swordStats;
+    private float Damage => Mathf.Ceil(_swordStats.Damage * GlobalDataManager.Instance.DamageMultiplier);
 
     private Rigidbody _rigidbody;
 
@@ -50,7 +51,7 @@ public class Sword : Weapon
         _collider.enabled = false;
         foreach (var damageable in _damageables)
         {
-            damageable.TakeDamage(_swordStats.Damage, _crit);
+            damageable.TakeDamage(Damage, _crit);
         }
         _damageables.Clear();
     }

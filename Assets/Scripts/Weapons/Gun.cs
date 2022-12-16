@@ -14,6 +14,7 @@ namespace Weapons
 
         public GameObject BulletPrefab => _stats.BulletPrefab;
         private int _bulletCount;
+        private float Damage => Mathf.Ceil(_stats.Damage * GlobalDataManager.Instance.DamageMultiplier);
         public int BulletCount => _bulletCount;
 
         private new void Start()
@@ -45,7 +46,7 @@ namespace Weapons
             iBullet.SetOwner(this);
             iBullet.SetSpeed(_bulletStats.Speed);
             iBullet.SetLifeTime(_bulletStats.LifeTime);
-            iBullet.Damage = Stats.Damage;
+            iBullet.Damage = Damage;
             iBullet.Crit = crit;
             
             _bulletCount--;
