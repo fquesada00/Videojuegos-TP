@@ -16,6 +16,7 @@ namespace Entities
         private static readonly int ScreamTrigger = Animator.StringToHash("scream");
         private static readonly int BiteTrigger = Animator.StringToHash("bite");
         private static readonly int FireballTrigger = Animator.StringToHash("fireball");
+        private static readonly int DieTrigger = Animator.StringToHash("die");
 
         private static float _maxChaseDistance = 70f;
         private static float _minChaseDistance = 20f;
@@ -88,6 +89,9 @@ namespace Entities
                         Attack();
                     }
                     break;
+                case DragonSoulEaterEnemyState.DIE:
+                default:
+                    return;
             }
         }
 
@@ -160,12 +164,26 @@ namespace Entities
             _state = DragonSoulEaterEnemyState.RETURN;
         }
 
+        public override void Die(Killer killer = Killer.PLAYER)
+        {
+            _enemyFollowController.ChaseDestination = false;
+            _enemyFollowController.ChasePlayer = false;
+            _state = DragonSoulEaterEnemyState.DIE;
+            Animate(DieTrigger);
+            
+            StartCoroutine(new Cooldown().CallbackCooldown(5f, () =>
+            {
+                base.Die(killer);
+            }));
+        }
+
         private enum DragonSoulEaterEnemyState
         {
             CLOSE_ATTACK,
             CHASE,
             SLEEP,
-            RETURN
+            RETURN,
+            DIE
         }
     }
 }

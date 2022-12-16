@@ -25,6 +25,29 @@ public class SettingsManager : MonoBehaviour
         _fullscreenToggle.isOn = Screen.fullScreen;
 
         //set resolution state
+        loadResolutions(true);
+        EventsManager.instance.OnPauseChange += loadResolutions;
+
+        //set quality state
+        _qualityDropdown.ClearOptions();
+        List<string> options = new List<string>();
+        for (int i = 0; i < QualitySettings.names.Length; i++)
+        {
+            options.Add(QualitySettings.names[i]);
+        }
+        _qualityDropdown.AddOptions(options);
+        _qualityDropdown.value = QualitySettings.GetQualityLevel();
+        _qualityDropdown.RefreshShownValue();
+
+        //set mouse sensitivity state
+        _mouseSensitivitySlider.value = GlobalDataManager.Instance.MouseSensivity;
+        setSense(_mouseSensitivitySlider.value);
+
+
+    }
+
+    void loadResolutions(bool paused){
+        if (!paused) return;
         _resolutionDropdown.ClearOptions();
         List<string> options = new List<string>();
         int currentResolutionIndex = 0;
@@ -41,23 +64,6 @@ public class SettingsManager : MonoBehaviour
         _resolutionDropdown.AddOptions(options);
         _resolutionDropdown.value = currentResolutionIndex;
         _resolutionDropdown.RefreshShownValue();
-
-        //set quality state
-        _qualityDropdown.ClearOptions();
-        options = new List<string>();
-        for (int i = 0; i < QualitySettings.names.Length; i++)
-        {
-            options.Add(QualitySettings.names[i]);
-        }
-        _qualityDropdown.AddOptions(options);
-        _qualityDropdown.value = QualitySettings.GetQualityLevel();
-        _qualityDropdown.RefreshShownValue();
-
-        //set mouse sensitivity state
-        _mouseSensitivitySlider.value = GlobalDataManager.Instance.MouseSensivity;
-        setSense(_mouseSensitivitySlider.value);
-
-
     }
 
     // Update is called once per frame

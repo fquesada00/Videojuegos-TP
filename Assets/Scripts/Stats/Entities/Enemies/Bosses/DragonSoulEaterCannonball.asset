@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2d3a9c97f6df6448a5750b3e2bde113, type: 3}
-  m_Name: DragonEaterCannonball
+  m_Name: DragonSoulEaterCannonball
   m_EditorClassIdentifier: 
   _explosionStatValues:
-    Range: 0
-    Damage: 0
+    Range: 3
+    Damage: 50
