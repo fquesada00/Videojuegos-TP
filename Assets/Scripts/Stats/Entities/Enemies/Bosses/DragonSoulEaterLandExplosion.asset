@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: DragonSoulEaterLandExplosion
   m_EditorClassIdentifier: 
   _explosionStatValues:
-    Range: 30
-    Damage: 500
+    Range: 20
+    Damage: 300

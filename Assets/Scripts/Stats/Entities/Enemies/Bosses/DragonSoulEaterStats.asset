@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: DragonSoulEaterStats
   m_EditorClassIdentifier: 
   _entityStatValues:
-    MaxHealth: 200
+    MaxHealth: 5000
     BaseMovementSpeed: 1
-    Damage: 200
-    AttackCooldown: 20
-    CritProbability: 80
+    Damage: 300
+    AttackCooldown: 10
+    CritProbability: 50
     Id: 8
   _enemyStatValues:
-    AttackRange: 70
+    AttackRange: 100
     MinSoundDistance: 0
     SoundCooldown: 0

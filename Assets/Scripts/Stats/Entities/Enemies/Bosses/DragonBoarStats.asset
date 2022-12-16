@@ -15,9 +15,9 @@ MonoBehaviour:
   _entityStatValues:
     MaxHealth: 5000
     BaseMovementSpeed: 0
-    Damage: 300
-    AttackCooldown: 8
-    CritProbability: 50
+    Damage: 250
+    AttackCooldown: 10
+    CritProbability: 0
     Id: 8
   _enemyStatValues:
     AttackRange: 80
