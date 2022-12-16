@@ -27,12 +27,14 @@ namespace Entities
         private Cooldown _screamAnimationCooldown;
         
         private CmdAttackSound _attackSound;
+        private LifeController _lifeController;
 
         private void Start()
         {
             _enemyFollowController = GetComponent<EnemyFollowController>();
             _animator = GetComponent<Animator>();
             SoundController = GetComponent<SoundController>();
+            _lifeController = GetComponent<LifeController>();
             _initialPosition = transform.position;
             _enemyFollowController.ChasePlayer = false;
             _state = DragonBoarState.IDLING;
@@ -52,27 +54,33 @@ namespace Entities
             switch (state)
             {
                 case DragonBoarState.IDLING:
+                    if(!_lifeController.HasShield) _lifeController.AddShield();
                     if (distanceFromPlayer <= EnemyStats.AttackRange && !_screamCooldown.IsOnCooldown() && !_screamAnimationCooldown.IsOnCooldown())
                     {
+                        if(_lifeController.HasShield) _lifeController.RemoveShield();
                         Attack();
                         return DragonBoarState.SCREAMING;
                     }
                     
                     if (distanceFromPlayer <= _maxChaseDistance && distanceFromPlayer > _minChaseDistance)
                     {
+                        if(_lifeController.HasShield) _lifeController.RemoveShield();
                         ChasePlayer();
                         return DragonBoarState.CHASING;
                     }
                     break;
                 case DragonBoarState.CHASING:
+                    if(_lifeController.HasShield) _lifeController.RemoveShield();
                     if (distanceFromPlayer > _maxChaseDistance)
                     {
+                        if(!_lifeController.HasShield) _lifeController.AddShield();
                         ReturnToInitialPosition();
                         return DragonBoarState.RETURNING_TO_INITIAL_POSITION;
                     }
 
                     if (distanceFromPlayer <= EnemyStats.AttackRange && !_screamCooldown.IsOnCooldown() && !_screamAnimationCooldown.IsOnCooldown())
                     {
+                        if(_lifeController.HasShield) _lifeController.RemoveShield();
                         Attack();
                         return DragonBoarState.SCREAMING;
                     }

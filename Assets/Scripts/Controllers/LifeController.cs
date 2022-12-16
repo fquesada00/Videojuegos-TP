@@ -14,6 +14,9 @@ namespace Controllers
 
         public Action<float> OnTakeDamage;
 
+        public bool HasShield => _shield;
+        [SerializeField] private bool _shield = false;
+
         private void Start()
         {
             _currentLife = MaxHealth;
@@ -22,13 +25,15 @@ namespace Controllers
 
         public void TakeDamage(float damage, bool crit)
         {
+            if (HasShield) return;
+
             damage = crit ? damage * 2 : damage;
             _currentLife -= damage;
-            if(_currentLife < 0) _currentLife = 0;
+            if (_currentLife < 0) _currentLife = 0;
             _healthDisplay?.TakeDamage(_currentLife, MaxHealth, damage, crit);
             CallCharacterLifeChangeEvent();
             OnTakeDamageEvent(damage);
-            if(_currentLife <= 0)
+            if (_currentLife <= 0)
             {
                 Die();
             }
@@ -37,7 +42,7 @@ namespace Controllers
         public void Die()
         {
             GetComponent<Entity>().Die();
-            if(CompareTag("Player"))
+            if (CompareTag("Player"))
             {
                 EventsManager.instance.GameOver(false);
             }
@@ -47,10 +52,10 @@ namespace Controllers
         {
             _currentLife = MaxHealth;
         }
-        
+
         public void AddHealth(float health)
         {
-            if((_currentLife + health) > MaxHealth)
+            if ((_currentLife + health) > MaxHealth)
             {
                 _currentLife = MaxHealth;
             }
@@ -58,14 +63,15 @@ namespace Controllers
             {
                 _currentLife += health;
             }
+
             CallCharacterLifeChangeEvent();
         }
 
         private void CallCharacterLifeChangeEvent()
         {
-            if(CompareTag("Player"))
+            if (CompareTag("Player"))
             {
-                EventsManager.instance.EventCharacterLifeChange(_currentLife, MaxHealth); 
+                EventsManager.instance.EventCharacterLifeChange(_currentLife, MaxHealth);
             }
         }
 
@@ -73,5 +79,9 @@ namespace Controllers
         {
             OnTakeDamage?.Invoke(damage);
         }
+
+        public void AddShield() => _shield = true;
+
+        public void RemoveShield() => _shield = false;
     }
 }
