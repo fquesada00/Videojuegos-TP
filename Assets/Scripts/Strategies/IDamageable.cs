@@ -9,5 +9,6 @@
         void Die();
         
         void AddHealth(float health);
+        bool HasShield { get; }
     }
 }
