@@ -32,6 +32,7 @@ namespace Entities
         private bool _attacking = false;
         
         private CmdAttackSound _attackSound;
+        private LifeController _lifeController;
 
         private void Start()
         {
@@ -40,10 +41,12 @@ namespace Entities
             SoundController = GetComponent<SoundController>();
             _initialPosition = transform.position;
             _fireballCooldown = new Cooldown();
+            _lifeController = GetComponent<LifeController>();
             _basicAttackCooldown = new Cooldown();
             _state = DragonSoulEaterEnemyState.SLEEP;
             _enemyFollowController.ChasePlayer = false;
             _attackSound = new CmdAttackSound(SoundController);
+            _lifeController.AddShield();
         }
 
         private void Update()
@@ -162,6 +165,8 @@ namespace Entities
 
         private void SleepToChase()
         {
+            if(_lifeController.HasShield) _lifeController.RemoveShield();
+
             _state = DragonSoulEaterEnemyState.CHASE;
 
             Animate(ScreamTrigger);
@@ -181,6 +186,8 @@ namespace Entities
         
         private void GoToInitialPosition()
         {
+            if(!_lifeController.HasShield) _lifeController.AddShield();
+            
             _enemyFollowController.ChasePlayer = false;
             _enemyFollowController.ChaseDestination = true;
             _enemyFollowController.ChangeDestination(_initialPosition);
